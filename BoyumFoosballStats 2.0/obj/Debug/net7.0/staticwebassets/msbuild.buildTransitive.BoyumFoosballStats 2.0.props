@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\BoyumFoosballStats 2.0.props" />
-</Project>
