@@ -1,0 +1,12 @@
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\bin\Debug\net7.0\Firestore.deps.json
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\bin\Debug\net7.0\Firestore.dll
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\bin\Debug\net7.0\Firestore.pdb
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.csproj.AssemblyReference.cache
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.GeneratedMSBuildEditorConfig.editorconfig
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.AssemblyInfoInputs.cache
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.AssemblyInfo.cs
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.csproj.CoreCompileInputs.cache
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.dll
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\refint\Firestore.dll
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.pdb
+C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\ref\Firestore.dll
