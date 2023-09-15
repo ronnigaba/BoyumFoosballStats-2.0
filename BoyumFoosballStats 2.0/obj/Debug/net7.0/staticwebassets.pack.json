@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\GitHub\\BoyumFoosballStats 2.0\\BoyumFoosballStats 2.0\\bin\\Debug\\net7.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\GitHub\\BoyumFoosballStats 2.0\\BoyumFoosballStats 2.0\\obj\\Debug\\net7.0\\build-gz\\BDJerEGc.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\GitHub\\BoyumFoosballStats 2.0\\BoyumFoosballStats 2.0\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\GitHub\\BoyumFoosballStats 2.0\\BoyumFoosballStats 2.0\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.BoyumFoosballStats 2.0.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.BoyumFoosballStats 2.0.props",
+      "PackagePath": "build\\BoyumFoosballStats 2.0.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.BoyumFoosballStats 2.0.props",
+      "PackagePath": "buildMultiTargeting\\BoyumFoosballStats 2.0.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.BoyumFoosballStats 2.0.props",
+      "PackagePath": "buildTransitive\\BoyumFoosballStats 2.0.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
