@@ -18,5 +18,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BOYUM_FOOSBALL_STATS }}'
           channelId: live
           projectId: boyum-foosball-stats
-       env:
-         FIREBASE_CLI_EXPERIMENTS: webframeworks
