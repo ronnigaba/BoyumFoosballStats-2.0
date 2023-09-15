@@ -10,3 +10,15 @@ C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.dll
 C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\refint\Firestore.dll
 C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.pdb
 C:\GitHub\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\ref\Firestore.dll
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\bin\Debug\net7.0\Firestore.deps.json
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\bin\Debug\net7.0\Firestore.dll
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\bin\Debug\net7.0\Firestore.pdb
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.csproj.AssemblyReference.cache
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.AssemblyInfoInputs.cache
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.AssemblyInfo.cs
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.csproj.CoreCompileInputs.cache
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.dll
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\refint\Firestore.dll
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\Firestore.pdb
+C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\Firestore\obj\Debug\net7.0\ref\Firestore.dll

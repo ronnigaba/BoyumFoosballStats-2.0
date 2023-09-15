@@ -5,8 +5,15 @@ namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
 [FirestoreData]
 public class Player
 {
-    [FirestoreProperty] public string? Name { get; set; }
-    [FirestoreProperty] public bool Active { get; set; }
-    [FirestoreProperty] public float? EloRank { get; set; }
-    [FirestoreProperty] public int? MatchesPlayed { get; set; }
+    [FirestoreDocumentId] public string? Id { get; set; }
+
+    [FirestoreProperty("Name")] public string? Name { get; set; }
+
+    [FirestoreProperty("Active")] public bool Active { get; set; }
+
+    [FirestoreProperty("TrueSkillRating")] public float? TrueSkillRating { get; set; }
+
+    [FirestoreProperty("MatchesPlayed")] public int? MatchesPlayed { get; set; }
+
+    [FirestoreProperty("LegacyPlayerId")] public int? LegacyPlayerId { get; set; }
 }

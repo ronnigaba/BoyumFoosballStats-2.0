@@ -9,13 +9,17 @@ public class FirestoreCrudController<T>
 
     public FirestoreCrudController(string projectId, string collectionName)
     {
+#if DEBUG
+        //ToDo RGA - No magic strings!
+        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\\boyum-foosball-stats-firebase-adminsdk-5uxh1-73429a3147.json");
+#endif
         _db = FirestoreDb.Create(projectId);
         _collectionName = collectionName;
     }
 
-    public async Task<T> CreateAsync(T document, string documentId)
+    public async Task<T> CreateAsync(T document)
     {
-        var docRef = _db.Collection(_collectionName).Document(documentId);
+        var docRef = _db.Collection(_collectionName).Document();
         await docRef.SetAsync(document);
         return document;
     }
