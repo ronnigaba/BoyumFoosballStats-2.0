@@ -2,7 +2,7 @@
 @namespace BoyumFoosballStats.Pages.ScoreCollection
 @inject IScoreCollectionViewModel _ViewModel
 
-<div>
+<div class="">
     <MudFab Color="Color.Primary" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Person">Drawer</MudFab>
 </div>
 @* ToDo RGA - Width should only be 100% on devices *@
@@ -12,5 +12,10 @@
            Variant="@DrawerVariant.Temporary"
            ClipMode="DrawerClipMode.Always"
            Width="100%">
-    <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
+    <div class="d-flex">
+        <MudSwitch Label="Auto-swap players" @bind-Checked="@_ViewModel.AutoSwapPlayers" Color="Color.Primary"/>
+        <MudSwitch Label="Auto-balance matches" @bind-Checked="@_ViewModel.AutoBalanceMatches" Color="Color.Primary"/>
+        <MudSwitch Label="Show inactive players" @bind-Checked="@_ViewModel.ShowInactivePlayers" Color="Color.Primary"/>
+        <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
+    </div>
 </MudDrawer>

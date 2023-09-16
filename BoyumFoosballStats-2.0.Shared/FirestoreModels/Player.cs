@@ -3,10 +3,8 @@
 namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
 
 [FirestoreData]
-public class Player
+public class Player : FirestoreBaseModel
 {
-    [FirestoreDocumentId] public string? Id { get; set; }
-
     [FirestoreProperty("Name")] public string? Name { get; set; }
 
     [FirestoreProperty("Active")] public bool Active { get; set; }

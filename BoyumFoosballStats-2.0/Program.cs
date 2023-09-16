@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BoyumFoosballStats_2._0;
 using BoyumFoosballStats.Models;
+using Firestore.Controllers;
 using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -13,6 +14,8 @@ builder.Services.Scan(scan => scan
     .AddClasses(classes => classes.AssignableTo<IViewModelBase>())
     .AsImplementedInterfaces()
     .WithTransientLifetime());
+
+builder.Services.AddScoped(typeof(IFirestoreCrudController<>), typeof(FirestoreCrudController<>));
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddMudServices();

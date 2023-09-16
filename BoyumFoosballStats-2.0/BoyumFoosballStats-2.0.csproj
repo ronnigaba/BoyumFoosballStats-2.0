@@ -1,21 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all" />
-        <PackageReference Include="MudBlazor" Version="6.0.13" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.11" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.11" PrivateAssets="all" />
+        <PackageReference Include="MudBlazor" Version="6.10.0" />
         <PackageReference Include="Scrutor" Version="4.2.2" />
     </ItemGroup>
 
     <ItemGroup>
       <AdditionalFiles Include="Pages\Shared\MainLayout.razor" />
       <AdditionalFiles Include="Pages\Shared\NavMenu.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj" />
+      <ProjectReference Include="..\Firestore\Firestore.csproj" />
     </ItemGroup>
 
 

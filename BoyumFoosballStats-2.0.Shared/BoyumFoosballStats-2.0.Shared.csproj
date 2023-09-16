@@ -1,23 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>BoyumFoosballStats_2._0.Shared</RootNamespace>
-        <OutputType>Library</OutputType>
     </PropertyGroup>
 
+
     <ItemGroup>
-      <Folder Include="Properties\" />
+        <SupportedPlatform Include="browser" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Properties\launchSettings.json" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Google.Cloud.Firestore" Version="3.3.0" />
+      <ProjectReference Include="..\Firestore\Firestore.csproj" />
     </ItemGroup>
 
 </Project>

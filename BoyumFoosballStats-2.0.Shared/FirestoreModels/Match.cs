@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
 
 [FirestoreData]
-public class Match
+public class Match : FirestoreBaseModel
 {
-    [FirestoreDocumentId] public string? Id { get; set; }
-
     [FirestoreProperty("MatchDate")] public DateTime MatchDate { get; set; }
 
     [FirestoreProperty("LegacyMatchId")] public string? LegacyMatchId { get; set; }

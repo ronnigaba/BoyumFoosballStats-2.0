@@ -11,4 +11,6 @@
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.PlayerV1MigrationTest.MigratePlayersToFirestore&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.MatchesV1MigrationTest.MigrateMatchesToFirestore&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	
+	</wpf:ResourceDictionary>
