@@ -11,7 +11,7 @@ public partial class ScoreCollectionPage
     {
         if (firstRender && PlayerService != null) 
         {
-            var players = await PlayerService.ReadAllAsync();
+            // var players = await PlayerService.ReadAllAsync();
         }
         await base.OnAfterRenderAsync(firstRender);
     }

@@ -1,21 +1,34 @@
 ﻿@page "/ScoreCollection"
 @inject IScoreCollectionViewModel _ViewModel
 
-<div class="">
-    <MudFab Color="Color.Primary" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Person">Drawer</MudFab>
-</div>
-@* ToDo RGA - Width should only be 100% on devices *@
+<MudFab Color="Color.Primary" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Person">Drawer</MudFab>
+@* ToDo RGA - Width should be 100% on devices *@
 <MudDrawer @bind-Open="@_ViewModel.DrawerOpen"
            Anchor="Anchor.End"
            Elevation="1"
            Variant="@DrawerVariant.Temporary"
            ClipMode="DrawerClipMode.Always"
            Width="100%">
-    <div class="d-flex">
-        @* ToDo RGA - Align items to the right *@
-        <MudSwitch Label="Auto-swap players" @bind-Checked="@_ViewModel.AutoSwapPlayers" Color="Color.Primary"/>
-        <MudSwitch Label="Auto-balance matches" @bind-Checked="@_ViewModel.AutoBalanceMatches" Color="Color.Primary"/>
-        <MudSwitch Label="Show inactive players" @bind-Checked="@_ViewModel.ShowInactivePlayers" Color="Color.Primary"/>
-        <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
-    </div>
+    <MudGrid Justify="Justify.Center">
+        <MudItem sm="3">
+            <MudSwitch Label="Auto-swap players" @bind-Checked="@_ViewModel.AutoSwapPlayers" Color="Color.Primary"/>
+        </MudItem>
+        <MudItem sm="3">
+            <MudSwitch Label="Auto-balance matches" @bind-Checked="@_ViewModel.AutoBalanceMatches" Color="Color.Primary"/>
+        </MudItem>
+        <MudItem sm="3">
+            <MudSwitch Label="Show inactive players" @bind-Checked="@_ViewModel.ShowInactivePlayers" Color="Color.Primary"/>
+        </MudItem>
+        <MudItem sm="3">
+            <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
+        </MudItem>
+        <MudItem sm="10">
+            <MudSelect FullWidth="true" Class="p-4" T="string" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
+                @foreach (var player in _ViewModel.AvailablePlayers)
+                {
+                    <MudSelectItem T="string" Value="@player">@player</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+    </MudGrid>
 </MudDrawer>

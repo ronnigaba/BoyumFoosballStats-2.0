@@ -8,6 +8,8 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     public bool ShowInactivePlayers { get; set; }
     public bool AutoBalanceMatches { get; set; }
     public bool AutoSwapPlayers { get; set; }
+    public IEnumerable<string> AvailablePlayers { get; set; } = new List<string>() { "Ronni", "Jeppe", "Alex", "Peter", "Ronni", "Jeppe", "Alex", "Peter", "Ronni", "Jeppe", "Alex", "Peter"};
+    public IEnumerable<string>? SelectedPlayers { get; set; }
 
     public void ToggleDrawer()
     {

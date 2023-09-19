@@ -8,5 +8,7 @@ public interface IScoreCollectionViewModel : IViewModelBase
     bool ShowInactivePlayers { get; set; }
     bool AutoBalanceMatches { get; set; }
     bool AutoSwapPlayers { get; set; }
+    IEnumerable<string> AvailablePlayers { get; set; }
+    IEnumerable<string>? SelectedPlayers { get; set; }
     void ToggleDrawer();
 }
