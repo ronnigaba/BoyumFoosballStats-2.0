@@ -1,5 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 using System.ComponentModel.DataAnnotations;
+using Firestore.Model;
 
 namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
 

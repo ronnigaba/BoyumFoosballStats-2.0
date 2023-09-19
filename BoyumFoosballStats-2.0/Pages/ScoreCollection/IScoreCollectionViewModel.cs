@@ -1,6 +1,6 @@
 ﻿using BoyumFoosballStats.Models;
 
-namespace BoyumFoosballStats;
+namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
 public interface IScoreCollectionViewModel : IViewModelBase
 {

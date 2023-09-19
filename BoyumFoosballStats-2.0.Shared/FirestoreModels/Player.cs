@@ -1,4 +1,5 @@
-﻿using Google.Cloud.Firestore;
+﻿using Firestore.Model;
+using Google.Cloud.Firestore;
 
 namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
 

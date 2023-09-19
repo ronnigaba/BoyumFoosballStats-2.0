@@ -1,5 +1,4 @@
 ﻿@page "/ScoreCollection"
-@namespace BoyumFoosballStats.Pages.ScoreCollection
 @inject IScoreCollectionViewModel _ViewModel
 
 <div class="">
@@ -13,6 +12,7 @@
            ClipMode="DrawerClipMode.Always"
            Width="100%">
     <div class="d-flex">
+        @* ToDo RGA - Align items to the right *@
         <MudSwitch Label="Auto-swap players" @bind-Checked="@_ViewModel.AutoSwapPlayers" Color="Color.Primary"/>
         <MudSwitch Label="Auto-balance matches" @bind-Checked="@_ViewModel.AutoBalanceMatches" Color="Color.Primary"/>
         <MudSwitch Label="Show inactive players" @bind-Checked="@_ViewModel.ShowInactivePlayers" Color="Color.Primary"/>

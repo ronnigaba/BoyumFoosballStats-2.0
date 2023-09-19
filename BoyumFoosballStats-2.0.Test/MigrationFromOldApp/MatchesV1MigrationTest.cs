@@ -1,4 +1,5 @@
-﻿using Firestore;
+﻿using BoyumFoosballStats_2._0.Shared;
+using Firestore;
 using Firestore.Controllers;
 using Newtonsoft.Json;
 using Xunit;
@@ -21,9 +22,9 @@ public class MatchesV1MigrationTest
         }
 
         var matchController =
-            new FirestoreCrudController<Shared.FirestoreModels.Match>("boyum-foosball-stats", "matches");
+            new FirestoreCrudController<Shared.FirestoreModels.Match>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.MatchesCollectionName);
         var playerController =
-            new FirestoreCrudController<Shared.FirestoreModels.Player>("boyum-foosball-stats", "players");
+            new FirestoreCrudController<Shared.FirestoreModels.Player>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName);
         var players = await playerController.ReadAllAsync();
 
         if (matches != null)

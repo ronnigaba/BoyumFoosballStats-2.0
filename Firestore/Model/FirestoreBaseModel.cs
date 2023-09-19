@@ -1,6 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 
-namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
+namespace Firestore.Model;
 
 public class FirestoreBaseModel
 {

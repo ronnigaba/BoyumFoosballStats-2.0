@@ -1,4 +1,6 @@
-﻿namespace BoyumFoosballStats;
+﻿using BoyumFoosballStats_2._0.Services.Interface;
+
+namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {

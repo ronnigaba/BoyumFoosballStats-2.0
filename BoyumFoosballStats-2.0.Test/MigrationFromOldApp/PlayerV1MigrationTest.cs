@@ -1,4 +1,4 @@
-﻿using Firestore;
+﻿using BoyumFoosballStats_2._0.Shared;
 using Firestore.Controllers;
 using Xunit;
 
@@ -10,13 +10,13 @@ public class PlayerV1MigrationTest
     public async void MigratePlayersToFirestore()
     {
         var playerController =
-            new FirestoreCrudController<Shared.FirestoreModels.Player>("boyum-foosball-stats", "players");
+            new FirestoreCrudController<Shared.FirestoreModels.Player>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName);
         var migrations = new List<Shared.FirestoreModels.Player>();
 
         var existing = await playerController.ReadAllAsync();
         if (existing.Count > 0)
         {
-            throw new Exception("Entries already exist, please decide what to do with them");
+            throw new Exception("Entries already exist, to avoid data loss, please decide what to do with them");
         }
 
         foreach (Player player in Enum.GetValues(typeof(Player)))
