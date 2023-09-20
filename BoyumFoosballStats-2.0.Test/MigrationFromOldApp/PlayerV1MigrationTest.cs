@@ -1,5 +1,5 @@
 ﻿using BoyumFoosballStats_2._0.Shared;
-using Firestore.Controllers;
+using Firestore.Services;
 using Xunit;
 
 namespace BoyumFoosballStats_2._0.Test.MigrationFromOldApp;
@@ -10,7 +10,7 @@ public class PlayerV1MigrationTest
     public async void MigratePlayersToFirestore()
     {
         var playerController =
-            new FirestoreCrudController<Shared.FirestoreModels.Player>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName);
+            new FirestoreCrudService<Shared.FirestoreModels.Player>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName);
         var migrations = new List<Shared.FirestoreModels.Player>();
 
         var existing = await playerController.ReadAllAsync();

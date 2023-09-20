@@ -1,15 +1,15 @@
 ﻿using Firestore.Model;
 using Google.Cloud.Firestore;
 
-namespace Firestore.Controllers;
+namespace Firestore.Services;
 
-public class FirestoreCrudController<T> : IFirestoreCrudController<T> where T : FirestoreBaseModel
+public class FirestoreCrudService<T> : IFirestoreCrudController<T> where T : FirestoreBaseModel
 {
     private FirestoreDb? _db;
     private readonly string _projectId;
     private readonly string _collectionName;
 
-    public FirestoreCrudController(string projectId, string collectionName)
+    public FirestoreCrudService(string projectId, string collectionName)
     {
         _projectId = projectId;
         _collectionName = collectionName;
@@ -74,11 +74,9 @@ public class FirestoreCrudController<T> : IFirestoreCrudController<T> where T : 
     {
         if (_db == null)
         {
-#if DEBUG
             //ToDo RGA - No magic strings!
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
-                @"C:\Users\Ronni\RiderProjects\boyum-foosball-stats-firebase-adminsdk-5uxh1-73429a3147.json");
-#endif
+                @"boyum-foosball-stats-firebase-adminsdk-5uxh1-73429a3147.json");
             _db = await FirestoreDb.CreateAsync(_projectId);
         }
     }

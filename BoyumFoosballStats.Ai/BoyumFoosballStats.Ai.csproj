@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="1.7.1" />
+    <PackageReference Include="Microsoft.ML.AutoML" Version="0.19.1" />
+    <PackageReference Include="Microsoft.ML.LightGbm" Version="1.7.1" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="MatchOutcomeModel.mbconfig">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Label="MatchOutcomeModel">
+    <None Include="MatchOutcomeModel.consumption.cs">
+      <DependentUpon>MatchOutcomeModel.mbconfig</DependentUpon>
+    </None>
+    <None Include="MatchOutcomeModel.training.cs">
+      <DependentUpon>MatchOutcomeModel.mbconfig</DependentUpon>
+    </None>
+    <None Include="MatchOutcomeModel.zip">
+      <DependentUpon>MatchOutcomeModel.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj" />
+    <ProjectReference Include="..\FireStorage\FireStorage.csproj" />
+  </ItemGroup>
+</Project>

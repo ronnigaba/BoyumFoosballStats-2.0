@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BoyumFoosballStats_2._0;
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats.Models;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -16,9 +16,10 @@ builder.Services.Scan(scan => scan
     .AsImplementedInterfaces()
     .WithTransientLifetime());
 
-builder.Services.AddSingleton<IPlayerService, PlayerService>();
+builder.Services.AddSingleton<IPlayerService, PlayerCrudService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddMudServices();
+
 
 await builder.Build().RunAsync();

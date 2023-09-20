@@ -23,5 +23,11 @@
       <ProjectReference Include="..\Firestore\Firestore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="wwwroot\boyum-foosball-stats-firebase-adminsdk-5uxh1-73429a3147.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 
 </Project>

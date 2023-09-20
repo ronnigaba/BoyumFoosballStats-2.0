@@ -1,16 +1,17 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8499c875_002D6052_002D4bab_002Da434_002D97d6242088a4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8499c875_002D6052_002D4bab_002Da434_002D97d6242088a4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.FireStoreTest.Should_GetAllPlayersFromFirestore_When_Called&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.AiModelControllerTest.Should_PredictMatch_When_called&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b6fb5a29_002D0294_002D426a_002Db547_002Da1ef7bc13927/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b6fb5a29_002D0294_002D426a_002Db547_002Da1ef7bc13927/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.FireStoreTest.Should_GetAllPlayersFromFirestore_When_Called&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.JsonToFirestoreConversionTest.MigratePlayersToFirestore&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.PlayerV1MigrationTest.MigratePlayersToFirestore&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.MatchesV1MigrationTest.MigrateMatchesToFirestore&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.FireStoreTest.Should_GetAllMatchesFromFirestore_When_Called&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::CE691D64-1067-42B6-837E-724DAEB3915D::net7.0::BoyumFoosballStats_2._0.Test.FireStorageTest.Should_GetFileFromStorage_When_called&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

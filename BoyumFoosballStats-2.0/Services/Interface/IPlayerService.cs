@@ -1,5 +1,5 @@
 ﻿using BoyumFoosballStats_2._0.Shared.FirestoreModels;
-using Firestore.Controllers;
+using Firestore.Services;
 
 namespace BoyumFoosballStats_2._0.Services.Interface;
 

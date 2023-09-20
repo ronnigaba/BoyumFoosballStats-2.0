@@ -1,6 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 
-namespace Firestore.Controllers;
+namespace Firestore.Services;
 
 public interface IFirestoreCrudController<T>
 {

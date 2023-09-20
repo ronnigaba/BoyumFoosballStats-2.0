@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firestore", "Firestore\Fire
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats-2.0.Shared", "BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj", "{DED7235C-0F8E-43E9-94D7-A698264CAACC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Ai", "BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj", "{57102805-691C-4DC2-B375-6E1AA904A57A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireStorage", "FireStorage\FireStorage.csproj", "{54172E60-7DE5-4BB0-BBB4-B424E01388CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
