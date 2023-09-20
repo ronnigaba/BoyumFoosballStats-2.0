@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj" />
+      <ProjectReference Include="..\BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj" />
       <ProjectReference Include="..\Firestore\Firestore.csproj" />
     </ItemGroup>
 

@@ -30,4 +30,15 @@ public class Match : FirestoreBaseModel
     [FirestoreProperty("ScoreGray")]
     [Range(0, 11, ErrorMessage = "Invalid score, valid values are 0-10")]
     public int ScoreGray { get; set; }
+    
+    public bool IsValid()
+    {
+        var players = new List<string?>() { BlackAttackerPlayerId, BlackDefenderPlayerId, GrayAttackerPlayerId, GrayDefenderPlayerId };
+        if (players.Any(x => x == null) || players.GroupBy(x => x).Any(y => y.Count() > 1))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
