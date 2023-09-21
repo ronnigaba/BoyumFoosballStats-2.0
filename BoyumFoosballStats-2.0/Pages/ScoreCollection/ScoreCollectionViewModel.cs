@@ -1,4 +1,5 @@
-﻿using BoyumFoosballStats_2._0.Services.Interface;
+﻿using System.Collections.Generic;
+using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2._0.Shared.FirestoreModels;
 
 namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
@@ -17,7 +18,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     public bool AutoBalanceMatches { get; set; }
     public bool AutoSwapPlayers { get; set; }
     public IEnumerable<Player> AvailablePlayers { get; set; } = new List<Player>();
-    public IEnumerable<Player>? SelectedPlayers { get; set; }
+    public HashSet<Player>? SelectedPlayers { get; set; }
 
     public async void ToggleDrawer()
     {

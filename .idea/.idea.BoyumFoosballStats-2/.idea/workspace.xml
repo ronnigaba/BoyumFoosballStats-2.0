@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9678b338-506e-4bbf-aa49-eb07a71b2462" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0.sln" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/App.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Helpers/CollectionCombinationHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Helpers/CollectionCombinationHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/Index.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/Index.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/ScoreCollection/IScoreCollectionViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/ScoreCollection/IScoreCollectionViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionPage.razor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionPage.razor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/Shared/MainLayout.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Pages/Shared/NavMenu.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Services/IMatchMakingService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Services/IMatchMakingService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Services/MatchMakingService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/Services/MatchMakingService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/_Imports.razor" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/_Imports.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/wwwroot/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats-2.0/wwwroot/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats-2.0/wwwroot/index.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ViZmOMPsfNusitHA2WaVqieXrC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Ronni\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Ronni\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\Ronni\\AppData\\Local\\Symbols\\src"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9678b338-506e-4bbf-aa49-eb07a71b2462" name="Changes" comment="" />
+      <created>1695321034451</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695321034451</updated>
+      <workItem from="1695321035037" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

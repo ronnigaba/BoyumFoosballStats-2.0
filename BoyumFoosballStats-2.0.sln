@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats-2.0.Test", "BoyumFoosballStats-2.0.Test\BoyumFoosballStats-2.0.Test.csproj", "{CE691D64-1067-42B6-837E-724DAEB3915D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats-2.0", "BoyumFoosballStats-2.0\BoyumFoosballStats-2.0.csproj", "{545BFD38-BB3A-4013-B0B8-129E7B25F485}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firestore", "Firestore\Firestore.csproj", "{B76643A0-58D3-472F-A4B5-F87811D3FB52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats-2.0.Shared", "BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj", "{DED7235C-0F8E-43E9-94D7-A698264CAACC}"
@@ -11,6 +9,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Ai", "BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj", "{57102805-691C-4DC2-B375-6E1AA904A57A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireStorage", "FireStorage\FireStorage.csproj", "{54172E60-7DE5-4BB0-BBB4-B424E01388CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats-2.0", "BoyumFoosballStats-2.0\BoyumFoosballStats-2.0.csproj", "{17768422-D945-4461-AE79-2089B501C1EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,6 @@ Global
 		{CE691D64-1067-42B6-837E-724DAEB3915D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE691D64-1067-42B6-837E-724DAEB3915D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE691D64-1067-42B6-837E-724DAEB3915D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{545BFD38-BB3A-4013-B0B8-129E7B25F485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{545BFD38-BB3A-4013-B0B8-129E7B25F485}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{545BFD38-BB3A-4013-B0B8-129E7B25F485}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{545BFD38-BB3A-4013-B0B8-129E7B25F485}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B76643A0-58D3-472F-A4B5-F87811D3FB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B76643A0-58D3-472F-A4B5-F87811D3FB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B76643A0-58D3-472F-A4B5-F87811D3FB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,5 +38,9 @@ Global
 		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54172E60-7DE5-4BB0-BBB4-B424E01388CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
