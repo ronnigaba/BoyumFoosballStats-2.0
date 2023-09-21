@@ -35,10 +35,10 @@ public class MatchesV1MigrationTest
                 {
                     ScoreGray = oldMatch.ScoreGray,
                     ScoreBlack = oldMatch.ScoreBlack,
-                    BlackAttackerPlayerId = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Attacker).Id,
-                    BlackDefenderPlayerId = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Defender).Id,
-                    GrayAttackerPlayerId = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker).Id,
-                    GrayDefenderPlayerId = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender).Id,
+                    BlackAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Attacker),
+                    BlackDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Defender),
+                    GrayAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker),
+                    GrayDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender),
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };

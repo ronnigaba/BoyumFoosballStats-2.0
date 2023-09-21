@@ -75,8 +75,8 @@ public class FirestoreCrudService<T> : IFirestoreCrudController<T> where T : Fir
         if (_db == null)
         {
             //ToDo RGA - No magic strings!
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
-                @"boyum-foosball-stats-firebase-adminsdk-5uxh1-73429a3147.json");
+            // Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
+            //     @"C:\boyum-foosball-stats-firebase-adminsdk-kz2ij-e1f1cc75e3.json");
             _db = await FirestoreDb.CreateAsync(_projectId);
         }
     }

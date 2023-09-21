@@ -5,9 +5,9 @@ using Firestore.Services;
 
 namespace BoyumFoosballStats_2._0.Services;
 
-public class PlayerCrudService : FirestoreCrudService<Player>, IPlayerService
+public class PlayerCrudCrudService : FirestoreCrudService<Player>, IPlayerCrudService
 {
-    public PlayerCrudService() : base(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName)
+    public PlayerCrudCrudService() : base(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName)
     {
     }
 }

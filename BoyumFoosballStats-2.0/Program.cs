@@ -16,7 +16,7 @@ builder.Services.Scan(scan => scan
     .AsImplementedInterfaces()
     .WithTransientLifetime());
 
-builder.Services.AddSingleton<IPlayerService, PlayerCrudService>();
+builder.Services.AddSingleton<IPlayerCrudService, PlayerCrudCrudService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddMudServices();

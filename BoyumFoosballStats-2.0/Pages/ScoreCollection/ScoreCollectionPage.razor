@@ -26,7 +26,7 @@
             <MudSelect FullWidth="true" Class="p-4" T="string" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
                 @foreach (var player in _ViewModel.AvailablePlayers)
                 {
-                    <MudSelectItem T="string" Value="@player">@player</MudSelectItem>
+                    <MudSelectItem T="string" Value="@player">@player.Name</MudSelectItem>
                 }
             </MudSelect>
         </MudItem>

@@ -11,17 +11,17 @@ public class Match : FirestoreBaseModel
 
     [FirestoreProperty("LegacyMatchId")] public string? LegacyMatchId { get; set; }
 
-    [FirestoreProperty("BlackAttackerPlayerId")]
-    public string? BlackAttackerPlayerId { get; set; }
+    [FirestoreProperty("BlackAttackerPlayer")]
+    public Player? BlackAttackerPlayer { get; set; }
 
-    [FirestoreProperty("BlackDefenderPlayerId")]
-    public string? BlackDefenderPlayerId { get; set; }
+    [FirestoreProperty("BlackDefenderPlayer")]
+    public Player? BlackDefenderPlayer { get; set; }
 
-    [FirestoreProperty("GrayAttackerPlayerId")]
-    public string? GrayAttackerPlayerId { get; set; }
+    [FirestoreProperty("GrayAttackerPlayer")]
+    public Player? GrayAttackerPlayer { get; set; }
 
-    [FirestoreProperty("GrayDefenderPlayerId")]
-    public string? GrayDefenderPlayerId { get; set; }
+    [FirestoreProperty("GrayDefenderPlayer")]
+    public Player? GrayDefenderPlayer { get; set; }
 
     [FirestoreProperty("ScoreBlack")]
     [Range(0, 11, ErrorMessage = "Invalid score, valid values are 0-10")]
@@ -33,7 +33,7 @@ public class Match : FirestoreBaseModel
     
     public bool IsValid()
     {
-        var players = new List<string?>() { BlackAttackerPlayerId, BlackDefenderPlayerId, GrayAttackerPlayerId, GrayDefenderPlayerId };
+        var players = new List<Player>() { BlackAttackerPlayer, BlackDefenderPlayer, GrayAttackerPlayer, GrayDefenderPlayer };
         if (players.Any(x => x == null) || players.GroupBy(x => x).Any(y => y.Count() > 1))
         {
             return false;

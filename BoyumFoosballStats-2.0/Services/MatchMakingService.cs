@@ -25,10 +25,10 @@ public class MatchMakingService : IMatchMakingService
             {
                 var match = new Match
                 {
-                    BlackAttackerPlayerId = comb1.First().Id,
-                    BlackDefenderPlayerId = comb1.Last().Id,
-                    GrayAttackerPlayerId = comb2.First().Id,
-                    GrayDefenderPlayerId = comb2.Last().Id
+                    BlackAttackerPlayer = comb1.First(),
+                    BlackDefenderPlayer = comb1.Last(),
+                    GrayAttackerPlayer = comb2.First(),
+                    GrayDefenderPlayer = comb2.Last()
                 };
                 if (!match.IsValid())
                 {
