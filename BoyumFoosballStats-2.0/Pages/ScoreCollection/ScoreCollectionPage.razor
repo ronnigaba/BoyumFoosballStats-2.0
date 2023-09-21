@@ -23,10 +23,10 @@
             <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
         </MudItem>
         <MudItem sm="10">
-            <MudSelect FullWidth="true" Class="p-4" T="string" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
+            <MudSelect FullWidth="true" Class="p-4" T="Player" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
                 @foreach (var player in _ViewModel.AvailablePlayers)
                 {
-                    <MudSelectItem T="string" Value="@player">@player.Name</MudSelectItem>
+                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
                 }
             </MudSelect>
         </MudItem>
