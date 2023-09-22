@@ -1,33 +1,35 @@
-﻿using Google.Cloud.Firestore;
-using System.ComponentModel.DataAnnotations;
-using Firestore.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using CosmosDb.Model;
+using Newtonsoft.Json;
 
-namespace BoyumFoosballStats_2._0.Shared.FirestoreModels;
+namespace BoyumFoosballStats_2._0.Shared.DbModels;
 
-[FirestoreData]
-public class Match : FirestoreBaseModel
+public class Match : CosmosDbBaseModel
 {
-    [FirestoreProperty("MatchDate")] public DateTime MatchDate { get; set; }
 
-    [FirestoreProperty("LegacyMatchId")] public string? LegacyMatchId { get; set; }
+    [JsonProperty("DsId")] public string? PartitionKey { get; set; } = "match";
+    
+    [JsonProperty("MatchDate")] public DateTime MatchDate { get; set; }
 
-    [FirestoreProperty("BlackAttackerPlayer")]
+    [JsonProperty("LegacyMatchId")] public string? LegacyMatchId { get; set; }
+
+    [JsonProperty("BlackAttackerPlayer")]
     public Player? BlackAttackerPlayer { get; set; }
 
-    [FirestoreProperty("BlackDefenderPlayer")]
+    [JsonProperty("BlackDefenderPlayer")]
     public Player? BlackDefenderPlayer { get; set; }
 
-    [FirestoreProperty("GrayAttackerPlayer")]
+    [JsonProperty("GrayAttackerPlayer")]
     public Player? GrayAttackerPlayer { get; set; }
 
-    [FirestoreProperty("GrayDefenderPlayer")]
+    [JsonProperty("GrayDefenderPlayer")]
     public Player? GrayDefenderPlayer { get; set; }
 
-    [FirestoreProperty("ScoreBlack")]
+    [JsonProperty("ScoreBlack")]
     [Range(0, 11, ErrorMessage = "Invalid score, valid values are 0-10")]
     public int ScoreBlack { get; set; }
 
-    [FirestoreProperty("ScoreGray")]
+    [JsonProperty("ScoreGray")]
     [Range(0, 11, ErrorMessage = "Invalid score, valid values are 0-10")]
     public int ScoreGray { get; set; }
     

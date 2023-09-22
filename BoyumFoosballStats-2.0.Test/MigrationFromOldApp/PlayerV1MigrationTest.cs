@@ -1,5 +1,7 @@
-﻿using BoyumFoosballStats_2._0.Shared;
-using Firestore.Services;
+﻿using BoyumFoosballStats_2._0.Services;
+using BoyumFoosballStats_2._0.Shared;
+using CosmosDb.Model;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace BoyumFoosballStats_2._0.Test.MigrationFromOldApp;
@@ -9,25 +11,34 @@ public class PlayerV1MigrationTest
     [Fact]
     public async void MigratePlayersToFirestore()
     {
+        var cosmos = new CosmosDbSettings()
+        {
+            ConnectionString =
+                "AccountEndpoint=https://boyum-foosball-stats.documents.azure.com:443/;AccountKey=bzFDKIaIPRtg20nSvj60LtLujmZLRLInZwQzZk3jMaB2H1qiljTeT38y3JTkZtHx4vBCInSp5unrACDbDgrE1w==",
+            DatabaseName = "BoyumFoosballStats"
+        };
+        var options = Options.Create(cosmos);
         var playerController =
-            new FirestoreCrudService<Shared.FirestoreModels.Player>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName);
-        var migrations = new List<Shared.FirestoreModels.Player>();
+            new PlayerCrudService(options);
+        var migrations = new List<Shared.DbModels.Player>();
 
-        var existing = await playerController.ReadAllAsync();
-        if (existing.Count > 0)
+        var existing = await playerController.GetAllAsync();
+        if (existing.Any())
         {
             throw new Exception("Entries already exist, to avoid data loss, please decide what to do with them");
         }
 
         foreach (Player player in Enum.GetValues(typeof(Player)))
         {
-            var migratedPlayer = new Shared.FirestoreModels.Player();
-            migratedPlayer.Active = true;
-            migratedPlayer.MatchesPlayed = 0;
-            migratedPlayer.TrueSkillRating = 0.0f;
-            migratedPlayer.Name = Enum.GetName(player);
-            migratedPlayer.LegacyPlayerId = (int)player;
-            migrations.Add(await playerController.CreateAsync(migratedPlayer));
+            var migratedPlayer = new Shared.DbModels.Player
+            {
+                Active = true,
+                MatchesPlayed = 0,
+                TrueSkillRating = 0.0f,
+                Name = Enum.GetName(player),
+                LegacyPlayerId = (int)player
+            };
+            migrations.Add(await playerController.CreateOrUpdateAsync(migratedPlayer));
         }
 
         Assert.Equal(Enum.GetValues(typeof(Player)).Length, migrations.Count);

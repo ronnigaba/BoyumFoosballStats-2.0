@@ -1,6 +1,7 @@
-﻿using BoyumFoosballStats_2._0.Shared;
-using Firestore;
-using Firestore.Services;
+﻿using BoyumFoosballStats_2._0.Services;
+using BoyumFoosballStats_2._0.Shared;
+using CosmosDb.Model;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -12,7 +13,13 @@ public class MatchesV1MigrationTest
     public async void MigrateMatchesToFirestore()
     {
         var jsonPath = "D:\\Downloads\\Chrome\\matches.json";
-
+        var cosmos = new CosmosDbSettings()
+        {
+            ConnectionString =
+                "AccountEndpoint=https://boyum-foosball-stats.documents.azure.com:443/;AccountKey=bzFDKIaIPRtg20nSvj60LtLujmZLRLInZwQzZk3jMaB2H1qiljTeT38y3JTkZtHx4vBCInSp5unrACDbDgrE1w==",
+            DatabaseName = "BoyumFoosballStats"
+        };
+        var options = Options.Create(cosmos);
         var matches = new List<Match>();
 
         JsonSerializer serializer = new JsonSerializer();
@@ -21,17 +28,15 @@ public class MatchesV1MigrationTest
             matches = (List<Match>)serializer.Deserialize(file, typeof(List<Match>));
         }
 
-        var matchController =
-            new FirestoreCrudService<Shared.FirestoreModels.Match>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.MatchesCollectionName);
-        var playerController =
-            new FirestoreCrudService<Shared.FirestoreModels.Player>(BoyumFoosballStatsConsts.ProjectName, BoyumFoosballStatsConsts.PlayerCollectionName);
-        var players = await playerController.ReadAllAsync();
+        var matchController = new MatchCrudService(options);
+        var playerController = new PlayerCrudService(options);
+        var players = await playerController.GetAllAsync();
 
         if (matches != null)
         {
             foreach (var oldMatch in matches)
             {
-                var migratedMatch = new Shared.FirestoreModels.Match
+                var migratedMatch = new Shared.DbModels.Match
                 {
                     ScoreGray = oldMatch.ScoreGray,
                     ScoreBlack = oldMatch.ScoreBlack,
@@ -42,8 +47,8 @@ public class MatchesV1MigrationTest
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };
-
-                migratedMatch = await matchController.CreateAsync(migratedMatch);
+                //ToDo RGA - Update TrueSkillRating and MatchesPlayed during final convert
+                migratedMatch = await matchController.CreateOrUpdateAsync(migratedMatch);
             }
         }
 

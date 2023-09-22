@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using BoyumFoosballStats_2._0.Shared.FirestoreModels;
+using System.Threading.Tasks;
+using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats.Models;
 using NumSharp.Utilities;
 
@@ -14,4 +15,5 @@ public interface IScoreCollectionViewModel : IViewModelBase
     IEnumerable<Player> AvailablePlayers { get; set; }
     HashSet<Player>? SelectedPlayers { get; set; }
     void ToggleDrawer();
+    Task LoadPlayers();
 }

@@ -1,8 +1,19 @@
 ﻿@page "/ScoreCollection"
+@using BoyumFoosballStats_2._0.Shared.DbModels
 @inject IScoreCollectionViewModel _ViewModel
 
 <MudFab Color="Color.Primary" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Person">Drawer</MudFab>
 @* ToDo RGA - Width should be 100% on devices *@
+@if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
+{
+    <MudSelect T="Player" Label="Black Attacker">
+        @foreach (var player in _ViewModel.SelectedPlayers)
+        {
+            <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+        }
+    </MudSelect>
+}
+
 <MudDrawer @bind-Open="@_ViewModel.DrawerOpen"
            Anchor="Anchor.End"
            Elevation="1"
@@ -23,12 +34,16 @@
             <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
         </MudItem>
         <MudItem sm="10">
-            <MudSelect FullWidth="true" Class="p-4" T="Player" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
-                @foreach (var player in _ViewModel.AvailablePlayers)
-                {
-                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-                }
-            </MudSelect>
+            @if (_ViewModel.AvailablePlayers != null)
+            {
+                <MudSelect FullWidth="true" Class="p-4" T="Player" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
+                    @foreach (var player in _ViewModel.AvailablePlayers)
+                    {
+                        <MudSelectItem T="Player" Value="player">@player.Name</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+
         </MudItem>
     </MudGrid>
 </MudDrawer>

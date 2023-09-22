@@ -3,6 +3,6 @@ using CosmosDb.Services;
 
 namespace BoyumFoosballStats_2._0.Services.Interface;
 
-public interface IPlayerCrudService : ICosmosDbCrudService<Player>
+public interface IMatchCrudService : ICosmosDbCrudService<Match>
 {
 }

@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Firestore\Firestore.csproj" />
+      <ProjectReference Include="..\CosmosDb\CosmosDb.csproj" />
     </ItemGroup>
 
 </Project>

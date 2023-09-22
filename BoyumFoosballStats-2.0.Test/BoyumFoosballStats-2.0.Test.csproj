@@ -26,8 +26,6 @@
       <ProjectReference Include="..\BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj" />
       <ProjectReference Include="..\BoyumFoosballStats-2.0\BoyumFoosballStats-2.0.csproj" />
       <ProjectReference Include="..\BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj" />
-      <ProjectReference Include="..\FireStorage\FireStorage.csproj" />
-      <ProjectReference Include="..\Firestore\Firestore.csproj" />
     </ItemGroup>
 
 </Project>

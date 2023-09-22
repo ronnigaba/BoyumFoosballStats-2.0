@@ -10,9 +10,10 @@ public partial class ScoreCollectionPage
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && PlayerService != null) 
+        if (firstRender && PlayerService != null)
         {
-            // var players = await PlayerService.ReadAllAsync();
+            await _ViewModel.LoadPlayers();
+            StateHasChanged();
         }
         await base.OnAfterRenderAsync(firstRender);
     }

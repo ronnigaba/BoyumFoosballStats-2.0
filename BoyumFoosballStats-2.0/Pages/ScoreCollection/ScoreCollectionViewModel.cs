@@ -1,28 +1,34 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BoyumFoosballStats_2._0.Services.Interface;
-using BoyumFoosballStats_2._0.Shared.FirestoreModels;
+using BoyumFoosballStats_2._0.Shared.DbModels;
+using CosmosDb.Services;
 
 namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
-    private readonly IPlayerCrudService _playerService;
+    private readonly ICosmosDbCrudService<Player> _playerCrudService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerService)
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService)
     {
-        _playerService = playerService;
+        _playerCrudService = playerCrudService;
     }
 
-    public bool DrawerOpen { get; set; } = false;
+    public bool DrawerOpen { get; set; }
     public bool ShowInactivePlayers { get; set; }
     public bool AutoBalanceMatches { get; set; }
     public bool AutoSwapPlayers { get; set; }
-    public IEnumerable<Player> AvailablePlayers { get; set; } = new List<Player>();
+    public IEnumerable<Player>? AvailablePlayers { get; set; }
     public HashSet<Player>? SelectedPlayers { get; set; }
 
-    public async void ToggleDrawer()
+    public void ToggleDrawer()
     {
         DrawerOpen = !DrawerOpen;
-        AvailablePlayers = await _playerService.ReadAllAsync();
+    }
+
+    public async Task LoadPlayers()
+    {
+        AvailablePlayers = await _playerCrudService.GetAllAsync();
     }
 }

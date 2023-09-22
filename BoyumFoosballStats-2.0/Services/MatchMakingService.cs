@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BoyumFoosballStats_2._0.Shared.FirestoreModels;
+using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_Ai;
+using BoyumFoosballStats.BlobStorage;
+using BoyumFoosballStats.BlobStorage.Model;
 using BoyumFoosballStats.Controller;
+using Microsoft.Extensions.Options;
 using MudBlazor.Extensions;
 
 namespace BoyumFoosballStats_2._0.Services;
 
 public class MatchMakingService : IMatchMakingService
 {
-    public MatchMakingService()
+    private readonly IAzureBlobStorageHelper _blobStorageHelper;
+
+    public MatchMakingService(IAzureBlobStorageHelper blobStorageHelper)
     {
+        _blobStorageHelper = blobStorageHelper;
     }
 
     //ToDo RGA - Return complex object that includes the fairness score - Possibly return all matches in fairness order
@@ -20,7 +26,7 @@ public class MatchMakingService : IMatchMakingService
     {
         var fairestMatch = new Match();
         var bestFairnessFactor = double.MaxValue;
-        var predictionModel = new MatchOutcomeModel();
+        var outcomeModel = new MatchOutcomeModel(_blobStorageHelper);
 
         var combinations = CollectionCombinationHelper.GetAllCombinations(players, 2).ToList();
         foreach (var comb1 in combinations)
@@ -47,7 +53,7 @@ public class MatchMakingService : IMatchMakingService
                     BlackDefender = comb2.First().LegacyPlayerId.As<float>(),
                     BlackAttacker = comb2.Last().LegacyPlayerId.As<float>(),
                 };
-                var result = await predictionModel.Predict(sampleData);
+                var result = await outcomeModel.Predict(sampleData);
                 double resultDifference = Math.Abs(result.Score - 50f);
                 if (resultDifference < bestFairnessFactor)
                 {

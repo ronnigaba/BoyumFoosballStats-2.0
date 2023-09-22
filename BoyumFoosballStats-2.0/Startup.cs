@@ -1,6 +1,8 @@
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats.Models;
+using CosmosDb.Model;
+using CosmosDb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +35,9 @@ namespace BoyumFoosballStats_2
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
 
-            services.AddSingleton<IPlayerCrudService, PlayerCrudCrudService>();
+            services.AddOptions();
+            services.Configure<CosmosDbSettings>(Configuration.GetSection("ConnectionStrings"));
+            services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
