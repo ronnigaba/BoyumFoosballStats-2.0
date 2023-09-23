@@ -2,48 +2,63 @@
 @using BoyumFoosballStats_2._0.Shared.DbModels
 @inject IScoreCollectionViewModel _ViewModel
 
-<MudFab Color="Color.Primary" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Person">Drawer</MudFab>
-@* ToDo RGA - Width should be 100% on devices *@
-@if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
+@if (_ViewModel.AvailablePlayers != null)
 {
-    <MudSelect T="Player" Label="Black Attacker">
-        @foreach (var player in _ViewModel.SelectedPlayers)
-        {
-            <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-        }
-    </MudSelect>
+    <div class="d-flex gap-4 my-5">
+        <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers" Variant="Variant.Filled" ToStringFunc="_ViewModel.PlayerToString">
+            @foreach (var player in _ViewModel.AvailablePlayers)
+            {
+                <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+            }
+        </MudSelect>
+        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+            <MudIconButton Icon="@Icons.Material.Filled.AutoAwesome"></MudIconButton>
+        </MudButtonGroup>
+    </div>
 }
 
-<MudDrawer @bind-Open="@_ViewModel.DrawerOpen"
-           Anchor="Anchor.End"
-           Elevation="1"
-           Variant="@DrawerVariant.Temporary"
-           ClipMode="DrawerClipMode.Always"
-           Width="100%">
-    <MudGrid Justify="Justify.Center">
-        <MudItem sm="3">
-            <MudSwitch Label="Auto-swap players" @bind-Checked="@_ViewModel.AutoSwapPlayers" Color="Color.Primary"/>
-        </MudItem>
-        <MudItem sm="3">
-            <MudSwitch Label="Auto-balance matches" @bind-Checked="@_ViewModel.AutoBalanceMatches" Color="Color.Primary"/>
-        </MudItem>
-        <MudItem sm="3">
-            <MudSwitch T="bool" Label="Show inactive players" Checked="@_ViewModel.ShowInactivePlayers" CheckedChanged="(x)=>_ViewModel.ShowActiveCheckedChanged(x)" Color="Color.Primary"/>
-        </MudItem>
-        <MudItem sm="3">
-            <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
-        </MudItem>
-        <MudItem sm="10">
-            @if (_ViewModel.AvailablePlayers != null)
-            {
-                <MudSelect FullWidth="true" Class="p-4" T="Player" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers" ToStringFunc="_ViewModel.PlayerToString">
-                    @foreach (var player in _ViewModel.AvailablePlayers)
-                    {
-                        <MudSelectItem T="Player" Value="player">@player.Name</MudSelectItem>
-                    }
-                </MudSelect>
-            }
-
-        </MudItem>
-    </MudGrid>
-</MudDrawer>
+@if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
+{
+    <MudPaper Class="pa-4 d-flex flex-column justify-space-between gap-4" Elevation="4" MinHeight="200px">
+        <div class="d-flex gap-8">
+            <MudSelect T="Player" Label="Grey Defender" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Security">
+                @foreach (var player in _ViewModel.SelectedPlayers)
+                {
+                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect T="Player" Label="Grey Attacker" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Bolt">
+                @foreach (var player in _ViewModel.SelectedPlayers)
+                {
+                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+        <div class="d-flex justify-center align-center gap-4">
+            <MudIconButton Icon="@Icons.Material.Filled.Remove" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
+            <MudText Typo="Typo.h2">@_ViewModel.GreyScore</MudText>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
+        </div>
+    </MudPaper>
+    <MudPaper Class="pa-4 d-flex flex-column gap-4 justify-space-between mud--theme-dark" MinHeight="200px" Elevation="4">
+        <div class="d-flex justify-center align-center gap-4">
+            <MudIconButton Icon="@Icons.Material.Filled.Remove" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
+            <MudText Typo="Typo.h2">@_ViewModel.GreyScore</MudText>
+            <MudIconButton Icon="@Icons.Material.Filled.Add" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
+        </div>
+        <div class="d-flex gap-8">
+            <MudSelect T="Player" Label="Black Defender" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Security">
+                @foreach (var player in _ViewModel.SelectedPlayers)
+                {
+                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect T="Player" Label="Black Attacker" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Bolt">
+                @foreach (var player in _ViewModel.SelectedPlayers)
+                {
+                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+    </MudPaper>
+}

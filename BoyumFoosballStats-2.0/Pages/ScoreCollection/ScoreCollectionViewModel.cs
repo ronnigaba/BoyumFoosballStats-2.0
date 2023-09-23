@@ -23,7 +23,9 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     public bool AutoBalanceMatches { get; set; }
     public bool AutoSwapPlayers { get; set; }
     public IEnumerable<Player>? AvailablePlayers { get; set; }
-    public HashSet<Player>? SelectedPlayers { get; set; }
+    public IEnumerable<Player>? SelectedPlayers { get; set; } = new HashSet<Player>();
+    public int GreyScore { get; set; } = 5;
+    public int BlackScore { get; set; } = 5;
 
     public void ToggleDrawer()
     {

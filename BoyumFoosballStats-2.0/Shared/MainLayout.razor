@@ -8,14 +8,14 @@
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
                        OnClick="@((e) => DrawerToggle())"/>
-        <MudAppBarSpacer/>
+        <MudSpacer/>
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End"/>
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
         <MudDrawerHeader>
-            <MudText Typo="Typo.h5">BoyumFoosballStats_2</MudText>
+            <MudText Typo="Typo.h5">Foosball Stats</MudText>
         </MudDrawerHeader>
-        <MudDivider/>
+        <MudDivider Class="flex-grow-0"/>
         <NavMenu/>
     </MudDrawer>
     <MudMainContent Class="px-8" MaxWidth="MaxWidth.False">
