@@ -8,13 +8,20 @@ public partial class ScoreCollectionPage
 {
     [Inject] public IPlayerCrudService? PlayerService { get; set; }
     
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender && PlayerService != null)
+    //     {
+    //         await _ViewModel.LoadPlayers();
+    //         StateHasChanged();
+    //     }
+    //     await base.OnAfterRenderAsync(firstRender);
+    // }
+
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender && PlayerService != null)
-        {
-            await _ViewModel.LoadPlayers();
-            StateHasChanged();
-        }
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnInitializedAsync();
+        await _ViewModel.LoadPlayers();
+
     }
 }

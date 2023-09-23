@@ -12,9 +12,12 @@ public interface IScoreCollectionViewModel : IViewModelBase
     bool AutoBalanceMatches { get; set; }
     bool AutoSwapPlayers { get; set; }
     IEnumerable<Player>? AvailablePlayers { get; set; }
-    HashSet<Player>? SelectedPlayers { get; set; }
+    IEnumerable<Player>? SelectedPlayers { get; set; }
+    int GreyScore { get; set; }
+    int BlackScore { get; set; }
     void ToggleDrawer();
     Task LoadPlayers();
     string? PlayerToString(Player player);
     Task ShowActiveCheckedChanged(bool arg);
+    Task SaveMatch();
 }

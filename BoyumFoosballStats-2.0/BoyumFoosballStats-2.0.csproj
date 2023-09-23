@@ -7,13 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MudBlazor" Version="5.0.15" />
+        <PackageReference Include="MudBlazor" Version="6.10.0" />
         <PackageReference Include="Scrutor" Version="4.2.2" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj" />
       <ProjectReference Include="..\BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj" />
       <ProjectReference Include="..\CosmosDb\CosmosDb.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\TeamCard\TeamCard.razor" />
     </ItemGroup>
 
 </Project>
