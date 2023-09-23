@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2._0.Shared.DbModels;
 using CosmosDb.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
@@ -29,6 +32,23 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
 
     public async Task LoadPlayers()
     {
-        AvailablePlayers = await _playerCrudService.GetAllAsync();
+        var players = await _playerCrudService.GetAllAsync();
+        if (!ShowInactivePlayers)
+        {
+            players = players.Where(x => x.Active);
+        }
+
+        AvailablePlayers = players;
+    }
+
+    public string? PlayerToString(Player player)
+    {
+        return player.Name;
+    }
+
+    public async Task ShowActiveCheckedChanged(bool arg)
+    {
+        ShowInactivePlayers = arg;
+        await LoadPlayers();
     }
 }

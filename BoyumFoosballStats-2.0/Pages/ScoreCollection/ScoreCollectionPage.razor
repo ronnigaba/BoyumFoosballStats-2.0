@@ -28,7 +28,7 @@
             <MudSwitch Label="Auto-balance matches" @bind-Checked="@_ViewModel.AutoBalanceMatches" Color="Color.Primary"/>
         </MudItem>
         <MudItem sm="3">
-            <MudSwitch Label="Show inactive players" @bind-Checked="@_ViewModel.ShowInactivePlayers" Color="Color.Primary"/>
+            <MudSwitch T="bool" Label="Show inactive players" Checked="@_ViewModel.ShowInactivePlayers" CheckedChanged="(x)=>_ViewModel.ShowActiveCheckedChanged(x)" Color="Color.Primary"/>
         </MudItem>
         <MudItem sm="3">
             <MudFab Color="Color.Primary" Size="Size.Small" OnClick="_ViewModel.ToggleDrawer" StartIcon="@Icons.Material.Filled.Close"></MudFab>
@@ -36,7 +36,7 @@
         <MudItem sm="10">
             @if (_ViewModel.AvailablePlayers != null)
             {
-                <MudSelect FullWidth="true" Class="p-4" T="Player" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers">
+                <MudSelect FullWidth="true" Class="p-4" T="Player" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers" ToStringFunc="_ViewModel.PlayerToString">
                     @foreach (var player in _ViewModel.AvailablePlayers)
                     {
                         <MudSelectItem T="Player" Value="player">@player.Name</MudSelectItem>
