@@ -1,5 +1,6 @@
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Interface;
+using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
 using BoyumFoosballStats.Models;
 using CosmosDb.Model;
 using CosmosDb.Services;
@@ -38,6 +39,7 @@ namespace BoyumFoosballStats_2
             services.AddOptions();
             services.Configure<CosmosDbSettings>(Configuration.GetSection("ConnectionStrings"));
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
+            services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

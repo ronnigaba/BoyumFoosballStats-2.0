@@ -31,6 +31,10 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     public IEnumerable<Player>? SelectedPlayers { get; set; } = new HashSet<Player>();
     public int GreyScore { get; set; } = 5;
     public int BlackScore { get; set; } = 5;
+    public Player? SelectedBlackAttacker { get; set; }
+    public Player? SelectedBlackDefender { get; set; }
+    public Player? SelectedGreyAttacker { get; set; }
+    public Player? SelectedGreyDefender { get; set; }
 
     public void ToggleDrawer()
     {

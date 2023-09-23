@@ -15,6 +15,10 @@ public interface IScoreCollectionViewModel : IViewModelBase
     IEnumerable<Player>? SelectedPlayers { get; set; }
     int GreyScore { get; set; }
     int BlackScore { get; set; }
+    Player? SelectedBlackAttacker { get; set; }
+    Player? SelectedBlackDefender { get; set; }
+    Player? SelectedGreyAttacker { get; set; }
+    Player? SelectedGreyDefender { get; set; }
     void ToggleDrawer();
     Task LoadPlayers();
     string? PlayerToString(Player player);

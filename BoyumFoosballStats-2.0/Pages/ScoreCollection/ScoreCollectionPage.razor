@@ -1,66 +1,34 @@
 ﻿@page "/ScoreCollection"
 @using BoyumFoosballStats_2._0.Shared.DbModels
+@using BoyumFoosballStats_2.Components.TeamCard
 @inject IScoreCollectionViewModel _ViewModel
 
-@if (_ViewModel.AvailablePlayers != null)
-{
-    <div class="d-flex flex-column gap-2 my-5">
-        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="align-self-end" Size="Size.Medium">
-            <MudButton EndIcon="@Icons.Material.Filled.Save" OnClick="() => _ViewModel.SaveMatch()">Save</MudButton>
-            <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh"></MudIconButton>
-            <MudIconButton Icon="@Icons.Material.Filled.KeyboardArrowDown"></MudIconButton>
-        </MudButtonGroup>
-        <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers" Variant="Variant.Filled" ToStringFunc="_ViewModel.PlayerToString">
-            @foreach (var player in _ViewModel.AvailablePlayers)
-            {
-                <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-            }
-        </MudSelect>
-    </div>
-}
+<MudContainer MaxWidth="MaxWidth.Medium">
+    @if (_ViewModel.AvailablePlayers != null)
+    {
+        <div class="d-flex flex-column gap-2 mt-5 mb-8">
+            <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="align-self-end" Size="Size.Medium" OverrideStyles="false">
+                <MudButton EndIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => _ViewModel.SaveMatch()">Save</MudButton>
+                <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined"></MudIconButton>
+                <MudIconButton Icon="@Icons.Material.Filled.KeyboardArrowDown" Color="Color.Primary" Variant="Variant.Outlined"></MudIconButton>
+            </MudButtonGroup>
+            <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers" Variant="Variant.Filled" ToStringFunc="_ViewModel.PlayerToString">
+                @foreach (var player in _ViewModel.AvailablePlayers)
+                {
+                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+    }
 
-@if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
-{
-    <MudPaper Class="pa-4 d-flex flex-column justify-space-between gap-4" Elevation="4" MinHeight="200px">
-        <div class="d-flex gap-8">
-            <MudSelect T="Player" Label="Grey Defender" Class="w-0" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Security">
-                @foreach (var player in _ViewModel.SelectedPlayers)
-                {
-                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-                }
-            </MudSelect>
-            <MudSelect T="Player"  Label="Grey Attacker" Class="w-0" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Bolt">
-                @foreach (var player in _ViewModel.SelectedPlayers)
-                {
-                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-                }
-            </MudSelect>
-        </div>
-        <div class="d-flex justify-center align-center gap-4">
-            <MudIconButton Icon="@Icons.Material.Filled.Remove" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
-            <MudText Typo="Typo.h2">@_ViewModel.GreyScore</MudText>
-            <MudIconButton Icon="@Icons.Material.Filled.Add" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
-        </div>
-    </MudPaper>
-    <MudPaper Class="pa-4 d-flex flex-column gap-4 justify-space-between mud--theme-dark" MinHeight="200px" Elevation="4">
-        <div class="d-flex justify-center align-center gap-4">
-            <MudIconButton Icon="@Icons.Material.Filled.Remove" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
-            <MudText Typo="Typo.h2">@_ViewModel.GreyScore</MudText>
-            <MudIconButton Icon="@Icons.Material.Filled.Add" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
-        </div>
-        <div class="d-flex gap-8">
-            <MudSelect T="Player" Label="Black Defender" Class="w-0" Adornment="Adornment.Start" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Security">
-                @foreach (var player in _ViewModel.SelectedPlayers)
-                {
-                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-                }
-            </MudSelect>
-            <MudSelect T="Player" Label="Black Attacker" Class="w-0" Adornment="Adornment.Start" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Bolt">
-                @foreach (var player in _ViewModel.SelectedPlayers)
-                {
-                    <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
-                }
-            </MudSelect>
-        </div>
-    </MudPaper>
-}
+
+    @if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
+    {
+        @* <CascadingValue Value="_ViewModel.SelectedPlayers"> *@
+            <TeamCard PlayersList="_ViewModel.SelectedPlayers" TeamName="Grey"  @bind-Attacker="_ViewModel.SelectedGreyAttacker" @bind-Defender="_ViewModel.SelectedGreyDefender" @bind-Score="_ViewModel.GreyScore"/>
+            <TeamCard PlayersList="_ViewModel.SelectedPlayers" TeamName="Black" @bind-Attacker="_ViewModel.SelectedBlackAttacker" @bind-Defender="_ViewModel.SelectedBlackDefender" @bind-Score="_ViewModel.BlackScore"
+                      IsFlipped="true" Type="TeamCardType.Dark"/>
+        // </CascadingValue>
+    }
+
+</MudContainer>
