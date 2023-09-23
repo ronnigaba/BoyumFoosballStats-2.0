@@ -6,16 +6,21 @@ using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2._0.Shared.DbModels;
 using CosmosDb.Services;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
+    private readonly ISnackbar _snackbarService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService)
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService)
     {
         _playerCrudService = playerCrudService;
+        _snackbarService = snackbarService;
+        _snackbarService.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+        _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
 
     public bool DrawerOpen { get; set; }
@@ -52,5 +57,12 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     {
         ShowInactivePlayers = arg;
         await LoadPlayers();
+    }
+
+    public Task SaveMatch()
+    {
+        _snackbarService.Clear();
+        _snackbarService.Add("Match saved. GG!",  Severity.Success);
+        return Task.CompletedTask;
     }
 }

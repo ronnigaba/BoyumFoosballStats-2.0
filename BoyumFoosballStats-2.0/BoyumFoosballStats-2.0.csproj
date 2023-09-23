@@ -15,5 +15,8 @@
       <ProjectReference Include="..\BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj" />
       <ProjectReference Include="..\CosmosDb\CosmosDb.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\TeamCard\TeamCard.razor" />
+    </ItemGroup>
 
 </Project>

@@ -19,4 +19,5 @@ public interface IScoreCollectionViewModel : IViewModelBase
     Task LoadPlayers();
     string? PlayerToString(Player player);
     Task ShowActiveCheckedChanged(bool arg);
+    Task SaveMatch();
 }
