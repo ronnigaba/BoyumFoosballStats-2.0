@@ -1,7 +1,4 @@
 ﻿@page "/MatchHistory"
-@using System.Drawing
-@using Color = MudBlazor.Color
-@using Size = MudBlazor.Size
 
 <MudTable Items="@Matches" Bordered="false" Outlined="false">
     <ToolBarContent>
@@ -14,36 +11,33 @@
         <col/>
     </ColGroup>
     <HeaderContent>
-        <MudTh colspan="3" align="center">Match</MudTh>
+        <MudTh colspan="3">
+            <MudText Align="Align.Center" Class="d-block" Typo="Typo.inherit">Match</MudText>
+        </MudTh>
         <MudTh>Date</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="@nameof(Match.GrayDefenderPlayer)">
             <MudText Align="Align.End">
-                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Default" Class="d-inline-flex align-center">
-                    <MudIcon Size="Size.Small" Icon="@Icons.Material.Filled.Security"/> @context.GrayDefenderPlayer.Name
-                </MudLink>
-                &
-                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Default" Class="d-inline-flex align-center">>
-                    <MudIcon Size="Size.Small" Icon="@Icons.Material.Filled.Bolt"/> @context.GrayAttackerPlayer.Name
-                </MudLink>
+                <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GrayDefenderPlayer.Name</MudButton>
+                <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GrayAttackerPlayer.Name</MudButton>
             </MudText>
         </MudTd>
         <MudTd>
             <MudText Align="Align.Center">
-                <MudText Inline="true">@context.ScoreGray</MudText>
-                <MudText Inline="true">- @context.ScoreBlack</MudText>
+                <MudText Inline="true" Typo="Typo.button" Color="GetGrayScoreColor(context)">@context.ScoreGray</MudText>
+                <MudText Inline="true" Typo="Typo.button"> - </MudText>
+                <MudText Inline="true" Typo="Typo.button" Color="GetBlackScoreColor(context)">@context.ScoreBlack</MudText>
             </MudText>
         </MudTd>
         <MudTd>
             <MudText Align="Align.Start">
-                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Dark">@context.GrayDefenderPlayer.Name</MudLink>
-                <span>&</span>
-                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Dark">@context.GrayAttackerPlayer.Name</MudLink>
+                <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer.Name</MudButton>
+                <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer.Name</MudButton>
             </MudText>
         </MudTd>
         <MudTd DataLabel="@nameof(Match.MatchDate)">
-            <MudText Align="Align.Center">@context.MatchDate.ToShortDateString()</MudText>
+            <MudText Align="Align.Center">@context.MatchDate.ToString("ddd, d MMM, yyyy")</MudText>
         </MudTd>
     </RowTemplate>
     <PagerContent>
