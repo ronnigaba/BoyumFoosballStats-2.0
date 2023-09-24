@@ -1,0 +1,52 @@
+﻿@page "/MatchHistory"
+@using System.Drawing
+@using Color = MudBlazor.Color
+@using Size = MudBlazor.Size
+
+<MudTable Items="@Matches" Bordered="false" Outlined="false">
+    <ToolBarContent>
+        <MudText Typo="Typo.h3">Match history</MudText>
+    </ToolBarContent>
+    <ColGroup>
+        <col style="width: 250px;"/>
+        <col style="width: 100px;"/>
+        <col style="width: 250px;"/>
+        <col/>
+    </ColGroup>
+    <HeaderContent>
+        <MudTh colspan="3" align="center">Match</MudTh>
+        <MudTh>Date</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="@nameof(Match.GrayDefenderPlayer)">
+            <MudText Align="Align.End">
+                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Default" Class="d-inline-flex align-center">
+                    <MudIcon Size="Size.Small" Icon="@Icons.Material.Filled.Security"/> @context.GrayDefenderPlayer.Name
+                </MudLink>
+                &
+                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Default" Class="d-inline-flex align-center">>
+                    <MudIcon Size="Size.Small" Icon="@Icons.Material.Filled.Bolt"/> @context.GrayAttackerPlayer.Name
+                </MudLink>
+            </MudText>
+        </MudTd>
+        <MudTd>
+            <MudText Align="Align.Center">
+                <MudText Inline="true">@context.ScoreGray</MudText>
+                <MudText Inline="true">- @context.ScoreBlack</MudText>
+            </MudText>
+        </MudTd>
+        <MudTd>
+            <MudText Align="Align.Start">
+                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Dark">@context.GrayDefenderPlayer.Name</MudLink>
+                <span>&</span>
+                <MudLink Underline="Underline.None" Typo="Typo.button" Color="Color.Dark">@context.GrayAttackerPlayer.Name</MudLink>
+            </MudText>
+        </MudTd>
+        <MudTd DataLabel="@nameof(Match.MatchDate)">
+            <MudText Align="Align.Center">@context.MatchDate.ToShortDateString()</MudText>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>
