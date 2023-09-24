@@ -15,68 +15,29 @@ public partial class TeamCard
 {
     [Inject] public ITeamCardViewModel ViewModel { get; set; } = null!;
 
-    [Parameter]
-    public string? TeamName
-    {
-        get => ViewModel.TeamName;
-        set => ViewModel.TeamName = value;
-    }
-
     [Parameter] public IEnumerable<Player>? PlayersList { get; set; }
 
-    [Parameter]
-    public int Score
+    [Parameter] public TeamInfo TeamInfo
     {
-        get => ViewModel.Score;
-        set => ViewModel.Score = value;
+        get => ViewModel.TeamInfo;
+        set => ViewModel.TeamInfo = value;
+    }
+    
+    [Parameter] public EventCallback<TeamInfo> TeamInfoChanged
+    {
+        get => ViewModel.TeamInfoChanged;
+        set => ViewModel.TeamInfoChanged = value;
     }
 
-    [Parameter]
-    public EventCallback<int> ScoreChanged
+    [Parameter] public bool IsFlipped
     {
-        get => ViewModel.ScoreChanged;
-        set => ViewModel.ScoreChanged = value;
+        get => ViewModel.IsFlipped;
+        set => ViewModel.IsFlipped = value;
     }
 
-    [Parameter] public Player? Attacker { get; set; }
-    [Parameter] public Player? Defender { get; set; }
-    [Parameter] public EventCallback<Player> DefenderChanged { get; set; }
-    [Parameter] public EventCallback<Player> AttackerChanged { get; set; }
-    [Parameter] public bool IsFlipped { get; set; }
-
-    [Parameter] public TeamCardType Type { get; set; }
-
-    private async Task HandleDefenderChanged(Player defender)
+    [Parameter] public TeamCardType Type
     {
-        Defender = defender;
-        await DefenderChanged.InvokeAsync(defender);
+        get => ViewModel.Type;
+        set => ViewModel.Type = value;
     }
-
-    private async Task HandleAttackerChanged(Player attacker)
-    {
-        Attacker = attacker;
-        await AttackerChanged.InvokeAsync(attacker);
-    }
-
-    // protected override void OnAfterRender(bool firstRender)
-    // {
-    //     base.OnAfterRender(firstRender);
-    //
-    //     if (Attacker != null && PlayersList!.All(x => x.Id != Attacker.Id))
-    //     {
-    //         Attacker = null;
-    //     }
-    //     
-    //     if (Defender != null && PlayersList!.All(x => x.Id != Defender.Id))
-    //     {
-    //         Defender = null;
-    //     }
-    // }
-
-    public string WrapperClasses =>
-        new CssBuilder("pa-4 d-flex justify-space-between gap-4")
-            .AddClass("flex-column-reverse", when: IsFlipped)
-            .AddClass("flex-column", when: !IsFlipped)
-            .AddClass("mud--theme-dark", when: Type == TeamCardType.Dark)
-            .Build();
 }

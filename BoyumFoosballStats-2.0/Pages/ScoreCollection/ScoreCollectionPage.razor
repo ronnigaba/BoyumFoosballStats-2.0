@@ -12,7 +12,7 @@
                 <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined"></MudIconButton>
                 <MudIconButton Icon="@Icons.Material.Filled.KeyboardArrowDown" Color="Color.Primary" Variant="Variant.Outlined"></MudIconButton>
             </MudButtonGroup>
-            <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" @bind-SelectedValues="_ViewModel.SelectedPlayers" Variant="Variant.Filled" ToStringFunc="_ViewModel.PlayerToString">
+            <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" SelectedValues="_ViewModel.SelectedPlayers" SelectedValuesChanged="_ViewModel.HandleSelectedPlayersChanged" Variant="Variant.Filled" ToStringFunc="_ViewModel.PlayerToString">
                 @foreach (var player in _ViewModel.AvailablePlayers)
                 {
                     <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
@@ -24,11 +24,8 @@
 
     @if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
     {
-        @* <CascadingValue Value="_ViewModel.SelectedPlayers"> *@
-            <TeamCard PlayersList="_ViewModel.SelectedPlayers" TeamName="Grey"  @bind-Attacker="_ViewModel.SelectedGreyAttacker" @bind-Defender="_ViewModel.SelectedGreyDefender" @bind-Score="_ViewModel.GreyScore"/>
-            <TeamCard PlayersList="_ViewModel.SelectedPlayers" TeamName="Black" @bind-Attacker="_ViewModel.SelectedBlackAttacker" @bind-Defender="_ViewModel.SelectedBlackDefender" @bind-Score="_ViewModel.BlackScore"
-                      IsFlipped="true" Type="TeamCardType.Dark"/>
-        // </CascadingValue>
+        <TeamCard PlayersList="_ViewModel.SelectedPlayers" @bind-TeamInfo="_ViewModel.GreyTeam"/>
+        <TeamCard PlayersList="_ViewModel.SelectedPlayers" @bind-TeamInfo="_ViewModel.BlackTeam" IsFlipped="true" Type="TeamCardType.Dark"/>
     }
 
 </MudContainer>
