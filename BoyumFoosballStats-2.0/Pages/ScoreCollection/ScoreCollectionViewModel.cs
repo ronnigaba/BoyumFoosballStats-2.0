@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats_2._0.Services.Interface;
@@ -6,17 +7,20 @@ using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
 using CosmosDb.Services;
 using MudBlazor;
+using Newtonsoft.Json;
 
 namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
+    private readonly IMatchCrudService _matchCrudService;
     private readonly ISnackbar _snackbarService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService)
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, IMatchCrudService matchCrudService, ISnackbar snackbarService)
     {
         _playerCrudService = playerCrudService;
+        _matchCrudService = matchCrudService;
         _snackbarService = snackbarService;
         _snackbarService.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
         _snackbarService.Configuration.VisibleStateDuration = 2000;
@@ -99,5 +103,15 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         {
             BlackTeam = BlackTeam with { Defender = null };
         }
+    }
+
+    public async Task AutoBalance()
+    {
+        var matches = await _matchCrudService.GetAllAsync();
+        var list = matches.ToList();
+        // Console.WriteLine(list.Count);
+        // Console.WriteLine(JsonConvert.SerializeObject(list.First()));
+        Console.WriteLine(JsonConvert.SerializeObject(list.Last()));
+        // Console.WriteLine(JsonConvert.SerializeObject(list));
     }
 }

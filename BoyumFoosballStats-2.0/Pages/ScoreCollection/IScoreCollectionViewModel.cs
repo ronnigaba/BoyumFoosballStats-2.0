@@ -22,4 +22,5 @@ public interface IScoreCollectionViewModel : IViewModelBase
     Task ShowActiveCheckedChanged(bool arg);
     Task SaveMatch();
     void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers);
+    Task AutoBalance();
 }

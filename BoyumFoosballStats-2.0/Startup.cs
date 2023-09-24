@@ -39,6 +39,7 @@ namespace BoyumFoosballStats_2
             services.AddOptions();
             services.Configure<CosmosDbSettings>(Configuration.GetSection("ConnectionStrings"));
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
+            services.AddSingleton<IMatchCrudService, MatchCrudService>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
         }
 
