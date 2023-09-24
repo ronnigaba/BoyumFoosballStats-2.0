@@ -1,6 +1,4 @@
 ﻿@page "/ScoreCollection"
-@using BoyumFoosballStats_2._0.Shared.DbModels
-@using BoyumFoosballStats_2.Components.TeamCard
 @inject IScoreCollectionViewModel _ViewModel
 
 <MudContainer MaxWidth="MaxWidth.Medium">
@@ -20,12 +18,10 @@
             </MudSelect>
         </div>
     }
-
-
+    
     @if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
     {
         <TeamCard PlayersList="_ViewModel.SelectedPlayers" @bind-TeamInfo="_ViewModel.GreyTeam"/>
         <TeamCard PlayersList="_ViewModel.SelectedPlayers" @bind-TeamInfo="_ViewModel.BlackTeam" IsFlipped="true" Type="TeamCardType.Dark"/>
     }
-
 </MudContainer>

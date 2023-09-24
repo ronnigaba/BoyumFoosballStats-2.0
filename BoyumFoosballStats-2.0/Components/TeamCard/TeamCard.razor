@@ -1,5 +1,4 @@
-﻿@using BoyumFoosballStats_2._0.Shared.DbModels
-<MudPaper Elevation="4" MinHeight="200px" Class="@ViewModel.WrapperClasses">
+﻿<MudPaper Elevation="4" MinHeight="200px" Class="@ViewModel.WrapperClasses">
     <div class="d-flex gap-8">
         <MudSelect T="Player" Value="@TeamInfo!.Defender" ValueChanged="ViewModel.HandleDefenderChanged" Label="@ViewModel.GetDefenderName()" Class="w-0" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Security">
             @foreach (var player in PlayersList!)
