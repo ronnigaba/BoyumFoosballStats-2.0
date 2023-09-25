@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats_2._0.Services;
+using BoyumFoosballStats_2._0.Services.Extensions;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
@@ -15,12 +17,15 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
     private readonly ISnackbar _snackbarService;
     private readonly IMatchMakingService _matchMakingService;
+    private readonly IMatchCrudService _matchCrudService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService, IMatchMakingService matchMakingService)
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService, 
+        IMatchMakingService matchMakingService, IMatchCrudService matchCrudService)
     {
         _playerCrudService = playerCrudService;
         _snackbarService = snackbarService;
         _matchMakingService = matchMakingService;
+        _matchCrudService = matchCrudService;
         _snackbarService.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
         _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
@@ -54,7 +59,23 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     public Task SaveMatch()
     {
         _snackbarService.Clear();
+        var match = new Match
+        {
+            BlackAttackerPlayer = BlackTeam.Attacker,
+            BlackDefenderPlayer = BlackTeam.Defender,
+            ScoreBlack = BlackTeam.Score,
+            GreyAttackerPlayer = GreyTeam.Attacker,
+            GreyDefenderPlayer = GreyTeam.Defender,
+            ScoreGrey = GreyTeam.Score,
+            MatchDate = DateTime.Now,
+        };
+        match.UpdateMatchesPlayed();
+        match.UpdateTrueSkill();
+        _matchCrudService.CreateOrUpdateAsync(match);
         _snackbarService.Add("Match saved. GG!",  Severity.Success);
+        
+        GreyTeam.Score = 5;
+        BlackTeam.Score = 5;
         return Task.CompletedTask;
     }
 
