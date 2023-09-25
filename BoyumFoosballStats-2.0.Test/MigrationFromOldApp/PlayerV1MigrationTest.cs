@@ -1,7 +1,10 @@
-﻿using BoyumFoosballStats_2._0.Services;
+﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Shared;
 using CosmosDb.Model;
 using Microsoft.Extensions.Options;
+using Moserware.Skills;
 using Xunit;
 
 namespace BoyumFoosballStats_2._0.Test.MigrationFromOldApp;
@@ -11,10 +14,11 @@ public class PlayerV1MigrationTest
     [Fact]
     public async void MigratePlayersToFirestore()
     {
-        var cosmos = new CosmosDbSettings()
+        var tokenCredential = new DefaultAzureCredential();
+        var secretClient = new SecretClient(new Uri("https://boyumfoosballstats.vault.azure.net/"), tokenCredential);
+        var cosmos = new CosmosDbSettings
         {
-            ConnectionString =
-                "AccountEndpoint=https://boyum-foosball-stats.documents.azure.com:443/;AccountKey=bzFDKIaIPRtg20nSvj60LtLujmZLRLInZwQzZk3jMaB2H1qiljTeT38y3JTkZtHx4vBCInSp5unrACDbDgrE1w==",
+            ConnectionString = secretClient.GetSecret("CosmosDbConnectionString").Value.Value,
             DatabaseName = "BoyumFoosballStats"
         };
         var options = Options.Create(cosmos);
@@ -22,19 +26,20 @@ public class PlayerV1MigrationTest
             new PlayerCrudService(options);
         var migrations = new List<Shared.DbModels.Player>();
 
-        var existing = await playerController.GetAllAsync();
-        if (existing.Any())
-        {
-            throw new Exception("Entries already exist, to avoid data loss, please decide what to do with them");
-        }
-
+        // var existing = await playerController.GetAllAsync();
+        // if (existing.Any())
+        // {
+        //     throw new Exception("Entries already exist, to avoid data loss, please decide what to do with them");
+        // }
+        
         foreach (Player player in Enum.GetValues(typeof(Player)))
         {
+            var gameInfo = GameInfo.DefaultGameInfo;
             var migratedPlayer = new Shared.DbModels.Player
             {
                 Active = true,
                 MatchesPlayed = 0,
-                TrueSkillRating = 0.0f,
+                TrueSkillRating = gameInfo.DefaultRating,
                 Name = Enum.GetName(player),
                 LegacyPlayerId = (int)player
             };

@@ -1,4 +1,5 @@
 ﻿using CosmosDb.Model;
+using Moserware.Skills;
 using Newtonsoft.Json;
 
 namespace BoyumFoosballStats_2._0.Shared.DbModels;
@@ -11,7 +12,7 @@ public class Player : CosmosDbBaseModel
 
     [JsonProperty("Active")] public bool Active { get; set; }
 
-    [JsonProperty("TrueSkillRating")] public float? TrueSkillRating { get; set; }
+    [JsonProperty("TrueSkillRating")] public Rating? TrueSkillRating { get; set; }
 
     [JsonProperty("MatchesPlayed")] public int? MatchesPlayed { get; set; }
 

@@ -1,4 +1,7 @@
-﻿using BoyumFoosballStats_2._0.Services;
+﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using BoyumFoosballStats_2._0.Services;
+using BoyumFoosballStats_2._0.Services.Extensions;
 using BoyumFoosballStats_2._0.Shared;
 using CosmosDb.Model;
 using Microsoft.Extensions.Options;
@@ -13,10 +16,11 @@ public class MatchesV1MigrationTest
     public async void MigrateMatchesToFirestore()
     {
         var jsonPath = "D:\\Downloads\\Chrome\\matches.json";
-        var cosmos = new CosmosDbSettings()
+        var tokenCredential = new DefaultAzureCredential();
+        var secretClient = new SecretClient(new Uri("https://boyumfoosballstats.vault.azure.net/"), tokenCredential);
+        var cosmos = new CosmosDbSettings
         {
-            ConnectionString =
-                "AccountEndpoint=https://boyum-foosball-stats.documents.azure.com:443/;AccountKey=bzFDKIaIPRtg20nSvj60LtLujmZLRLInZwQzZk3jMaB2H1qiljTeT38y3JTkZtHx4vBCInSp5unrACDbDgrE1w==",
+            ConnectionString = secretClient.GetSecret("CosmosDbConnectionString").Value.Value,
             DatabaseName = "BoyumFoosballStats"
         };
         var options = Options.Create(cosmos);
@@ -47,7 +51,8 @@ public class MatchesV1MigrationTest
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };
-                //ToDo RGA - Update TrueSkillRating and MatchesPlayed during final convert
+                migratedMatch.UpdateMatchesPlayed();
+                migratedMatch.UpdateTrueSkill();
                 migratedMatch = await matchController.CreateOrUpdateAsync(migratedMatch);
             }
         }

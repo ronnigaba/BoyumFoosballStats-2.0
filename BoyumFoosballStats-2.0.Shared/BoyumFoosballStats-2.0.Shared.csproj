@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CosmosDb\CosmosDb.csproj" />
+      <ProjectReference Include="..\TrueSkill\TrueSkill.csproj" />
     </ItemGroup>
 
 </Project>
