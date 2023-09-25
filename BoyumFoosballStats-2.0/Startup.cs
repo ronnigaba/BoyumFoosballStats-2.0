@@ -1,9 +1,11 @@
+using System;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
 using BoyumFoosballStats.Models;
 using CosmosDb.Model;
-using CosmosDb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +31,7 @@ namespace BoyumFoosballStats_2
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddMudServices();
-            
+
             services.Scan(scan => scan
                 .FromCallingAssembly()
                 .AddClasses(classes => classes.AssignableTo<IViewModelBase>())
@@ -37,8 +39,16 @@ namespace BoyumFoosballStats_2
                 .WithTransientLifetime());
 
             services.AddOptions();
-            services.Configure<CosmosDbSettings>(Configuration.GetSection("ConnectionStrings"));
+            var tokenCredential = new DefaultAzureCredential();
+            var secretClient =
+                new SecretClient(new Uri(Configuration.GetValue<string>("KeyVaultUrl")!), tokenCredential);
+            Configuration["CosmosConnectionStrings:ConnectionString"] =
+                secretClient.GetSecret("CosmosDbConnectionString").Value.Value;
+            Configuration["BlobStorageSettings:BloblUrl"] =
+                secretClient.GetSecret("BlobStorageConnectionString").Value.Value;
+            services.Configure<CosmosDbSettings>(Configuration.GetSection("CosmosConnectionStrings"));
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
+            services.AddSingleton<IMatchCrudService, MatchCrudService>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
         }
 
