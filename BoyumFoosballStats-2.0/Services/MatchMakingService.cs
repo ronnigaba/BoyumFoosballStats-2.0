@@ -22,7 +22,7 @@ public class MatchMakingService : IMatchMakingService
     }
 
     //ToDo RGA - Return complex object that includes the fairness score - Possibly return all matches in fairness order
-    public async Task<Match> FindFairestMatch(List<Player> players)
+    public async Task<Match> FindFairestMatch(IEnumerable<Player> players)
     {
         var fairestMatch = new Match();
         var bestFairnessFactor = double.MaxValue;
@@ -37,8 +37,8 @@ public class MatchMakingService : IMatchMakingService
                 {
                     BlackAttackerPlayer = comb1.First(),
                     BlackDefenderPlayer = comb1.Last(),
-                    GrayAttackerPlayer = comb2.First(),
-                    GrayDefenderPlayer = comb2.Last()
+                    GreyAttackerPlayer = comb2.First(),
+                    GreyDefenderPlayer = comb2.Last()
                 };
                 if (!match.IsValid())
                 {

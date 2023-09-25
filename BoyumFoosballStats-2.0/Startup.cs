@@ -4,6 +4,8 @@ using Azure.Security.KeyVault.Secrets;
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
+using BoyumFoosballStats.BlobStorage;
+using BoyumFoosballStats.BlobStorage.Model;
 using BoyumFoosballStats.Models;
 using CosmosDb.Model;
 using Microsoft.AspNetCore.Builder;
@@ -44,12 +46,15 @@ namespace BoyumFoosballStats_2
                 new SecretClient(new Uri(Configuration.GetValue<string>("KeyVaultUrl")!), tokenCredential);
             Configuration["CosmosConnectionStrings:ConnectionString"] =
                 secretClient.GetSecret("CosmosDbConnectionString").Value.Value;
-            Configuration["BlobStorageSettings:BloblUrl"] =
+            Configuration["BlobStorageSettings:BlobUrl"] =
                 secretClient.GetSecret("BlobStorageConnectionString").Value.Value;
             services.Configure<CosmosDbSettings>(Configuration.GetSection("CosmosConnectionStrings"));
+            services.Configure<BlobStorageOptions>(Configuration.GetSection("BlobStorageSettings"));
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
             services.AddSingleton<IMatchCrudService, MatchCrudService>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
+            services.AddTransient<IMatchMakingService, MatchMakingService>();
+            services.AddTransient<IAzureBlobStorageHelper, AzureBlobStorageHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

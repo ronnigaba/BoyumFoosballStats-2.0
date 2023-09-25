@@ -38,12 +38,12 @@ public class MatchesV1MigrationTest
             {
                 var migratedMatch = new Shared.DbModels.Match
                 {
-                    ScoreGray = oldMatch.ScoreGray,
+                    ScoreGrey = oldMatch.ScoreGrey,
                     ScoreBlack = oldMatch.ScoreBlack,
                     BlackAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Attacker),
                     BlackDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Defender),
-                    GrayAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker),
-                    GrayDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender),
+                    GreyAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker),
+                    GreyDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender),
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };
@@ -73,7 +73,7 @@ public class Match
 
     public int ScoreBlack { get; set; }
 
-    public int ScoreGray { get; set; }
+    public int ScoreGrey { get; set; }
 
     public DateTime MatchDate { get; set; }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Interface;
 using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
@@ -13,21 +14,19 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
     private readonly ISnackbar _snackbarService;
+    private readonly IMatchMakingService _matchMakingService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService)
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService, IMatchMakingService matchMakingService)
     {
         _playerCrudService = playerCrudService;
         _snackbarService = snackbarService;
+        _matchMakingService = matchMakingService;
         _snackbarService.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
         _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
-
-    public bool DrawerOpen { get; set; }
-    public bool ShowInactivePlayers { get; set; }
-    public bool AutoBalanceMatches { get; set; }
-    public bool AutoSwapPlayers { get; set; }
+    
     public IEnumerable<Player>? AvailablePlayers { get; set; }
-    public IEnumerable<Player>? SelectedPlayers { get; set; } = new HashSet<Player>();
+    public IEnumerable<Player>? SelectedPlayers { get; set; } = new List<Player>();
 
     public TeamInfo GreyTeam { get; set; } = new()
     {
@@ -41,31 +40,15 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         Score = 5
     };
 
-    public void ToggleDrawer()
-    {
-        DrawerOpen = !DrawerOpen;
-    }
-
     public async Task LoadPlayers()
     {
         var players = await _playerCrudService.GetAllAsync();
-        if (!ShowInactivePlayers)
-        {
-            players = players.Where(x => x.Active);
-        }
-
         AvailablePlayers = players;
     }
 
     public string? PlayerToString(Player player)
     {
         return player.Name;
-    }
-
-    public async Task ShowActiveCheckedChanged(bool arg)
-    {
-        ShowInactivePlayers = arg;
-        await LoadPlayers();
     }
 
     public Task SaveMatch()
@@ -98,6 +81,16 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         if (BlackTeam.Defender != null && selectedPlayersList.All(p => p.Id != BlackTeam.Defender.Id))
         {
             BlackTeam = BlackTeam with { Defender = null };
+        }
+    }
+
+    public async Task BalanceMatch()
+    {
+        if (SelectedPlayers != null && SelectedPlayers.Any())
+        {
+            var fairMatch = await _matchMakingService.FindFairestMatch(SelectedPlayers);
+            GreyTeam = GreyTeam with { Attacker = fairMatch.GreyAttackerPlayer , Defender = fairMatch.GreyDefenderPlayer};
+            BlackTeam = BlackTeam with { Attacker = fairMatch.BlackAttackerPlayer , Defender = fairMatch.BlackDefenderPlayer};
         }
     }
 }
