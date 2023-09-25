@@ -54,6 +54,12 @@ public class MatchesV1MigrationTest
                 migratedMatch.UpdateMatchesPlayed();
                 migratedMatch.UpdateTrueSkill();
                 migratedMatch = await matchController.CreateOrUpdateAsync(migratedMatch);
+                //Is there a better way?
+                //ToDo - Does not seem to update TrueSkill rating correctly
+                await playerController.CreateOrUpdateAsync(migratedMatch.BlackAttackerPlayer);
+                await playerController.CreateOrUpdateAsync(migratedMatch.BlackDefenderPlayer);
+                await playerController.CreateOrUpdateAsync(migratedMatch.GreyAttackerPlayer);
+                await playerController.CreateOrUpdateAsync(migratedMatch.GreyDefenderPlayer);
             }
         }
 
