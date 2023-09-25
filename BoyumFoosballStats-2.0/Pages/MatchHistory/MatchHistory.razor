@@ -7,15 +7,25 @@
         </ToolBarContent>
         <ColGroup>
             <col style="width: 250px;"/>
-            <col style="width: 100px; min-width: 60px;"/>
+            <col style="width: 100px; min-width: 80px;"/>
             <col style="width: 250px;"/>
-            <col/>
+            <col style="min-width: 120px;"/>
+            <col style="min-width: 80px;"/>
         </ColGroup>
         <HeaderContent>
-            <MudTh colspan="3">
-                <MudText Align="Align.Center" Class="d-block" Typo="Typo.inherit">Match</MudText>
+            <MudTh>
+                <MudText Align="Align.End" Class="d-block" Typo="Typo.inherit">Grey team</MudText>
             </MudTh>
-            <MudTh>Date</MudTh>
+            <MudTh>
+                <MudText Align="Align.Center" Class="d-block" Typo="Typo.inherit">Score</MudText>
+            </MudTh>
+            <MudTh>
+                <MudText Align="Align.Start" Class="d-block" Typo="Typo.inherit">Black team</MudText>
+            </MudTh>
+            <MudTh Class="d-none d-sm-table-cell">Date</MudTh>
+            <MudTh Class="d-none d-sm-table-cell">
+                <MudText Align="Align.End" Class="d-block" Typo="Typo.inherit">Options</MudText>
+            </MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="@nameof(Match.GrayDefenderPlayer)">
@@ -23,6 +33,10 @@
                     <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GrayDefenderPlayer.Name</MudButton>
                     <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GrayAttackerPlayer.Name</MudButton>
                 </div>
+                @* <div class="mt-5"> *@
+                @*     <MudIcon Size="Size.Small" Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Info" /> *@
+                @*     <MudText Inline="true" Align="Align.Start">@context.MatchDate.ToShortDateString()</MudText> *@
+                @* </div> *@
             </MudTd>
             <MudTd>
                 <MudText Align="Align.Center">
@@ -37,8 +51,13 @@
                     <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer.Name</MudButton>
                 </div>
             </MudTd>
-            <MudTd DataLabel="@nameof(Match.MatchDate)">
-                <MudText Align="Align.Center">@context.MatchDate.ToString("ddd, d MMM, yyyy")</MudText>
+            <MudTd DataLabel="@nameof(Match.MatchDate)" Class="d-none d-sm-table-cell">
+                <MudText Align="Align.Start">@context.MatchDate.ToString("ddd, d MMM, yyyy")</MudText>
+            </MudTd>
+            <MudTd Class="d-none d-sm-table-cell">
+                <div class="w-100 d-flex justify-end">
+                    <MudIconButton Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
+                </div>
             </MudTd>
         </RowTemplate>
         <PagerContent>
