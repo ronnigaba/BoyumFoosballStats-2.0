@@ -1,4 +1,7 @@
-﻿using BoyumFoosballStats_2._0.Services;
+﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using BoyumFoosballStats_2._0.Services;
+using BoyumFoosballStats_2._0.Services.Extensions;
 using BoyumFoosballStats_2._0.Shared;
 using CosmosDb.Model;
 using Microsoft.Extensions.Options;
@@ -13,10 +16,11 @@ public class MatchesV1MigrationTest
     public async void MigrateMatchesToFirestore()
     {
         var jsonPath = "D:\\Downloads\\Chrome\\matches.json";
-        var cosmos = new CosmosDbSettings()
+        var tokenCredential = new DefaultAzureCredential();
+        var secretClient = new SecretClient(new Uri("https://boyumfoosballstats.vault.azure.net/"), tokenCredential);
+        var cosmos = new CosmosDbSettings
         {
-            ConnectionString =
-                "AccountEndpoint=https://boyum-foosball-stats.documents.azure.com:443/;AccountKey=bzFDKIaIPRtg20nSvj60LtLujmZLRLInZwQzZk3jMaB2H1qiljTeT38y3JTkZtHx4vBCInSp5unrACDbDgrE1w==",
+            ConnectionString = secretClient.GetSecret("CosmosDbConnectionString").Value.Value,
             DatabaseName = "BoyumFoosballStats"
         };
         var options = Options.Create(cosmos);
@@ -38,17 +42,24 @@ public class MatchesV1MigrationTest
             {
                 var migratedMatch = new Shared.DbModels.Match
                 {
-                    ScoreGray = oldMatch.ScoreGray,
+                    ScoreGrey = oldMatch.ScoreGrey,
                     ScoreBlack = oldMatch.ScoreBlack,
                     BlackAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Attacker),
                     BlackDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Defender),
-                    GrayAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker),
-                    GrayDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender),
+                    GreyAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker),
+                    GreyDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender),
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };
-                //ToDo RGA - Update TrueSkillRating and MatchesPlayed during final convert
+                migratedMatch.UpdateMatchesPlayed();
+                migratedMatch.UpdateTrueSkill();
                 migratedMatch = await matchController.CreateOrUpdateAsync(migratedMatch);
+                //Is there a better way?
+                //ToDo - Does not seem to update TrueSkill rating correctly
+                await playerController.CreateOrUpdateAsync(migratedMatch.BlackAttackerPlayer);
+                await playerController.CreateOrUpdateAsync(migratedMatch.BlackDefenderPlayer);
+                await playerController.CreateOrUpdateAsync(migratedMatch.GreyAttackerPlayer);
+                await playerController.CreateOrUpdateAsync(migratedMatch.GreyDefenderPlayer);
             }
         }
 
@@ -73,7 +84,7 @@ public class Match
 
     public int ScoreBlack { get; set; }
 
-    public int ScoreGray { get; set; }
+    public int ScoreGrey { get; set; }
 
     public DateTime MatchDate { get; set; }
 }

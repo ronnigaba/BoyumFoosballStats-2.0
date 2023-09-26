@@ -6,8 +6,8 @@
     {
         <div class="d-flex flex-column gap-2 mt-5 mb-8">
             <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="align-self-end" Size="Size.Medium" OverrideStyles="false">
-                <MudButton EndIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" OnClick="_ViewModel.SaveMatch">Save</MudButton>
-                <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined" OnClick="_ViewModel.AutoBalance"></MudIconButton>
+                <MudButton EndIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => _ViewModel.SaveMatch()">Save</MudButton>
+                <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined" OnClick="() => _ViewModel.BalanceMatch()"></MudIconButton>
                 <MudIconButton Icon="@Icons.Material.Filled.KeyboardArrowDown" Color="Color.Primary" Variant="Variant.Outlined"></MudIconButton>
             </MudButtonGroup>
             <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" SelectedValues="_ViewModel.SelectedPlayers" SelectedValuesChanged="_ViewModel.HandleSelectedPlayersChanged" Variant="Variant.Filled" ToStringFunc="_ViewModel.PlayerToString">
