@@ -58,7 +58,6 @@ public class MatchesV1MigrationTest
                 migratedMatch.UpdateMatchesPlayed();
                 migratedMatch.UpdateTrueSkill();
                 await matchController.CreateOrUpdateAsync(migratedMatch);
-                // Thread.Sleep(200);
             }
         }
 
