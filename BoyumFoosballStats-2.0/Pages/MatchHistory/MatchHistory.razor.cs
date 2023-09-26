@@ -19,7 +19,6 @@ public partial class MatchHistory
     {
         await base.OnInitializedAsync();
         Matches = (await MatchCrudService.GetAllAsync()).Reverse().ToList();
-        Console.WriteLine(Matches.Count);
     }
 
     public Color GetGreyScoreColor(Match match)

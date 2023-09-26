@@ -274,8 +274,8 @@ px-4 {
 }
 
 @media (min-width: 600px) {
-    .border-sm {
-        border-width: 1px !important;
+    .border-b-sm {
+        border-bottom-width: 1px !important;
     }
 }
 

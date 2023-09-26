@@ -28,20 +28,20 @@
             </MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="@nameof(Match.GreyDefenderPlayer)" Class="border-0 border-sm">
+            <MudTd DataLabel="@nameof(Match.GreyDefenderPlayer)" Class="border-0 border-b-sm">
                 <div class="d-flex w-100 flex-column align-end">
                     <MudButton Variant="Variant.Text" Class="normal-case" EndIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
                     <MudButton Variant="Variant.Text" Class="normal-case" EndIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
                 </div>
             </MudTd>
-            <MudTd Class="border-0 border-sm">
+            <MudTd Class="border-0 border-b-sm">
                 <MudText Align="Align.Center">
                     <MudText Inline="true" Typo="Typo.button" Color="GetGreyScoreColor(context)">@context.ScoreGrey</MudText>
                     <MudText Inline="true" Typo="Typo.button"> - </MudText>
                     <MudText Inline="true" Typo="Typo.button" Color="GetBlackScoreColor(context)">@context.ScoreBlack</MudText>
                 </MudText>
             </MudTd>
-            <MudTd Class="border-0 border-sm">
+            <MudTd Class="border-0 border-b-sm">
                 <div class="d-flex w-100 flex-column align-start">
                     <MudButton Variant="Variant.Text" Class="normal-case" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
                     <MudButton Variant="Variant.Text" Class="normal-case" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
@@ -62,7 +62,6 @@
                     <MudText Class="d-block" Color="Color.Default" Align="Align.End" Typo="Typo.caption">@context.MatchDate.ToString("MMM d, yyyy")</MudText>
                 </td>
                 <td class="mud-table-cell">
-                    @* <MudDivider></MudDivider> *@
                 </td>
                 <td class="mud-table-cell">
                     <div class="w-100 d-flex justify-end">
