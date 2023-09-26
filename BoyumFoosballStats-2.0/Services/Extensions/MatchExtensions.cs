@@ -1,4 +1,5 @@
 ﻿using BoyumFoosballStats_2._0.Shared.DbModels;
+using BoyumFoosballStats_2._0.Shared.Models;
 using Moserware.Skills;
 
 namespace BoyumFoosballStats_2._0.Services.Extensions;
@@ -31,10 +32,10 @@ public static class MatchExtensions
         var grayRank = match.ScoreGrey > match.ScoreBlack ? 1 : 2;
         var newRatings = TrueSkillCalculator.CalculateNewRatings(gameInfo, teams, blackRank, grayRank);
 
-        match.BlackAttackerPlayer!.TrueSkillRating = newRatings[blackAttacker];
-        match.BlackDefenderPlayer!.TrueSkillRating = newRatings[blackDefender];
-        match.GreyAttackerPlayer!.TrueSkillRating = newRatings[greyAttacker];
-        match.GreyDefenderPlayer!.TrueSkillRating = newRatings[greyDefender];
+        match.BlackAttackerPlayer!.TrueSkillRating = newRatings[blackAttacker] as TrueSkillRating;
+        match.BlackDefenderPlayer!.TrueSkillRating = newRatings[blackDefender] as TrueSkillRating;
+        match.GreyAttackerPlayer!.TrueSkillRating = newRatings[greyAttacker] as TrueSkillRating;
+        match.GreyDefenderPlayer!.TrueSkillRating = newRatings[greyDefender] as TrueSkillRating;
     }
 
     public static void UpdateMatchesPlayed(this Match match)
@@ -43,6 +44,7 @@ public static class MatchExtensions
         {
             return;
         }
+
         match.BlackAttackerPlayer.MatchesPlayed++;
         match.BlackDefenderPlayer.MatchesPlayed++;
         match.GreyAttackerPlayer.MatchesPlayed++;

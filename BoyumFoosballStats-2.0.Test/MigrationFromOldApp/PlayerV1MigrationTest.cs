@@ -2,6 +2,8 @@
 using Azure.Security.KeyVault.Secrets;
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Shared;
+using BoyumFoosballStats_2._0.Shared.Models;
+using BoyumFoosballStats.Models;
 using CosmosDb.Model;
 using Microsoft.Extensions.Options;
 using Moserware.Skills;
@@ -39,7 +41,7 @@ public class PlayerV1MigrationTest
             {
                 Active = true,
                 MatchesPlayed = 0,
-                TrueSkillRating = gameInfo.DefaultRating,
+                TrueSkillRating = new TrueSkillRating(),
                 Name = Enum.GetName(player),
                 LegacyPlayerId = (int)player
             };
