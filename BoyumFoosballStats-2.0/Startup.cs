@@ -40,6 +40,8 @@ namespace BoyumFoosballStats_2
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
 
+            
+            
             services.AddOptions();
             var tokenCredential = new DefaultAzureCredential();
             var secretClient =

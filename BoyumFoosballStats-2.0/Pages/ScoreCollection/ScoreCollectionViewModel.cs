@@ -19,7 +19,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     private readonly IMatchMakingService _matchMakingService;
     private readonly IMatchCrudService _matchCrudService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService, 
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService,
         IMatchMakingService matchMakingService, IMatchCrudService matchCrudService)
     {
         _playerCrudService = playerCrudService;
@@ -29,7 +29,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         _snackbarService.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
         _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
-    
+
     public IEnumerable<Player>? AvailablePlayers { get; set; }
     public IEnumerable<Player>? SelectedPlayers { get; set; } = new List<Player>();
 
@@ -69,11 +69,20 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             ScoreGrey = GreyTeam.Score,
             MatchDate = DateTime.Now,
         };
+
+        if (!match.IsValid())
+        {
+            return Task.CompletedTask;
+        }
+
         match.UpdateMatchesPlayed();
         match.UpdateTrueSkill();
         _matchCrudService.CreateOrUpdateAsync(match);
-        _snackbarService.Add("Match saved. GG!",  Severity.Success);
-        
+        _snackbarService.Add("Match saved. GG!", Severity.Success);
+        _playerCrudService.CreateOrUpdateAsync(new List<Player>
+        {
+            match.BlackDefenderPlayer!, match.BlackAttackerPlayer!, match.GreyAttackerPlayer!, match.GreyDefenderPlayer!
+        });
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
         return Task.CompletedTask;
@@ -87,18 +96,18 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         if (GreyTeam.Attacker != null && selectedPlayersList.All(p => p.Id != GreyTeam.Attacker.Id))
         {
             GreyTeam = GreyTeam with { Attacker = null };
-        }        
-        
+        }
+
         if (GreyTeam.Defender != null && selectedPlayersList.All(p => p.Id != GreyTeam.Defender.Id))
         {
             GreyTeam = GreyTeam with { Defender = null };
         }
-        
+
         if (BlackTeam.Attacker != null && selectedPlayersList.All(p => p.Id != BlackTeam.Attacker.Id))
         {
             GreyTeam = BlackTeam with { Attacker = null };
-        }        
-        
+        }
+
         if (BlackTeam.Defender != null && selectedPlayersList.All(p => p.Id != BlackTeam.Defender.Id))
         {
             BlackTeam = BlackTeam with { Defender = null };
@@ -109,9 +118,15 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     {
         if (SelectedPlayers != null && SelectedPlayers.Any())
         {
-            var fairMatch = await _matchMakingService.FindFairestMatch(SelectedPlayers);
-            GreyTeam = GreyTeam with { Attacker = fairMatch.GreyAttackerPlayer , Defender = fairMatch.GreyDefenderPlayer};
-            BlackTeam = BlackTeam with { Attacker = fairMatch.BlackAttackerPlayer , Defender = fairMatch.BlackDefenderPlayer};
+            var fairMatch = await _matchMakingService.FindFairestMatchTrueSkill(SelectedPlayers);
+            GreyTeam = GreyTeam with
+            {
+                Attacker = fairMatch.GreyAttackerPlayer, Defender = fairMatch.GreyDefenderPlayer
+            };
+            BlackTeam = BlackTeam with
+            {
+                Attacker = fairMatch.BlackAttackerPlayer, Defender = fairMatch.BlackDefenderPlayer
+            };
         }
     }
 }

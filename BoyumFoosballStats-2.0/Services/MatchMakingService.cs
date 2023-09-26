@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_Ai;
 using BoyumFoosballStats.BlobStorage;
-using BoyumFoosballStats.BlobStorage.Model;
 using BoyumFoosballStats.Controller;
-using Microsoft.Extensions.Options;
+using Moserware.Skills;
 using MudBlazor.Extensions;
+using Player = BoyumFoosballStats_2._0.Shared.DbModels.Player;
 
 namespace BoyumFoosballStats_2._0.Services;
 
@@ -22,7 +22,7 @@ public class MatchMakingService : IMatchMakingService
     }
 
     //ToDo RGA - Return complex object that includes the fairness score - Possibly return all matches in fairness order
-    public async Task<Match> FindFairestMatch(IEnumerable<Player> players)
+    public async Task<Match> FindFairestMatchAi(IEnumerable<Player> players)
     {
         var fairestMatch = new Match();
         var bestFairnessFactor = double.MaxValue;
@@ -62,6 +62,49 @@ public class MatchMakingService : IMatchMakingService
                 }
             }
         }
+
+        return fairestMatch;
+    }
+
+    public async Task<Match> FindFairestMatchTrueSkill(IEnumerable<Player> players)
+    {
+        var fairestMatch = new Match();
+        
+        var combinations = CollectionCombinationHelper.GetAllCombinations(players, 2).ToList();
+        foreach (var comb1 in combinations)
+        {
+            foreach (var comb2 in combinations)
+            {
+                var match = new Match
+                {
+                    BlackAttackerPlayer = comb1.First(),
+                    BlackDefenderPlayer = comb1.Last(),
+                    GreyAttackerPlayer = comb2.First(),
+                    GreyDefenderPlayer = comb2.Last()
+                };
+                if (!match.IsValid())
+                {
+                    continue;
+                }
+                var blackAttacker = new Moserware.Skills.Player(match.BlackAttackerPlayer?.Id);
+                var blackDefender = new Moserware.Skills.Player(match.BlackDefenderPlayer?.Id);
+                var greyAttacker = new Moserware.Skills.Player(match.GreyAttackerPlayer?.Id);
+                var greyDefender = new Moserware.Skills.Player(match.GreyDefenderPlayer?.Id);
+
+                var blackTeam = new Team()
+                    .AddPlayer(blackAttacker, match.BlackAttackerPlayer?.TrueSkillRating)
+                    .AddPlayer(blackDefender, match.BlackDefenderPlayer?.TrueSkillRating);
+
+                var greyTeam = new Team()
+                    .AddPlayer(greyAttacker, match.GreyAttackerPlayer?.TrueSkillRating)
+                    .AddPlayer(greyDefender, match.GreyDefenderPlayer?.TrueSkillRating);
+
+                var teams = Teams.Concat(blackTeam, greyTeam);
+
+                var fairness = TrueSkillCalculator.CalculateMatchQuality(GameInfo.DefaultGameInfo, teams);
+            }
+        }
+
 
         return fairestMatch;
     }

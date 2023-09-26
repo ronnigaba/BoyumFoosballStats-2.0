@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace CosmosDb.Services;
 
-public class CosmosDbCrudService<T> : ICosmosDbCrudService<T>
+public class CosmosDbCrudService<T> : ICosmosDbCrudService<T> where T : CosmosDbBaseModel
 {
     private readonly Container _container;
 
@@ -45,6 +45,24 @@ public class CosmosDbCrudService<T> : ICosmosDbCrudService<T>
     public async Task<T> CreateOrUpdateAsync(T item)
     {
         return await _container.UpsertItemAsync(item);
+    }
+
+    public async Task CreateOrUpdateAsync(List<T> items)
+    {
+        if (items == null || items.Count == 0)
+        {
+            return;
+        }
+
+        var partitionKey = new PartitionKey(items.First().PartitionKey);
+        var batch = _container.CreateTransactionalBatch(partitionKey);
+
+        foreach (var item in items)
+        {
+            batch.CreateItem(item);
+        }
+
+        await batch.ExecuteAsync();
     }
 
     public async Task DeleteAsync(string id)
