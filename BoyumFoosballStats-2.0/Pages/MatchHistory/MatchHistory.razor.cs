@@ -17,16 +17,17 @@ public partial class MatchHistory
 
     protected override async Task OnInitializedAsync()
     {
-        Matches = (await MatchCrudService.GetAllAsync()).Reverse().ToList();
         await base.OnInitializedAsync();
+        Matches = (await MatchCrudService.GetAllAsync()).Reverse().ToList();
+        Console.WriteLine(Matches.Count);
     }
 
-    public Color GetGrayScoreColor(Match match)
+    public Color GetGreyScoreColor(Match match)
     {
-        return match.ScoreGray > match.ScoreBlack ? Color.Success : Color.Error;
+        return match.ScoreGrey > match.ScoreBlack ? Color.Success : Color.Error;
     }    
     public Color GetBlackScoreColor(Match match)
     {
-        return match.ScoreBlack > match.ScoreGray ? Color.Success : Color.Error;
+        return match.ScoreBlack > match.ScoreGrey ? Color.Success : Color.Error;
     }
 }

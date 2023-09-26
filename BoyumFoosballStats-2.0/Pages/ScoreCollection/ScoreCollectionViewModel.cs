@@ -16,12 +16,11 @@ namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
-    private readonly IMatchCrudService _matchCrudService;
     private readonly ISnackbar _snackbarService;
     private readonly IMatchMakingService _matchMakingService;
     private readonly IMatchCrudService _matchCrudService;
 
-    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, IMatchCrudService matchCrudService, ISnackbar snackbarService, 
+    public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService, 
         IMatchMakingService matchMakingService, IMatchCrudService matchCrudService)
     {
         _playerCrudService = playerCrudService;

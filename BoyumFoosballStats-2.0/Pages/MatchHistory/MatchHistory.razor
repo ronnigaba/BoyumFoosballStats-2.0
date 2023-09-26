@@ -28,10 +28,10 @@
             </MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="@nameof(Match.GrayDefenderPlayer)">
+            <MudTd DataLabel="@nameof(Match.GreyDefenderPlayer)">
                 <div class="d-flex w-100 flex-column align-end">
-                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GrayDefenderPlayer.Name</MudButton>
-                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GrayAttackerPlayer.Name</MudButton>
+                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
                 </div>
                 @* <div class="mt-5"> *@
                 @*     <MudIcon Size="Size.Small" Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Info" /> *@
@@ -40,15 +40,15 @@
             </MudTd>
             <MudTd>
                 <MudText Align="Align.Center">
-                    <MudText Inline="true" Typo="Typo.button" Color="GetGrayScoreColor(context)">@context.ScoreGray</MudText>
+                    <MudText Inline="true" Typo="Typo.button" Color="GetGreyScoreColor(context)">@context.ScoreGrey</MudText>
                     <MudText Inline="true" Typo="Typo.button"> - </MudText>
                     <MudText Inline="true" Typo="Typo.button" Color="GetBlackScoreColor(context)">@context.ScoreBlack</MudText>
                 </MudText>
             </MudTd>
             <MudTd>
                 <div class="d-flex w-100 flex-column align-start">
-                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer.Name</MudButton>
-                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer.Name</MudButton>
+                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
                 </div>
             </MudTd>
             <MudTd DataLabel="@nameof(Match.MatchDate)" Class="d-none d-sm-table-cell">
