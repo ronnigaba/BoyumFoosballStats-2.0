@@ -269,3 +269,13 @@ px-4 {
     height: 100% !important;
 }
 
+.normal-case {
+    text-transform: none !important;
+}
+
+@media (min-width: 600px) {
+    .border-sm {
+        border-width: 1px !important;
+    }
+}
+
