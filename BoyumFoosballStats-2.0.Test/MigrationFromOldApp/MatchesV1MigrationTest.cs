@@ -2,7 +2,8 @@
 using Azure.Security.KeyVault.Secrets;
 using BoyumFoosballStats_2._0.Services;
 using BoyumFoosballStats_2._0.Services.Extensions;
-using BoyumFoosballStats_2._0.Shared;
+using BoyumFoosballStats.BlobStorage;
+using BoyumFoosballStats.BlobStorage.Model;
 using CosmosDb.Model;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -15,54 +16,55 @@ public class MatchesV1MigrationTest
     [Fact]
     public async void MigrateMatchesToFirestore()
     {
-        var jsonPath = "D:\\Downloads\\Chrome\\matches.json";
         var tokenCredential = new DefaultAzureCredential();
         var secretClient = new SecretClient(new Uri("https://boyumfoosballstats.vault.azure.net/"), tokenCredential);
-        var cosmos = new CosmosDbSettings
+        var cosmosSettings = new CosmosDbSettings
         {
             ConnectionString = secretClient.GetSecret("CosmosDbConnectionString").Value.Value,
             DatabaseName = "BoyumFoosballStats"
         };
-        var options = Options.Create(cosmos);
-        var matches = new List<Match>();
-
-        JsonSerializer serializer = new JsonSerializer();
-        using (StreamReader file = File.OpenText(jsonPath))
+        var cosmosOptions = Options.Create(cosmosSettings);
+       var blobSettings = new BlobStorageOptions
         {
-            matches = (List<Match>)serializer.Deserialize(file, typeof(List<Match>));
-        }
-
-        var matchController = new MatchCrudService(options);
-        var playerController = new PlayerCrudService(options);
+            BlobUrl = secretClient.GetSecret("BlobStorageConnectionString").Value.Value,
+            ContainerName = "BoyumFoosballStats"
+        };
+        var blobOptions = Options.Create(blobSettings);
+        var blobHelper = new AzureBlobStorageHelper(blobOptions);
+        var matches = await blobHelper.GetEntriesAsync<Match>("matches.json");
+        var matchController = new MatchCrudService(cosmosOptions);
+        var playerController = new PlayerCrudService(cosmosOptions);
         var players = await playerController.GetAllAsync();
 
         if (matches != null)
         {
             foreach (var oldMatch in matches)
             {
+                var blackAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Attacker);
+                var blackDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Defender);
+                var greyAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker);
+                var greyDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender);
                 var migratedMatch = new Shared.DbModels.Match
                 {
-                    ScoreGrey = oldMatch.ScoreGrey,
+                    ScoreGrey = oldMatch.ScoreGray,
                     ScoreBlack = oldMatch.ScoreBlack,
-                    BlackAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Attacker),
-                    BlackDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Black.Defender),
-                    GreyAttackerPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Attacker),
-                    GreyDefenderPlayer = players.Single(x => x.LegacyPlayerId == (int)oldMatch.Gray.Defender),
+                    BlackAttackerPlayer = blackAttackerPlayer,
+                    BlackDefenderPlayer = blackDefenderPlayer,
+                    GreyAttackerPlayer = greyAttackerPlayer,
+                    GreyDefenderPlayer = greyDefenderPlayer,
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };
                 migratedMatch.UpdateMatchesPlayed();
                 migratedMatch.UpdateTrueSkill();
-                migratedMatch = await matchController.CreateOrUpdateAsync(migratedMatch);
-                //Is there a better way?
-                //ToDo - Does not seem to update TrueSkill rating correctly
-                await playerController.CreateOrUpdateAsync(migratedMatch.BlackAttackerPlayer);
-                await playerController.CreateOrUpdateAsync(migratedMatch.BlackDefenderPlayer);
-                await playerController.CreateOrUpdateAsync(migratedMatch.GreyAttackerPlayer);
-                await playerController.CreateOrUpdateAsync(migratedMatch.GreyDefenderPlayer);
+                await matchController.CreateOrUpdateAsync(migratedMatch);
             }
         }
 
+        foreach (var player in players)
+        {
+            await playerController.CreateOrUpdateAsync(player);
+        }
 
         var test = matches;
     }
@@ -73,7 +75,7 @@ public class Match
     public Match()
     {
         Black = new Team(TableSide.Black);
-        Gray = new Team(TableSide.Gray);
+        Gray = new Team(TableSide.Grey);
         Id = Guid.NewGuid().ToString();
     }
 
@@ -84,7 +86,7 @@ public class Match
 
     public int ScoreBlack { get; set; }
 
-    public int ScoreGrey { get; set; }
+    public int ScoreGray { get; set; }
 
     public DateTime MatchDate { get; set; }
 }
@@ -114,5 +116,5 @@ public class TeamBase
 public enum TableSide
 {
     Black = 0,
-    Gray = 1
+    Grey = 1
 }
