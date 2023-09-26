@@ -1,5 +1,4 @@
-﻿using BoyumFoosballStats_2._0.Services;
-using Xunit;
+﻿using Xunit;
 
 namespace BoyumFoosballStats_2._0.Test;
 
