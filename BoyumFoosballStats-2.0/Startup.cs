@@ -53,6 +53,7 @@ namespace BoyumFoosballStats_2
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
             services.AddSingleton<IMatchCrudService, MatchCrudService>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
+            services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<IMatchMakingService, MatchMakingService>();
             services.AddTransient<IAzureBlobStorageHelper, AzureBlobStorageHelper>();
         }
