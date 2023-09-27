@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BoyumFoosballStats_2._0.Pages.ScoreCollection;
 using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_Ai;
 using BoyumFoosballStats.BlobStorage;
@@ -20,9 +21,21 @@ public class MatchMakingService : IMatchMakingService
     {
         _blobStorageHelper = blobStorageHelper;
     }
+    
+
+    public Task<Match> FindFairestMatch(List<Player> players, MatchMakingMethod method)
+    {
+        return method switch
+        {
+            MatchMakingMethod.Ai => FindFairestMatchAi(players),
+            MatchMakingMethod.TrueSkill => FindFairestMatchTrueSkill(players),
+            _ => throw new ArgumentOutOfRangeException(nameof(method), method,
+                "MatchMakingMethod is not currently supported")
+        };
+    }
 
     //ToDo RGA - Return complex object that includes the fairness score - Possibly return all matches in fairness order
-    public async Task<Match> FindFairestMatchAi(IEnumerable<Player> players)
+    private async Task<Match> FindFairestMatchAi(IEnumerable<Player> players)
     {
         var fairestMatch = new Match();
         var bestFairnessFactor = double.MaxValue;
@@ -66,9 +79,10 @@ public class MatchMakingService : IMatchMakingService
         return fairestMatch;
     }
 
-    public async Task<Match> FindFairestMatchTrueSkill(IEnumerable<Player> players)
+    private async Task<Match> FindFairestMatchTrueSkill(IEnumerable<Player> players)
     {
         var fairestMatch = new Match();
+        double bestFairnessFactor = 0;
         
         var combinations = CollectionCombinationHelper.GetAllCombinations(players, 2).ToList();
         foreach (var comb1 in combinations)
@@ -102,6 +116,11 @@ public class MatchMakingService : IMatchMakingService
                 var teams = Teams.Concat(blackTeam, greyTeam);
 
                 var fairness = TrueSkillCalculator.CalculateMatchQuality(GameInfo.DefaultGameInfo, teams);
+                if (fairness > bestFairnessFactor)
+                {
+                    bestFairnessFactor = fairness;
+                    fairestMatch = match;
+                }
             }
         }
 

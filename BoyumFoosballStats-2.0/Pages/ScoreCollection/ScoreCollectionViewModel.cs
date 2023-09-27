@@ -116,9 +116,11 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
 
     public async Task BalanceMatch()
     {
-        if (SelectedPlayers != null && SelectedPlayers.Any())
+        var players = new List<Player>
+            { BlackTeam.Defender!, BlackTeam.Attacker!, GreyTeam.Attacker!, GreyTeam.Defender! };
+        if (players.Any())
         {
-            var fairMatch = await _matchMakingService.FindFairestMatchTrueSkill(SelectedPlayers);
+            var fairMatch = await _matchMakingService.FindFairestMatch(players, MatchMakingMethod.Ai);
             GreyTeam = GreyTeam with
             {
                 Attacker = fairMatch.GreyAttackerPlayer, Defender = fairMatch.GreyDefenderPlayer
