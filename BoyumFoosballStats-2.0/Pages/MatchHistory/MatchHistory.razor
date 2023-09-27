@@ -1,0 +1,79 @@
+﻿@page "/MatchHistory"
+
+@* <MudBreakpointProvider OnBreakpointChanged="HandleBreakpointChanged"/> *@
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-5 px-0 px-sm-6">
+    <MudTable Items="ViewModel.Matches" Bordered="false" Outlined="false" Dense="true" Breakpoint="Breakpoint.None">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Match history</MudText>
+        </ToolBarContent>
+        <ColGroup>
+            <col style="width: 250px;"/>
+            <col style="width: 100px; min-width: 80px;"/>
+            <col style="width: 250px;"/>
+            <col style="min-width: 120px;"/>
+            <col style="min-width: 80px;"/>
+        </ColGroup>
+        <HeaderContent>
+            <MudTh>
+                <MudText Align="Align.End" Class="d-block" Typo="Typo.inherit">Grey team</MudText>
+            </MudTh>
+            <MudTh>
+                <MudText Align="Align.Center" Class="d-block" Typo="Typo.inherit">Score</MudText>
+            </MudTh>
+            <MudTh>
+                <MudText Align="Align.Start" Class="d-block" Typo="Typo.inherit">Black team</MudText>
+            </MudTh>
+            <MudTh Class="d-none d-sm-table-cell">Date</MudTh>
+            <MudTh Class="d-none d-sm-table-cell">
+                <MudText Align="Align.End" Class="d-block" Typo="Typo.inherit">Options</MudText>
+            </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="@nameof(Match.GreyDefenderPlayer)" Class="border-0 border-b-sm">
+                <div class="d-flex w-100 flex-column align-end">
+                    <MudButton Variant="Variant.Text" Class="normal-case" EndIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" Class="normal-case" EndIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
+                </div>
+            </MudTd>
+            <MudTd Class="border-0 border-b-sm">
+                <MudText Align="Align.Center">
+                    <MudText Inline="true" Typo="Typo.button" Color="ViewModel.GetGreyScoreColor(context)">@context.ScoreGrey</MudText>
+                    <MudText Inline="true" Typo="Typo.button"> - </MudText>
+                    <MudText Inline="true" Typo="Typo.button" Color="ViewModel.GetBlackScoreColor(context)">@context.ScoreBlack</MudText>
+                </MudText>
+            </MudTd>
+            <MudTd Class="border-0 border-b-sm">
+                <div class="d-flex w-100 flex-column align-start">
+                    <MudButton Variant="Variant.Text" Class="normal-case" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" Class="normal-case" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
+                </div>
+            </MudTd>
+            <MudTd DataLabel="@nameof(Match.MatchDate)" Class="d-none d-sm-table-cell">
+                <MudText Align="Align.Start" Typo="Typo.body2">@context.MatchDate.ToString("ddd, d MMM, yyyy")</MudText>
+            </MudTd>
+            <MudTd Class="d-none d-sm-table-cell">
+                <div class="w-100 d-flex justify-end">
+                    <MudIconButton Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="() => ViewModel.DeleteMatch(context)" Color="Color.Error"/>
+                </div>
+            </MudTd>
+        </RowTemplate>
+        <ChildRowContent>
+            <MudTr Class="d-table-row d-sm-none">
+                <td class="mud-table-cell">
+                    <MudText Class="d-block" Color="Color.Default" Align="Align.End" Typo="Typo.caption">@context.MatchDate.ToString("MMM d, yyyy")</MudText>
+                </td>
+                <td class="mud-table-cell">
+                </td>
+                <td class="mud-table-cell">
+                    <div class="w-100 d-flex justify-end">
+                        <MudIconButton Class="ms-auto" Variant="Variant.Outlined" Icon="@Icons.Material.Filled.Delete" OnClick="() => ViewModel.DeleteMatch(context)" Color="Color.Default"/>
+                    </div>
+                </td>
+            </MudTr>
+        </ChildRowContent>
+        <PagerContent>
+            <MudTablePager HidePageNumber="ViewModel.ShouldHidePager" HideRowsPerPage="ViewModel.ShouldHidePager"/>
+        </PagerContent>
+    </MudTable>
+</MudContainer>

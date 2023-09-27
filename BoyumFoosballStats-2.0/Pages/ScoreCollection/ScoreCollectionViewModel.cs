@@ -9,6 +9,7 @@ using BoyumFoosballStats_2._0.Shared.DbModels;
 using BoyumFoosballStats_2.Components.TeamCard.ViewModel;
 using CosmosDb.Services;
 using MudBlazor;
+using Newtonsoft.Json;
 
 namespace BoyumFoosballStats_2._0.Pages.ScoreCollection;
 
@@ -23,6 +24,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         IMatchMakingService matchMakingService, IMatchCrudService matchCrudService)
     {
         _playerCrudService = playerCrudService;
+        _matchCrudService = matchCrudService;
         _snackbarService = snackbarService;
         _matchMakingService = matchMakingService;
         _matchCrudService = matchCrudService;
