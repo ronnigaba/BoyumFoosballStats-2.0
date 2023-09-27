@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'BoyumFoosballStats-2-0'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_83825D9CAA024995BD902E8834AEA9DD }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF58CB2B03354249B9D74C23E2B18517 }}
           package: .
