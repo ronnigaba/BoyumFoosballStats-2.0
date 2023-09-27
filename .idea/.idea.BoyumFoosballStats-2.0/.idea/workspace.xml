@@ -15,7 +15,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f326cb6-7fc0-41d1-87bd-2a43b0fdfb48" name="Changes" comment="x">
+    <list default="true" id="2f326cb6-7fc0-41d1-87bd-2a43b0fdfb48" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,6 +105,43 @@
   }
 }</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BoyumFoosballStats-2: BoyumFoosballStats_2">
+    <configuration name="Publish BoyumFoosballStats to Azure" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
+      <option name="AZURE_WEB_APP_PROJECT" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="AZURE_WEB_APP_CONFIGURATION" value="Release" />
+      <option name="AZURE_WEB_APP_PLATFORM" value="Any CPU" />
+      <option name="AZURE_WEB_APP_SUBSCRIPTION_ID" value="c4869c90-6d4e-4978-a8f2-6cdda036c3c8" />
+      <option name="AZURE_WEB_APP_IS_CREATE_APP" value="0" />
+      <option name="AZURE_WEB_APP_ID" value="/subscriptions/c4869c90-6d4e-4978-a8f2-6cdda036c3c8/resourceGroups/BoyumFoosballStats/providers/Microsoft.Web/sites/BoyumFoosballStats-2-0" />
+      <option name="AZURE_WEB_APP_NAME" value="" />
+      <option name="AZURE_WEB_APP_IS_CREATE_RESOURCE_GROUP" value="0" />
+      <option name="AZURE_WEB_APP_RESOURCE_GROUP_NAME" value="" />
+      <option name="AZURE_WEB_APP_OPERATING_SYSTEM" value="WINDOWS" />
+      <option name="AZURE_WEB_APP_IS_CREATE_APP_SERVICE_PLAN" value="0" />
+      <option name="AZURE_WEB_APP_SERVICE_PLAN_ID" value="/subscriptions/c4869c90-6d4e-4978-a8f2-6cdda036c3c8/resourceGroups/BoyumFoosballStats/providers/Microsoft.Web/serverfarms/NorthEuropePlan" />
+      <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="" />
+      <option name="AZURE_WEB_APP_LOCATION" value="eastus" />
+      <option name="AZURE_WEB_APP_PRICING_TIER" value="S1" />
+      <option name="AZURE_WEB_APP_NET_FRAMEWORK" value="4.7" />
+      <option name="AZURE_WEB_APP_NET_CORE_RUNTIME" value="DOTNETCORE 2.1" />
+      <option name="AZURE_WEB_APP_IS_DEPLOY_TO_SLOT" value="0" />
+      <option name="AZURE_WEB_APP_SLOT_NAME" value="" />
+      <option name="AZURE_WEB_APP_OPEN_BROWSER_PUBLISH" value="0" />
+      <option name="AZURE_SQL_DATABASE_SUBSCRIPTION_ID" value="c4869c90-6d4e-4978-a8f2-6cdda036c3c8" />
+      <option name="AZURE_SQL_DATABASE_IS_ENABLED" value="0" />
+      <option name="AZURE_SQL_DATABASE_CONNECTION_STRING_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_IS_CREATE" value="0" />
+      <option name="AZURE_SQL_DATABASE_ID" value="" />
+      <option name="AZURE_SQL_DATABASE_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_IS_CREATE_RESOURCE_GROUP" value="0" />
+      <option name="AZURE_SQL_DATABASE_RESOURCE_GROUP_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_IS_CREATE_SQL_SERVER" value="0" />
+      <option name="AZURE_SQL_DATABASE_SQL_SERVER_ID" value="" />
+      <option name="AZURE_SQL_DATABASE_SQL_SERVER_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_SQL_SERVER_ADMIN_LOGIN" value="N/A" />
+      <option name="AZURE_SQL_DATABASE_LOCATION" value="eastus" />
+      <option name="AZURE_SQL_DATABASE_COLLATION" value="SQL_Latin1_General_CP1_CI_AS" />
+      <method v="2" />
+    </configuration>
     <configuration name="Publish BoyumFoosballStats-2.0 to Azure" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
       <option name="AZURE_WEB_APP_PROJECT" value="" />
       <option name="AZURE_WEB_APP_CONFIGURATION" value="Release" />
@@ -259,6 +296,7 @@
       <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2.0: IIS Express" />
       <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2.0: Mudblazor.Template" />
       <item itemvalue=".NET Project.Firestore" />
+      <item itemvalue="Azure - Publish Web App.Publish BoyumFoosballStats to Azure" />
       <item itemvalue="Azure - Publish Web App.Publish BoyumFoosballStats-2.0 to Azure" />
     </list>
   </component>
@@ -511,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695834960074</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Merge">
+      <created>1695835411667</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1695835411667</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +588,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Added (ugly) migration code to the test project" />
     <MESSAGE value="Upgraded to .net 7.0 and fixed build issue with other projects" />
     <MESSAGE value="Cleanup and Firestore improvements" />
     <MESSAGE value="Dummy data on score collection screen" />
@@ -568,7 +612,8 @@
     <MESSAGE value="Merge with main" />
     <MESSAGE value="Merge leftovers" />
     <MESSAGE value="x" />
-    <option name="LAST_COMMIT_MESSAGE" value="x" />
+    <MESSAGE value="Merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

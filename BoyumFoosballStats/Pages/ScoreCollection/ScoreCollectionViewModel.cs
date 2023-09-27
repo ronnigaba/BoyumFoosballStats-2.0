@@ -56,7 +56,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         return player.Name;
     }
 
-    public Task SaveMatch()
+    public async Task SaveMatch()
     {
         _snackbarService.Clear();
         var match = new Match
@@ -72,20 +72,19 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
 
         if (!match.IsValid())
         {
-            return Task.CompletedTask;
+            return;
         }
 
         match.UpdateMatchesPlayed();
         match.UpdateTrueSkill();
-        _matchCrudService.CreateOrUpdateAsync(match);
+        await _matchCrudService.CreateOrUpdateAsync(match);
         _snackbarService.Add("Match saved. GG!", Severity.Success);
-        _playerCrudService.CreateOrUpdateAsync(new List<Player>
+        await _playerCrudService.CreateOrUpdateAsync(new List<Player>
         {
             match.BlackDefenderPlayer!, match.BlackAttackerPlayer!, match.GreyAttackerPlayer!, match.GreyDefenderPlayer!
         });
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
-        return Task.CompletedTask;
     }
 
     public void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)

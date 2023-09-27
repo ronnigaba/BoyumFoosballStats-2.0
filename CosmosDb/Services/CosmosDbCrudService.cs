@@ -61,7 +61,7 @@ public class CosmosDbCrudService<T> : ICosmosDbCrudService<T> where T : CosmosDb
 
         foreach (var item in items)
         {
-            batch.CreateItem(item);
+            batch.UpsertItem(item);
         }
 
         await batch.ExecuteAsync();
