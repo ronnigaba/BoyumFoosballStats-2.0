@@ -62,13 +62,13 @@ public class MatchMakingService : IMatchMakingService
                 //ToDo RGA - Move to method that can calculate based on Match instead
                 var sampleData = new MatchOutcomeModel.ModelInput
                 {
-                    GrayDefender = comb1.First().LegacyPlayerId.As<float>(),
-                    GrayAttacker = comb1.Last().LegacyPlayerId.As<float>(),
-                    BlackDefender = comb2.First().LegacyPlayerId.As<float>(),
-                    BlackAttacker = comb2.Last().LegacyPlayerId.As<float>(),
+                    GrayDefender = comb1.First().LegacyPlayerId.As<int>(),
+                    GrayAttacker = comb1.Last().LegacyPlayerId.As<int>(),
+                    BlackDefender = comb2.First().LegacyPlayerId.As<int>(),
+                    BlackAttacker = comb2.Last().LegacyPlayerId.As<int>(),
                 };
                 var result = await outcomeModel.Predict(sampleData);
-                double resultDifference = Math.Abs(result.Score - 50f);
+                double resultDifference = Math.Abs(result.Score * 100 - 50f);
                 if (resultDifference < bestFairnessFactor)
                 {
                     bestFairnessFactor = resultDifference;

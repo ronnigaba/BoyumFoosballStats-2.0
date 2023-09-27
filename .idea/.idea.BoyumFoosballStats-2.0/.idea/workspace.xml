@@ -15,7 +15,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f326cb6-7fc0-41d1-87bd-2a43b0fdfb48" name="Changes" comment="Renamed projects to get rid of the 2.0 namespace annoyances" />
+    <list default="true" id="2f326cb6-7fc0-41d1-87bd-2a43b0fdfb48" name="Changes" comment="Merge leftovers">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,12 +60,14 @@
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/CosmosDb/Services/CosmosDbCrudService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Pages/_Host.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
   </component>
@@ -100,7 +105,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Azure - Publish Web App.Publish BoyumFoosballStats-2.0 to Azure">
+  <component name="RunManager" selected=".NET Launch Settings Profile.BoyumFoosballStats-2: BoyumFoosballStats_2">
     <configuration name="Publish BoyumFoosballStats-2.0 to Azure" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
       <option name="AZURE_WEB_APP_PROJECT" value="$PROJECT_DIR$/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.csproj" />
       <option name="AZURE_WEB_APP_CONFIGURATION" value="Release" />
@@ -288,7 +293,7 @@
       <workItem from="1695737577635" duration="7703000" />
       <workItem from="1695747984818" duration="2371000" />
       <workItem from="1695750504175" duration="2319000" />
-      <workItem from="1695821325280" duration="7016000" />
+      <workItem from="1695821325280" duration="7979000" />
     </task>
     <task id="LOCAL-00001" summary="x">
       <created>1694786122944</created>
@@ -486,7 +491,21 @@
       <option name="project" value="LOCAL" />
       <updated>1695831734699</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Merge with main">
+      <created>1695831999075</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1695831999075</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Merge leftovers">
+      <created>1695832117947</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1695832117947</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -541,7 +560,9 @@
     <MESSAGE value="Added PartitionKey to the CosmosDbCrudService.cs constructor and utilized it in both CrudService implementations" />
     <MESSAGE value="Added partitionkey to batch update" />
     <MESSAGE value="Renamed projects to get rid of the 2.0 namespace annoyances" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed projects to get rid of the 2.0 namespace annoyances" />
+    <MESSAGE value="Merge with main" />
+    <MESSAGE value="Merge leftovers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge leftovers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
