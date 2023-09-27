@@ -1,4 +1,4 @@
-﻿using Moserware.Skills;
+using Moserware.Skills;
 using Newtonsoft.Json;
 
 namespace BoyumFoosballStats_2._0.Shared.Models;
