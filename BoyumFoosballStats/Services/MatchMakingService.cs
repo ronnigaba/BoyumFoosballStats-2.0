@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using BoyumFoosballStats.Ai;
 using BoyumFoosballStats.BlobStorage;
 using BoyumFoosballStats.Helpers;
+using BoyumFoosballStats.Pages.ScoreCollection;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using Moserware.Skills;
 using MudBlazor.Extensions;
+using Player = BoyumFoosballStats.Shared.DbModels.Player;
 
 namespace BoyumFoosballStats.Services;
 
@@ -33,7 +36,7 @@ public class MatchMakingService : IMatchMakingService
     }
 
     //ToDo RGA - Return complex object that includes the fairness score - Possibly return all matches in fairness order
-    public async Task<Match> FindFairestMatch(IEnumerable<Player> players)
+    public async Task<Match> FindFairestMatchAi(IEnumerable<Player> players)
     {
         var fairestMatch = new Match();
         var bestFairnessFactor = double.MaxValue;
