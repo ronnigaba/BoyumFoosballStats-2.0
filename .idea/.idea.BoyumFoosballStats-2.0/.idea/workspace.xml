@@ -15,19 +15,113 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a67f9e4-ae7c-47e3-9616-3e5d0cd545ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BoyumFoosballStats.Shared/Extensions/MatchExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" afterDir="false" />
+    <list default="true" id="1a67f9e4-ae7c-47e3-9616-3e5d0cd545ae" name="Changes" comment="Added extension for seasons">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/281f9f1ed5ac49329470d7a78d8b8d59e400/17/5ee299ae/FactorGraphTrueSkillCalculator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/281f9f1ed5ac49329470d7a78d8b8d59e400/2e/bb1a2600/TrueSkillCalculator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/281f9f1ed5ac49329470d7a78d8b8d59e400/37/b3da4047/Rating.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/281f9f1ed5ac49329470d7a78d8b8d59e400/ff/5c078f33/GameInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/19ba5a289f2afd3f4d5e862cb3f3efee6181683a31ee31b86c2298b1f51114b/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1c6568ba4eef7e352ddf5ff08474913baf93bdf76c98745d5e70db9a811a1e37/FirestoreDocumentIdAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5b8da17bbdf5f8e4ace29ff2f6458c90ae519cd4d7147a61fabd6568e02f/RuntimeType.ActivatorCache.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6faadc1bd295f266b4ace3c9896fdacd7fe828895ee8bb0b339e03cc68b24/Container.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9a6b1457cbcf17db31a383ba49ef9bcc786cf3ef77146d997eee499b27a46d/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aed3a5afe1d147c215fcf8e544894894e41fae15f4354c1e22fa4136425e/Argument.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b62bcdbd939d4018b3c2ba85ecffce6ab1d908/_f2557/ICollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b97330999f969334eb3e3fb5ee91969174071ed1683da1ba1ee7a3453a789/Filter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dd5a78f48eedd1f85b964c4286798638d60af24fec53c98eccf211bb6a649ac/FirestoreDb.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ee456ec7f2e479b4eaa66183eaa0d1365ef16c4615282c4e7dccacdcc14dda/ArgumentNullException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5a2ccf8d64e7aa05089a63a768244d9f2dc55854b3a5ab1b61126bdc8f7ebe2/ToCollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f8b78e83a7fcb41b463a82a2c615d0eb9a82f63e6fe93ffd1fe6781e6349d9b/HashSet.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f9749fe3576a687c3c42f3794cefe8f8d91e62f939c66c0a32dbb3f74255/ManualResetEventSlim.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.Shared/BoyumFoosballStatsConsts.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.Shared/Models/TrueSkillRating.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.Shared/Models/TrueSkillRating.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionViewModel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/CosmosDb/Services/CosmosDbCrudService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Pages/_Host.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="BoyumFoosballStats" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="BoyumFoosballStats_2" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+  </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Added extension for seasons">
+      <created>1695834079402</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695834079402</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added extension for seasons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added extension for seasons" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/CosmosDb/Services/CosmosDbCrudService.cs</url>
+          <line>53</line>
+          <properties documentPath="C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\CosmosDb\Services\CosmosDbCrudService.cs" initialLine="53" containingFunctionPresentation="Method 'DeleteAsync'">
+            <startOffsets>
+              <option value="1583" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1656" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
 </project>

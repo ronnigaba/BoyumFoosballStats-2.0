@@ -25,6 +25,7 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     public async Task DeleteMatch(Match match)
     {
         await _matchCrudService.DeleteAsync(match.Id!);
+        Matches.Remove(match);
     }
 
     public async Task InitializeAsync()
