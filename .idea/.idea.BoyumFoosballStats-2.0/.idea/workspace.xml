@@ -15,8 +15,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a67f9e4-ae7c-47e3-9616-3e5d0cd545ae" name="Changes" comment="Added extension for seasons">
+    <list default="true" id="1a67f9e4-ae7c-47e3-9616-3e5d0cd545ae" name="Changes" comment="Added extension for seasons + fixed deletion on match history page">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats.Shared/BoyumFoosballStatsConsts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats.Shared/BoyumFoosballStatsConsts.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchCrudService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchCrudService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +52,7 @@
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats.Shared/BoyumFoosballStatsConsts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" root0="SKIP_HIGHLIGHTING" />
@@ -97,31 +101,20 @@
       <option name="project" value="LOCAL" />
       <updated>1695834079402</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added extension for seasons + fixed deletion on match history page">
+      <created>1695834711455</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695834711455</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added extension for seasons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added extension for seasons" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/CosmosDb/Services/CosmosDbCrudService.cs</url>
-          <line>53</line>
-          <properties documentPath="C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\CosmosDb\Services\CosmosDbCrudService.cs" initialLine="53" containingFunctionPresentation="Method 'DeleteAsync'">
-            <startOffsets>
-              <option value="1583" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1656" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Added extension for seasons + fixed deletion on match history page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added extension for seasons + fixed deletion on match history page" />
   </component>
 </project>
