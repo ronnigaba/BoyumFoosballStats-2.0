@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Extensions;
 using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.MatchHistory.Models;
@@ -30,7 +31,6 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     {
         Matches = (await _matchCrudService.GetAllAsync()).Reverse().ToList();
         var windowSize = await _browserViewportService.GetCurrentBrowserWindowSizeAsync();
-
         if (windowSize.Width <= 600)
         {
             ShouldHidePager = true;
