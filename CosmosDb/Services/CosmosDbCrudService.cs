@@ -6,10 +6,12 @@ namespace CosmosDb.Services;
 
 public class CosmosDbCrudService<T> : ICosmosDbCrudService<T>
 {
+    private readonly string _partitionKey;
     private readonly Container _container;
 
-    public CosmosDbCrudService(IOptions<CosmosDbSettings> dbSettings, string containerName)
+    public CosmosDbCrudService(IOptions<CosmosDbSettings> dbSettings, string containerName, string partitionKey)
     {
+        _partitionKey = partitionKey;
         var client = new CosmosClient(dbSettings.Value.ConnectionString);
         var database = client.GetDatabase(dbSettings.Value.DatabaseName);
         _container = database.GetContainer(containerName);
@@ -19,7 +21,7 @@ public class CosmosDbCrudService<T> : ICosmosDbCrudService<T>
     {
         try
         {
-            var response = await _container.ReadItemAsync<T>(id, new PartitionKey(id));
+            var response = await _container.ReadItemAsync<T>(id, new PartitionKey(_partitionKey));
             return response.Resource;
         }
         catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -49,6 +51,6 @@ public class CosmosDbCrudService<T> : ICosmosDbCrudService<T>
 
     public async Task DeleteAsync(string id)
     {
-        await _container.DeleteItemAsync<T>(id, new PartitionKey(id));
+        await _container.DeleteItemAsync<T>(id, new PartitionKey(_partitionKey));
     }
 }
