@@ -10,7 +10,7 @@ namespace BoyumFoosballStats_2._0.Services;
 public class MatchCrudService : CosmosDbCrudService<Match>, IMatchCrudService
 {
     public MatchCrudService(IOptions<CosmosDbSettings> dbSettings) : base(dbSettings,
-        BoyumFoosballStatsConsts.MatchesContainerName)
+        BoyumFoosballStatsConsts.MatchesContainerName, BoyumFoosballStatsConsts.PlayerPartitionKey)
     {
     }
 }
