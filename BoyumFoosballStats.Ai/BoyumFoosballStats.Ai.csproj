@@ -29,7 +29,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BoyumFoosballStats-2.0.Shared\BoyumFoosballStats-2.0.Shared.csproj" />
+    <ProjectReference Include="..\BoyumFoosballStats.Shared\BoyumFoosballStats.Shared.csproj" />
     <ProjectReference Include="..\BoyumFoosballStats.BlobStorage\BoyumFoosballStats.BlobStorage.csproj" />
   </ItemGroup>
 </Project>

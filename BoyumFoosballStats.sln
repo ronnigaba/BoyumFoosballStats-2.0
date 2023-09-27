@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Test", "BoyumFoosballStats.Test\BoyumFoosballStats.Test.csproj", "{CE691D64-1067-42B6-837E-724DAEB3915D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Shared", "BoyumFoosballStats.Shared\BoyumFoosballStats.Shared.csproj", "{DED7235C-0F8E-43E9-94D7-A698264CAACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Ai", "BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj", "{57102805-691C-4DC2-B375-6E1AA904A57A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats", "BoyumFoosballStats\BoyumFoosballStats.csproj", "{17768422-D945-4461-AE79-2089B501C1EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosDb", "CosmosDb\CosmosDb.csproj", "{D0A54AAF-6696-46E3-83A0-3C1E1701BD85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.BlobStorage", "BoyumFoosballStats.BlobStorage\BoyumFoosballStats.BlobStorage.csproj", "{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE691D64-1067-42B6-837E-724DAEB3915D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE691D64-1067-42B6-837E-724DAEB3915D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE691D64-1067-42B6-837E-724DAEB3915D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE691D64-1067-42B6-837E-724DAEB3915D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DED7235C-0F8E-43E9-94D7-A698264CAACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57102805-691C-4DC2-B375-6E1AA904A57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17768422-D945-4461-AE79-2089B501C1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0A54AAF-6696-46E3-83A0-3C1E1701BD85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A54AAF-6696-46E3-83A0-3C1E1701BD85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A54AAF-6696-46E3-83A0-3C1E1701BD85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A54AAF-6696-46E3-83A0-3C1E1701BD85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
