@@ -15,16 +15,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a67f9e4-ae7c-47e3-9616-3e5d0cd545ae" name="Changes" comment="Added extension for seasons + fixed deletion on match history page">
+    <list default="true" id="2f326cb6-7fc0-41d1-87bd-2a43b0fdfb48" name="Changes" comment="Merge leftovers">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BoyumFoosballStats-2.0/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats.Shared/BoyumFoosballStatsConsts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats.Shared/BoyumFoosballStatsConsts.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchCrudService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchCrudService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/281f9f1ed5ac49329470d7a78d8b8d59e400/17/5ee299ae/FactorGraphTrueSkillCalculator.cs" root0="SKIP_HIGHLIGHTING" />
@@ -52,11 +57,9 @@
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Pages/ScoreCollection/ScoreCollectionViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats.Shared/BoyumFoosballStatsConsts.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Enums/MatchMakingMethod.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Pages/MatchHistory/Models/MatchHistoryViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/Interface/IMatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
@@ -64,22 +67,103 @@
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/BoyumFoosballStats/Services/MatchMakingService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BoyumFoosballStats/Services/MatchMakingService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Users/Ronni/RiderProjects/BoyumFoosballStats-2.0/CosmosDb/Services/CosmosDbCrudService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Pages/_Host.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
+  <component name="ProjectId" id="2VR3h7rWr8jnQOAh856ygRNgacI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\Ronni\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Ronni\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Ronni\\AppData\\Local\\Symbols\\src&quot;
+    ]
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration name="BoyumFoosballStats" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+}</component>
+  <component name="RunManager" selected=".NET Launch Settings Profile.BoyumFoosballStats-2: BoyumFoosballStats_2">
+    <configuration name="Publish BoyumFoosballStats-2.0 to Azure" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
+      <option name="AZURE_WEB_APP_PROJECT" value="$PROJECT_DIR$/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.csproj" />
+      <option name="AZURE_WEB_APP_CONFIGURATION" value="Release" />
+      <option name="AZURE_WEB_APP_PLATFORM" value="Any CPU" />
+      <option name="AZURE_WEB_APP_SUBSCRIPTION_ID" value="c4869c90-6d4e-4978-a8f2-6cdda036c3c8" />
+      <option name="AZURE_WEB_APP_IS_CREATE_APP" value="0" />
+      <option name="AZURE_WEB_APP_ID" value="/subscriptions/c4869c90-6d4e-4978-a8f2-6cdda036c3c8/resourceGroups/BoyumFoosballStats/providers/Microsoft.Web/sites/BoyumFoosballStats-2-0" />
+      <option name="AZURE_WEB_APP_NAME" value="" />
+      <option name="AZURE_WEB_APP_IS_CREATE_RESOURCE_GROUP" value="0" />
+      <option name="AZURE_WEB_APP_RESOURCE_GROUP_NAME" value="" />
+      <option name="AZURE_WEB_APP_OPERATING_SYSTEM" value="WINDOWS" />
+      <option name="AZURE_WEB_APP_IS_CREATE_APP_SERVICE_PLAN" value="0" />
+      <option name="AZURE_WEB_APP_SERVICE_PLAN_ID" value="/subscriptions/c4869c90-6d4e-4978-a8f2-6cdda036c3c8/resourceGroups/BoyumFoosballStats/providers/Microsoft.Web/serverfarms/NorthEuropePlan" />
+      <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="" />
+      <option name="AZURE_WEB_APP_LOCATION" value="eastus" />
+      <option name="AZURE_WEB_APP_PRICING_TIER" value="" />
+      <option name="AZURE_WEB_APP_NET_FRAMEWORK" value="4.7" />
+      <option name="AZURE_WEB_APP_NET_CORE_RUNTIME" value="DOTNETCORE 2.1" />
+      <option name="AZURE_WEB_APP_IS_DEPLOY_TO_SLOT" value="0" />
+      <option name="AZURE_WEB_APP_SLOT_NAME" value="" />
+      <option name="AZURE_WEB_APP_OPEN_BROWSER_PUBLISH" value="0" />
+      <option name="AZURE_SQL_DATABASE_SUBSCRIPTION_ID" value="c4869c90-6d4e-4978-a8f2-6cdda036c3c8" />
+      <option name="AZURE_SQL_DATABASE_IS_ENABLED" value="0" />
+      <option name="AZURE_SQL_DATABASE_CONNECTION_STRING_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_IS_CREATE" value="0" />
+      <option name="AZURE_SQL_DATABASE_ID" value="" />
+      <option name="AZURE_SQL_DATABASE_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_IS_CREATE_RESOURCE_GROUP" value="0" />
+      <option name="AZURE_SQL_DATABASE_RESOURCE_GROUP_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_IS_CREATE_SQL_SERVER" value="0" />
+      <option name="AZURE_SQL_DATABASE_SQL_SERVER_ID" value="" />
+      <option name="AZURE_SQL_DATABASE_SQL_SERVER_NAME" value="" />
+      <option name="AZURE_SQL_DATABASE_SQL_SERVER_ADMIN_LOGIN" value="N/A" />
+      <option name="AZURE_SQL_DATABASE_LOCATION" value="eastus" />
+      <option name="AZURE_SQL_DATABASE_COLLATION" value="SQL_Latin1_General_CP1_CI_AS" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Firestore" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/Firestore/Firestore.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_TFM" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="BoyumFoosballStats-2: BoyumFoosballStats_2" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
       <option name="LAUNCH_PROFILE_NAME" value="BoyumFoosballStats_2" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -92,29 +176,406 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="BoyumFoosballStats-2: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="BoyumFoosballStats-2: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="http" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="BoyumFoosballStats-2: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="https" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="BoyumFoosballStats-2.0: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <browser name="37cae5b9-e8b2-4949-9172-aafa37fbc09c" with-js-debugger="true" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="BoyumFoosballStats-2.0: Mudblazor.Template" type="LaunchSettings" factoryName=".NET Launch Settings Profile" singleton="false">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BoyumFoosballStats/BoyumFoosballStats.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="Mudblazor.Template" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2: BoyumFoosballStats_2" />
+      <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2: IIS Express" />
+      <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2: http" />
+      <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2: https" />
+      <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2.0: IIS Express" />
+      <item itemvalue=".NET Launch Settings Profile.BoyumFoosballStats-2.0: Mudblazor.Template" />
+      <item itemvalue=".NET Project.Firestore" />
+      <item itemvalue="Azure - Publish Web App.Publish BoyumFoosballStats-2.0 to Azure" />
+    </list>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added extension for seasons">
-      <created>1695834079402</created>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2f326cb6-7fc0-41d1-87bd-2a43b0fdfb48" name="Changes" comment="" />
+      <created>1694785200136</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1694785200136</updated>
+      <workItem from="1694785200137" duration="278000" />
+      <workItem from="1694785593657" duration="21314000" />
+      <workItem from="1694811963182" duration="96000" />
+      <workItem from="1694849414509" duration="4034000" />
+      <workItem from="1694898324532" duration="6088000" />
+      <workItem from="1695137251977" duration="2772000" />
+      <workItem from="1695140081042" duration="6322000" />
+      <workItem from="1695218658718" duration="12237000" />
+      <workItem from="1695312586625" duration="8256000" />
+      <workItem from="1695321102284" duration="70000" />
+      <workItem from="1695321282859" duration="1083000" />
+      <workItem from="1695392413659" duration="14242000" />
+      <workItem from="1695455454384" duration="10424000" />
+      <workItem from="1695478361693" duration="410000" />
+      <workItem from="1695479293416" duration="139000" />
+      <workItem from="1695495705885" duration="1289000" />
+      <workItem from="1695549768935" duration="2798000" />
+      <workItem from="1695651295433" duration="1976000" />
+      <workItem from="1695659378410" duration="8482000" />
+      <workItem from="1695737577635" duration="7703000" />
+      <workItem from="1695747984818" duration="2371000" />
+      <workItem from="1695750504175" duration="2319000" />
+      <workItem from="1695821325280" duration="7979000" />
+    </task>
+    <task id="LOCAL-00001" summary="x">
+      <created>1694786122944</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1695834079402</updated>
+      <updated>1694786122944</updated>
     </task>
-    <task id="LOCAL-00002" summary="Added extension for seasons + fixed deletion on match history page">
-      <created>1695834711455</created>
+    <task id="LOCAL-00002" summary="Added (ugly) migration code to the test project">
+      <created>1694812051956</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1695834711455</updated>
+      <updated>1694812051956</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="x">
+      <created>1694898572111</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1694898572111</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Upgraded to .net 7.0 and fixed build issue with other projects">
+      <created>1694899787634</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1694899787634</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Cleanup and Firestore improvements">
+      <created>1695142916779</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695142916779</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Dummy data on score collection screen">
+      <created>1695146278258</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1695146278258</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added additional projects for AI prediction">
+      <created>1695232472776</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1695232472776</updated>
+    </task>
+    <task id="LOCAL-00008" summary="x">
+      <created>1695232552465</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1695232552465</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added calculations to the MatchMakingService.cs">
+      <created>1695234402380</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1695234402380</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added more player logic / tested fairness calculator">
+      <created>1695315297332</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1695315297332</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fixed build errors">
+      <created>1695315410468</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1695315410468</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Changed to Blazor Server to work properly with FireStore.">
+      <created>1695321154297</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1695321154297</updated>
+    </task>
+    <task id="LOCAL-00013" summary="x">
+      <created>1695321463588</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1695321463588</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Switched to using CosmosDb instead of Firestore">
+      <created>1695414396778</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1695414396778</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added functionality to only load active players">
+      <created>1695459729285</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1695459729285</updated>
+    </task>
+    <task id="LOCAL-00016" summary="WIP on Azure Key Vaults">
+      <created>1695469608821</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1695469608821</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Implemented match balancing button">
+      <created>1695653179004</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1695653179004</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Implemented TrueSkill rating + added calculations to migrations">
+      <created>1695667447403</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1695667447403</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Implemented save match logic">
+      <created>1695668033206</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1695668033206</updated>
+    </task>
+    <task id="LOCAL-00020" summary="WIP">
+      <created>1695668952527</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1695668952527</updated>
+    </task>
+    <task id="LOCAL-00021" summary="x">
+      <created>1695743935608</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1695743935608</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Made some changes to the migration logic to optimize performance.&#10;We are ready for The Final Migration!">
+      <created>1695745400080</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1695745400080</updated>
+    </task>
+    <task id="LOCAL-00023" summary="x">
+      <created>1695748352704</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1695748352704</updated>
+    </task>
+    <task id="LOCAL-00024" summary="WIP - deserializing into the TrueSkillRating object does not seem to work properly from Cosmos">
+      <created>1695752851163</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1695752851163</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixed TrueSkill deserialization and added MatchMakingMethod.cs">
+      <created>1695824105277</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1695824105277</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added PartitionKey to the CosmosDbCrudService.cs constructor and utilized it in both CrudService implementations">
+      <created>1695824758846</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1695824758846</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added partitionkey to batch update">
+      <created>1695830139787</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1695830139787</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Renamed projects to get rid of the 2.0 namespace annoyances">
+      <created>1695831734699</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1695831734699</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Merge with main">
+      <created>1695831999075</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1695831999075</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Merge leftovers">
+      <created>1695832117947</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1695832117947</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
-  <component name="UnityCheckinConfiguration" checkUnsavedScenes="false" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added extension for seasons" />
-    <MESSAGE value="Added extension for seasons + fixed deletion on match history page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added extension for seasons + fixed deletion on match history page" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Added (ugly) migration code to the test project" />
+    <MESSAGE value="Upgraded to .net 7.0 and fixed build issue with other projects" />
+    <MESSAGE value="Cleanup and Firestore improvements" />
+    <MESSAGE value="Dummy data on score collection screen" />
+    <MESSAGE value="Added additional projects for AI prediction" />
+    <MESSAGE value="Added calculations to the MatchMakingService.cs" />
+    <MESSAGE value="Added more player logic / tested fairness calculator" />
+    <MESSAGE value="Fixed build errors" />
+    <MESSAGE value="Changed to Blazor Server to work properly with FireStore." />
+    <MESSAGE value="Switched to using CosmosDb instead of Firestore" />
+    <MESSAGE value="Added functionality to only load active players" />
+    <MESSAGE value="WIP on Azure Key Vaults" />
+    <MESSAGE value="Implemented match balancing button" />
+    <MESSAGE value="Implemented TrueSkill rating + added calculations to migrations" />
+    <MESSAGE value="Implemented save match logic" />
+    <MESSAGE value="WIP" />
+    <MESSAGE value="Made some changes to the migration logic to optimize performance.&#10;We are ready for The Final Migration!" />
+    <MESSAGE value="x" />
+    <MESSAGE value="WIP - deserializing into the TrueSkillRating object does not seem to work properly from Cosmos" />
+    <MESSAGE value="Fixed TrueSkill deserialization and added MatchMakingMethod.cs" />
+    <MESSAGE value="Added PartitionKey to the CosmosDbCrudService.cs constructor and utilized it in both CrudService implementations" />
+    <MESSAGE value="Added partitionkey to batch update" />
+    <MESSAGE value="Renamed projects to get rid of the 2.0 namespace annoyances" />
+    <MESSAGE value="Merge with main" />
+    <MESSAGE value="Merge leftovers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge leftovers" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BoyumFoosballStats/Pages/Shared/MainLayout.razor</url>
+          <line>29</line>
+          <properties documentPath="C:\Users\Ronni\RiderProjects\BoyumFoosballStats-2.0\BoyumFoosballStats-2.0\Pages\Shared\MainLayout.razor" initialLine="29" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
