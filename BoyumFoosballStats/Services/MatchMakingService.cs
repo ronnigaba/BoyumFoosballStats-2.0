@@ -36,7 +36,7 @@ public class MatchMakingService : IMatchMakingService
     }
 
     //ToDo RGA - Return complex object that includes the fairness score - Possibly return all matches in fairness order
-    public async Task<Match> FindFairestMatchAi(IEnumerable<Player> players)
+    private async Task<Match> FindFairestMatchAi(IEnumerable<Player> players)
     {
         var fairestMatch = new Match();
         var bestFairnessFactor = double.MaxValue;
