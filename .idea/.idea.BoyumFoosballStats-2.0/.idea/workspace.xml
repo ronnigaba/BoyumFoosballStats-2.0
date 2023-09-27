@@ -107,7 +107,7 @@
 }</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BoyumFoosballStats-2: BoyumFoosballStats_2">
     <configuration name="Publish BoyumFoosballStats-2.0 to Azure" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
-      <option name="AZURE_WEB_APP_PROJECT" value="$PROJECT_DIR$/BoyumFoosballStats-2.0/BoyumFoosballStats-2.0.csproj" />
+      <option name="AZURE_WEB_APP_PROJECT" value="" />
       <option name="AZURE_WEB_APP_CONFIGURATION" value="Release" />
       <option name="AZURE_WEB_APP_PLATFORM" value="Any CPU" />
       <option name="AZURE_WEB_APP_SUBSCRIPTION_ID" value="c4869c90-6d4e-4978-a8f2-6cdda036c3c8" />
