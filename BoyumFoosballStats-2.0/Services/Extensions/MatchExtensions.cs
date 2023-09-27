@@ -32,10 +32,10 @@ public static class MatchExtensions
         var grayRank = match.ScoreGrey > match.ScoreBlack ? 1 : 2;
         var newRatings = TrueSkillCalculator.CalculateNewRatings(gameInfo, teams, blackRank, grayRank);
 
-        match.BlackAttackerPlayer!.TrueSkillRating = newRatings[blackAttacker] as TrueSkillRating;
-        match.BlackDefenderPlayer!.TrueSkillRating = newRatings[blackDefender] as TrueSkillRating;
-        match.GreyAttackerPlayer!.TrueSkillRating = newRatings[greyAttacker] as TrueSkillRating;
-        match.GreyDefenderPlayer!.TrueSkillRating = newRatings[greyDefender] as TrueSkillRating;
+        match.BlackAttackerPlayer!.TrueSkillRating = new TrueSkillRating(newRatings[blackAttacker]);
+        match.BlackDefenderPlayer!.TrueSkillRating = new TrueSkillRating(newRatings[blackDefender]);
+        match.GreyAttackerPlayer!.TrueSkillRating = new TrueSkillRating(newRatings[greyAttacker]);
+        match.GreyDefenderPlayer!.TrueSkillRating = new TrueSkillRating(newRatings[greyDefender]);
     }
 
     public static void UpdateMatchesPlayed(this Match match)
