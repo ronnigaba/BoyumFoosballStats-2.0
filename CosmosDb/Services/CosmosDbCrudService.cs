@@ -56,7 +56,7 @@ public class CosmosDbCrudService<T> : ICosmosDbCrudService<T> where T : CosmosDb
             return;
         }
 
-        var partitionKey = new PartitionKey(items.First().PartitionKey);
+        var partitionKey = new PartitionKey(_partitionKey);
         var batch = _container.CreateTransactionalBatch(partitionKey);
 
         foreach (var item in items)
