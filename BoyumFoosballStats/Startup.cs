@@ -54,6 +54,7 @@ namespace BoyumFoosballStats
             services.Configure<BlobStorageOptions>(Configuration.GetSection("BlobStorageSettings"));
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
             services.AddSingleton<IMatchCrudService, MatchCrudService>();
+            services.AddSingleton<ISessionCrudService, SessionCrudService>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<IMatchMakingService, MatchMakingService>();

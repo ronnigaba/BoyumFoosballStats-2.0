@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BoyumFoosballStats.Components.TeamCard.Models;
 using BoyumFoosballStats.Services.Extensions;
 using BoyumFoosballStats.Services.Interface;
+using BoyumFoosballStats.Shared;
 using BoyumFoosballStats.Shared.DbModels;
 using CosmosDb.Services;
 using MudBlazor;
@@ -17,12 +18,15 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     private readonly ISnackbar _snackbarService;
     private readonly IMatchMakingService _matchMakingService;
     private readonly IMatchCrudService _matchCrudService;
+    private readonly ISessionCrudService _sessionCrudService;
 
     public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService,
-        IMatchMakingService matchMakingService, IMatchCrudService matchCrudService)
+        IMatchMakingService matchMakingService, IMatchCrudService matchCrudService,
+        ISessionCrudService sessionCrudService)
     {
         _playerCrudService = playerCrudService;
         _matchCrudService = matchCrudService;
+        _sessionCrudService = sessionCrudService;
         _snackbarService = snackbarService;
         _matchMakingService = matchMakingService;
         _matchCrudService = matchCrudService;
@@ -30,18 +34,19 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
 
+    public Session ActiveSession { get; set; } = new();
     public IEnumerable<Player>? AvailablePlayers { get; set; }
-    public IEnumerable<Player>? SelectedPlayers { get; set; } = new List<Player>();
+    public IEnumerable<Player> SelectedPlayers { get; set; } = new List<Player>();
 
     public TeamInfo GreyTeam { get; set; } = new()
     {
-        TeamName = "Grey",
+        TeamName = BoyumFoosballStatsConsts.GreyTeamName,
         Score = 5
     };
 
     public TeamInfo BlackTeam { get; set; } = new()
     {
-        TeamName = "Black",
+        TeamName = BoyumFoosballStatsConsts.BlackTeamName,
         Score = 5
     };
 
@@ -49,11 +54,6 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     {
         var players = await _playerCrudService.GetAllAsync();
         AvailablePlayers = players;
-    }
-
-    public string? PlayerToString(Player player)
-    {
-        return player.Name;
     }
 
     public async Task SaveMatch()
@@ -85,6 +85,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         });
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
+        UpdateSession(match);
     }
 
     public void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)
@@ -111,6 +112,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         {
             BlackTeam = BlackTeam with { Defender = null };
         }
+        UpdateSession();
     }
 
     public async Task BalanceMatch()
@@ -129,5 +131,33 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
                 Attacker = fairMatch.BlackAttackerPlayer, Defender = fairMatch.BlackDefenderPlayer
             };
         }
+    }
+
+    public void TeamInfoChanged(TeamInfo teamInfo)
+    {
+        if (teamInfo.TeamName == BoyumFoosballStatsConsts.GreyTeamName)
+        {
+            GreyTeam = teamInfo;
+        }
+        else
+        {
+            BlackTeam = teamInfo;
+        }
+        UpdateSession();
+    }
+
+    private void UpdateSession(Match? match = null)
+    {
+        ActiveSession.GreyDefenderPlayer = GreyTeam.Defender;
+        ActiveSession.GreyAttackerPlayer = GreyTeam.Attacker;
+        ActiveSession.BlackDefenderPlayer = BlackTeam.Defender;
+        ActiveSession.BlackAttackerPlayer = BlackTeam.Attacker;
+        ActiveSession.SelectedPlayers = SelectedPlayers.ToList();
+        if (match != null)
+        {
+            ActiveSession.Matches.Add(match);
+        }
+
+        _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
     }
 }
