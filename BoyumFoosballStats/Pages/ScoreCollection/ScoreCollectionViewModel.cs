@@ -165,11 +165,11 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             {
                 IsSessionActive = true;
                 ActiveSession = sessionById;
-                GreyTeam.Attacker = ActiveSession?.GreyAttackerPlayer;
-                GreyTeam.Defender = ActiveSession?.GreyDefenderPlayer;
-                BlackTeam.Attacker = ActiveSession?.BlackAttackerPlayer;
-                BlackTeam.Defender = ActiveSession?.BlackDefenderPlayer;
-                SelectedPlayers = ActiveSession?.SelectedPlayers;
+                GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id == ActiveSession?.GreyAttackerId);
+                GreyTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.GreyDefenderId);
+                BlackTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.BlackAttackerId);
+                BlackTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.BlackDefenderId);
+                SelectedPlayers = AvailablePlayers?.Where(x=> ActiveSession.SelectedPlayers.Contains(x.Id)).ToList()!;
             }
         }
     }
@@ -198,11 +198,11 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             return;
         }
 
-        ActiveSession.GreyDefenderPlayer = GreyTeam.Defender;
-        ActiveSession.GreyAttackerPlayer = GreyTeam.Attacker;
-        ActiveSession.BlackDefenderPlayer = BlackTeam.Defender;
-        ActiveSession.BlackAttackerPlayer = BlackTeam.Attacker;
-        ActiveSession.SelectedPlayers = SelectedPlayers.ToList();
+        ActiveSession.GreyDefenderId = GreyTeam.Defender?.Id;
+        ActiveSession.GreyAttackerId = GreyTeam.Attacker?.Id;
+        ActiveSession.BlackDefenderId = BlackTeam.Defender?.Id;
+        ActiveSession.BlackAttackerId = BlackTeam.Attacker?.Id;
+        ActiveSession.SelectedPlayers = SelectedPlayers.Select(x=>x.Id).ToList();
         if (match != null)
         {
             ActiveSession.Matches.Add(match);
