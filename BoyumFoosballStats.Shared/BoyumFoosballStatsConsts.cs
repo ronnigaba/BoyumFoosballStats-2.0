@@ -11,6 +11,7 @@ public static class BoyumFoosballStatsConsts
     public const string MatchesContainerName = "matches";
     public const string SessionsPartitionKey = "session";
     public const string SessionsContainerName = "sessions";
+    public const string SessionIdLocalStorageKey = "SessionId";
 
     public const string GreyTeamName = "Grey";
     public const string BlackTeamName = "Black";

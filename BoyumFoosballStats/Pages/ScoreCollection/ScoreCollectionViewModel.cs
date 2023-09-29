@@ -7,7 +7,9 @@ using BoyumFoosballStats.Services.Extensions;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Enums;
 using CosmosDb.Services;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.ScoreCollection;
@@ -19,14 +21,16 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     private readonly IMatchMakingService _matchMakingService;
     private readonly IMatchCrudService _matchCrudService;
     private readonly ISessionCrudService _sessionCrudService;
+    private readonly ProtectedLocalStorage _protectedLocalStorage;
 
     public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService,
         IMatchMakingService matchMakingService, IMatchCrudService matchCrudService,
-        ISessionCrudService sessionCrudService)
+        ISessionCrudService sessionCrudService, ProtectedLocalStorage protectedLocalStorage)
     {
         _playerCrudService = playerCrudService;
         _matchCrudService = matchCrudService;
         _sessionCrudService = sessionCrudService;
+        _protectedLocalStorage = protectedLocalStorage;
         _snackbarService = snackbarService;
         _matchMakingService = matchMakingService;
         _matchCrudService = matchCrudService;
@@ -34,9 +38,10 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
 
-    public Session ActiveSession { get; set; } = new();
+    private Session ActiveSession { get; set; } = new();
     public IEnumerable<Player>? AvailablePlayers { get; set; }
     public IEnumerable<Player> SelectedPlayers { get; set; } = new List<Player>();
+    public bool IsSessionActive { get; set; }
 
     public TeamInfo GreyTeam { get; set; } = new()
     {
@@ -49,6 +54,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         TeamName = BoyumFoosballStatsConsts.BlackTeamName,
         Score = 5
     };
+
 
     public async Task LoadPlayers()
     {
@@ -85,7 +91,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         });
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
-        UpdateSession(match);
+        SaveSessionIfActive(match);
     }
 
     public void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)
@@ -112,7 +118,8 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         {
             BlackTeam = BlackTeam with { Defender = null };
         }
-        UpdateSession();
+
+        SaveSessionIfActive();
     }
 
     public async Task BalanceMatch()
@@ -143,11 +150,54 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         {
             BlackTeam = teamInfo;
         }
-        UpdateSession();
+
+        SaveSessionIfActive();
     }
 
-    private void UpdateSession(Match? match = null)
+    public async Task LoadSession()
     {
+        var sessionRetrieval =
+            await _protectedLocalStorage.GetAsync<string>(BoyumFoosballStatsConsts.SessionIdLocalStorageKey);
+        if (sessionRetrieval is { Success: true, Value: not null })
+        {
+            var sessionById = await _sessionCrudService.GetByIdAsync(sessionRetrieval.Value);
+            if (sessionById != null)
+            {
+                IsSessionActive = true;
+                ActiveSession = sessionById;
+                GreyTeam.Attacker = ActiveSession?.GreyAttackerPlayer;
+                GreyTeam.Defender = ActiveSession?.GreyDefenderPlayer;
+                BlackTeam.Attacker = ActiveSession?.BlackAttackerPlayer;
+                BlackTeam.Defender = ActiveSession?.BlackDefenderPlayer;
+                SelectedPlayers = ActiveSession?.SelectedPlayers;
+            }
+        }
+    }
+
+    public async void ActivateSessionChanged(bool arg)
+    {
+        IsSessionActive = arg;
+        if (!IsSessionActive && ActiveSession.Id != null)
+        {
+            ActiveSession.State = SessionState.Closed;
+            ActiveSession.EndDate = DateTime.Now;
+            await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
+            await _protectedLocalStorage.DeleteAsync(BoyumFoosballStatsConsts.SessionIdLocalStorageKey);
+            _snackbarService.Add("Session closed!", Severity.Success);
+        }
+        else
+        {
+            _snackbarService.Add("Session started!", Severity.Success);
+        }
+    }
+
+    private async void SaveSessionIfActive(Match? match = null)
+    {
+        if (!IsSessionActive)
+        {
+            return;
+        }
+
         ActiveSession.GreyDefenderPlayer = GreyTeam.Defender;
         ActiveSession.GreyAttackerPlayer = GreyTeam.Attacker;
         ActiveSession.BlackDefenderPlayer = BlackTeam.Defender;
@@ -158,6 +208,10 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             ActiveSession.Matches.Add(match);
         }
 
-        _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
+        var session = await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
+        if (session.Id != null)
+        {
+            await _protectedLocalStorage.SetAsync(BoyumFoosballStatsConsts.SessionIdLocalStorageKey, session.Id);
+        }
     }
 }

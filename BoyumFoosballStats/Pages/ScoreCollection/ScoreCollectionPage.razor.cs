@@ -13,4 +13,14 @@ public partial class ScoreCollectionPage
         await base.OnInitializedAsync();
         await _ViewModel.LoadPlayers();
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _ViewModel.LoadSession();
+            StateHasChanged();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
 }
