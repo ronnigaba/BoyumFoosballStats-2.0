@@ -183,11 +183,11 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             ActiveSession.EndDate = DateTime.Now;
             await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
             await _protectedLocalStorage.DeleteAsync(BoyumFoosballStatsConsts.SessionIdLocalStorageKey);
-            _snackbarService.Add("Session closed!", Severity.Success);
+            _snackbarService.Add("Session closed!", Severity.Info);
         }
         else
         {
-            _snackbarService.Add("Session started!", Severity.Success);
+            _snackbarService.Add("Session started!", Severity.Info);
         }
     }
 
