@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 using BoyumFoosballStats.Components.TeamCard.Models;
 using BoyumFoosballStats.Services.Extensions;
 using BoyumFoosballStats.Services.Interface;
+using BoyumFoosballStats.Shared;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Enums;
 using CosmosDb.Services;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.ScoreCollection;
@@ -17,12 +20,17 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     private readonly ISnackbar _snackbarService;
     private readonly IMatchMakingService _matchMakingService;
     private readonly IMatchCrudService _matchCrudService;
+    private readonly ISessionCrudService _sessionCrudService;
+    private readonly ProtectedLocalStorage _protectedLocalStorage;
 
     public ScoreCollectionViewModel(IPlayerCrudService playerCrudService, ISnackbar snackbarService,
-        IMatchMakingService matchMakingService, IMatchCrudService matchCrudService)
+        IMatchMakingService matchMakingService, IMatchCrudService matchCrudService,
+        ISessionCrudService sessionCrudService, ProtectedLocalStorage protectedLocalStorage)
     {
         _playerCrudService = playerCrudService;
         _matchCrudService = matchCrudService;
+        _sessionCrudService = sessionCrudService;
+        _protectedLocalStorage = protectedLocalStorage;
         _snackbarService = snackbarService;
         _matchMakingService = matchMakingService;
         _matchCrudService = matchCrudService;
@@ -30,30 +38,28 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         _snackbarService.Configuration.VisibleStateDuration = 2000;
     }
 
+    private Session ActiveSession { get; set; } = new();
     public IEnumerable<Player>? AvailablePlayers { get; set; }
-    public IEnumerable<Player>? SelectedPlayers { get; set; } = new List<Player>();
+    public IEnumerable<Player> SelectedPlayers { get; set; } = new List<Player>();
+    public bool IsSessionActive { get; set; }
 
     public TeamInfo GreyTeam { get; set; } = new()
     {
-        TeamName = "Grey",
+        TeamName = BoyumFoosballStatsConsts.GreyTeamName,
         Score = 5
     };
 
     public TeamInfo BlackTeam { get; set; } = new()
     {
-        TeamName = "Black",
+        TeamName = BoyumFoosballStatsConsts.BlackTeamName,
         Score = 5
     };
+
 
     public async Task LoadPlayers()
     {
         var players = await _playerCrudService.GetAllAsync();
         AvailablePlayers = players;
-    }
-
-    public string? PlayerToString(Player player)
-    {
-        return player.Name;
     }
 
     public async Task SaveMatch()
@@ -85,6 +91,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         });
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
+        SaveSessionIfActive(match);
     }
 
     public void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)
@@ -111,6 +118,8 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         {
             BlackTeam = BlackTeam with { Defender = null };
         }
+
+        SaveSessionIfActive();
     }
 
     public async Task BalanceMatch()
@@ -128,6 +137,81 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             {
                 Attacker = fairMatch.BlackAttackerPlayer, Defender = fairMatch.BlackDefenderPlayer
             };
+        }
+    }
+
+    public void TeamInfoChanged(TeamInfo teamInfo)
+    {
+        if (teamInfo.TeamName == BoyumFoosballStatsConsts.GreyTeamName)
+        {
+            GreyTeam = teamInfo;
+        }
+        else
+        {
+            BlackTeam = teamInfo;
+        }
+
+        SaveSessionIfActive();
+    }
+
+    public async Task LoadSession()
+    {
+        var sessionRetrieval =
+            await _protectedLocalStorage.GetAsync<string>(BoyumFoosballStatsConsts.SessionIdLocalStorageKey);
+        if (sessionRetrieval is { Success: true, Value: not null })
+        {
+            var sessionById = await _sessionCrudService.GetByIdAsync(sessionRetrieval.Value);
+            if (sessionById != null)
+            {
+                IsSessionActive = true;
+                ActiveSession = sessionById;
+                GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id == ActiveSession?.GreyAttackerId);
+                GreyTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.GreyDefenderId);
+                BlackTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.BlackAttackerId);
+                BlackTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.BlackDefenderId);
+                SelectedPlayers = AvailablePlayers?.Where(x=> ActiveSession.SelectedPlayers.Contains(x.Id)).ToList()!;
+            }
+        }
+    }
+
+    public async void ActivateSessionChanged(bool arg)
+    {
+        IsSessionActive = arg;
+        if (!IsSessionActive && ActiveSession.Id != null)
+        {
+            ActiveSession.State = SessionState.Closed;
+            ActiveSession.EndDate = DateTime.Now;
+            await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
+            await _protectedLocalStorage.DeleteAsync(BoyumFoosballStatsConsts.SessionIdLocalStorageKey);
+            _snackbarService.Add("Session closed!", Severity.Info);
+        }
+        else
+        {
+            _snackbarService.Add("Session started!", Severity.Info);
+        }
+    }
+
+    private async void SaveSessionIfActive(Match? match = null)
+    {
+        if (!IsSessionActive)
+        {
+            return;
+        }
+
+        ActiveSession.GreyDefenderId = GreyTeam.Defender?.Id;
+        ActiveSession.GreyAttackerId = GreyTeam.Attacker?.Id;
+        ActiveSession.BlackDefenderId = BlackTeam.Defender?.Id;
+        ActiveSession.BlackAttackerId = BlackTeam.Attacker?.Id;
+        ActiveSession.SelectedPlayers = SelectedPlayers.Select(x=>x.Id).ToList();
+        if (match != null)
+        {
+            ActiveSession.Matches.Add(match);
+        }
+
+        var session = await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
+        if (session.Id != null)
+        {
+            await _protectedLocalStorage.SetAsync(BoyumFoosballStatsConsts.SessionIdLocalStorageKey, session.Id);
         }
     }
 }

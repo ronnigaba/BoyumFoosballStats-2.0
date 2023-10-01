@@ -7,7 +7,7 @@ namespace BoyumFoosballStats.Shared.DbModels;
 public class Player : CosmosDbBaseModel
 {
     [JsonProperty("DsId")] public string? PartitionKey { get; set; } = "player";
-    
+
     [JsonProperty("Name")] public string? Name { get; set; }
 
     [JsonProperty("Active")] public bool Active { get; set; }
@@ -17,4 +17,9 @@ public class Player : CosmosDbBaseModel
     [JsonProperty("MatchesPlayed")] public int? MatchesPlayed { get; set; }
 
     [JsonProperty("LegacyPlayerId")] public int? LegacyPlayerId { get; set; }
+
+    public override string ToString()
+    {
+        return Name ?? "";
+    }
 }
