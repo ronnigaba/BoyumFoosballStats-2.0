@@ -14,4 +14,5 @@ public interface IMatchHistoryViewModel : IViewModelBase
     Color GetBlackScoreColor(Match match);
     bool ShouldHidePager { get; }
     Task DeleteMatch(Match match);
+    void HandlePlayerClicked(Player contextGreyDefenderPlayer);
 }

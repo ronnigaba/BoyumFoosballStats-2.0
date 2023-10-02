@@ -1,0 +1,8 @@
+﻿@page "/PlayerDashboard/{PlayerId}"
+<MudContainer MaxWidth="MaxWidth.Large">
+    @if (Series.Any())
+    {
+        <MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px">
+        </MudChart>
+    }
+</MudContainer>
