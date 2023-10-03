@@ -15,9 +15,9 @@ public interface IScoreCollectionViewModel : IViewModelBase
     bool IsSessionActive { get; set; }
     Task LoadPlayers();
     Task SaveMatch();
-    void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers);
+    Task HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers);
     Task BalanceMatch();
-    void TeamInfoChanged(TeamInfo teamInfo);
+    Task TeamInfoChanged(TeamInfo teamInfo);
     Task LoadSession();
-    void ActivateSessionChanged(bool arg);
+    Task ActivateSessionChanged(bool arg);
 }

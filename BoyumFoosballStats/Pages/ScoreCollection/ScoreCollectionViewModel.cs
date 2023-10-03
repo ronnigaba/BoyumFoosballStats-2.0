@@ -91,10 +91,10 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         });
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
-        SaveSessionIfActive(match);
+        await SaveSessionIfActive(match);
     }
 
-    public void HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)
+    public async Task HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)
     {
         var selectedPlayersList = selectedPlayers.ToList();
         SelectedPlayers = selectedPlayersList;
@@ -119,7 +119,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             BlackTeam = BlackTeam with { Defender = null };
         }
 
-        SaveSessionIfActive();
+        await SaveSessionIfActive();
     }
 
     public async Task BalanceMatch()
@@ -140,7 +140,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         }
     }
 
-    public void TeamInfoChanged(TeamInfo teamInfo)
+    public async Task TeamInfoChanged(TeamInfo teamInfo)
     {
         if (teamInfo.TeamName == BoyumFoosballStatsConsts.GreyTeamName)
         {
@@ -151,7 +151,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             BlackTeam = teamInfo;
         }
 
-        SaveSessionIfActive();
+        await SaveSessionIfActive();
     }
 
     public async Task LoadSession()
@@ -165,16 +165,16 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             {
                 IsSessionActive = true;
                 ActiveSession = sessionById;
-                GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id == ActiveSession?.GreyAttackerId);
-                GreyTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.GreyDefenderId);
-                BlackTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.BlackAttackerId);
-                BlackTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession?.BlackDefenderId);
+                GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id == ActiveSession.GreyAttackerId);
+                GreyTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession.GreyDefenderId);
+                BlackTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession.BlackAttackerId);
+                BlackTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession.BlackDefenderId);
                 SelectedPlayers = AvailablePlayers?.Where(x=> ActiveSession.SelectedPlayers.Contains(x.Id)).ToList()!;
             }
         }
     }
 
-    public async void ActivateSessionChanged(bool arg)
+    public async Task ActivateSessionChanged(bool arg)
     {
         IsSessionActive = arg;
         if (!IsSessionActive && ActiveSession.Id != null)
@@ -191,7 +191,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         }
     }
 
-    private async void SaveSessionIfActive(Match? match = null)
+    private async Task SaveSessionIfActive(Match? match = null)
     {
         if (!IsSessionActive)
         {
