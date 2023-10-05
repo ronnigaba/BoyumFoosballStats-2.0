@@ -32,8 +32,8 @@
         <RowTemplate>
             <MudTd DataLabel="@nameof(Match.GreyDefenderPlayer)" Class="border-0 border-b-sm">
                 <div class="d-flex w-100 flex-column align-end">
-                    <MudButton Variant="Variant.Text" Class="normal-case" EndIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
-                    <MudButton Variant="Variant.Text" Class="normal-case" EndIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.GreyDefenderPlayer)" EndIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.GreyAttackerPlayer)" EndIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
                 </div>
             </MudTd>
             <MudTd Class="border-0 border-b-sm">
@@ -45,8 +45,8 @@
             </MudTd>
             <MudTd Class="border-0 border-b-sm">
                 <div class="d-flex w-100 flex-column align-start">
-                    <MudButton Variant="Variant.Text" Class="normal-case" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
-                    <MudButton Variant="Variant.Text" Class="normal-case" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.BlackDefenderPlayer)" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
+                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.BlackAttackerPlayer)" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
                 </div>
             </MudTd>
             <MudTd DataLabel="@nameof(Match.MatchDate)" Class="d-none d-sm-table-cell">

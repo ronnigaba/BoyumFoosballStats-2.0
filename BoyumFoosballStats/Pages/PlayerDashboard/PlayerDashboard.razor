@@ -1,0 +1,31 @@
+﻿@page "/PlayerDashboard/{PlayerId}"
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-5">
+    <MudGrid>
+        <MudItem xs="12" lg="4">
+            <MudPaper Elevation="3">
+                @if (ViewModel.WeekChartData.Any())
+                {
+                    <RadzenChart>
+                        <RadzenLineSeries Smooth="true" Data="@ViewModel.WeekChartData" CategoryProperty="Date" Title="Win Rate" ValueProperty="WinRate">
+                            <RadzenMarkers MarkerType="MarkerType.Circle"/>
+                            <RadzenSeriesDataLabels Visible="false"/>
+                        </RadzenLineSeries>
+                        <RadzenCategoryAxis>
+                            <RadzenAxisTitle Text="Week number"/>
+                        </RadzenCategoryAxis>
+                        <RadzenValueAxis Formatter="@ViewModel.FormatAsPercentage">
+                            <RadzenGridLines Visible="true"/>
+                            <RadzenAxisTitle Text="Win Rate (%)"/>
+                        </RadzenValueAxis>
+                    </RadzenChart>
+                }
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="4">
+
+        </MudItem>
+        <MudItem xs="12" lg="4">
+
+        </MudItem>
+    </MudGrid>
+</MudContainer>

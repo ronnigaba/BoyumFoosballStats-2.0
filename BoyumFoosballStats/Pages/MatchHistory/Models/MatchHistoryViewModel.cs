@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Extensions;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.MatchHistory.Models;
@@ -12,11 +13,13 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
 {
     private readonly IMatchCrudService _matchCrudService;
     private readonly IBrowserViewportService _browserViewportService;
+    private readonly NavigationManager _navigationManager;
 
-    public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService)
+    public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService, NavigationManager navigationManager)
     {
         _matchCrudService = matchCrudService;
         _browserViewportService = browserViewportService;
+        _navigationManager = navigationManager;
     }
 
     public List<Match> Matches { get; set; }
@@ -26,6 +29,11 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     {
         await _matchCrudService.DeleteAsync(match.Id!);
         Matches.Remove(match);
+    }
+
+    public void HandlePlayerClicked(Player player)
+    {
+        _navigationManager.NavigateTo("/PlayerDashboard/" + player.Id);
     }
 
     public async Task InitializeAsync()
