@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Ai;
 using BoyumFoosballStats.BlobStorage;
+using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Helpers;
 using BoyumFoosballStats.Pages.ScoreCollection;
 using BoyumFoosballStats.Services.Interface;
@@ -22,7 +23,6 @@ public class MatchMakingService : IMatchMakingService
     {
         _blobStorageHelper = blobStorageHelper;
     }
-    
 
     public Task<Match> FindFairestMatch(List<Player> players, MatchMakingMethod method)
     {

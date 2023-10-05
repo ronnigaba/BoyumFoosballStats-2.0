@@ -12,12 +12,12 @@ namespace BoyumFoosballStats.Pages.PlayerDashboard.Models;
 public class PlayerDashboardViewModel : IPlayerDashboardViewModel
 {
     private readonly IMatchCrudService _matchCrudService;
-    private List<Match> Matches;
+    private List<Match> _matches;
 
     public PlayerDashboardViewModel(IMatchCrudService matchCrudService)
     {
         _matchCrudService = matchCrudService;
-        Matches = new List<Match>();
+        _matches = new List<Match>();
         WeekChartData = new List<WeekChartDataItem>();
     }
 
@@ -26,7 +26,7 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     
     public async Task InitializeAsync()
     {
-        Matches = (await _matchCrudService.GetAllAsync()).ToList();
+        _matches = (await _matchCrudService.GetAllAsync()).ToList();
         DisplayWinRateChart();
     }
     
@@ -45,7 +45,7 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         var endDate = DateTime.Today; 
         var startDate = endDate.AddDays(-35); // Start of the 5th week from the current date
 
-        var relevantMatches = Matches
+        var relevantMatches = _matches
             .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
             .Where(m => 
                 m.BlackAttackerPlayer?.Id == PlayerId || 

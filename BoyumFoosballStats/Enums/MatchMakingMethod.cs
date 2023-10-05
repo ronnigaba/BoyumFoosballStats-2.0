@@ -1,4 +1,4 @@
-﻿namespace BoyumFoosballStats.Pages.ScoreCollection;
+﻿namespace BoyumFoosballStats.Enums;
 
 public enum MatchMakingMethod
 {
