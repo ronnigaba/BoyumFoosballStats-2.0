@@ -1,6 +1,34 @@
 ﻿@page "/PlayerDashboard/{PlayerId}"
-<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-5">
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-5">
     <MudGrid>
+
+        <MudItem xs="12" lg="12" Class="">
+            <MudPaper Elevation="2" Class="pt-4 px-8 pb-8">
+                <MudText Typo="Typo.h3" Class="mb-8">PlayerRankings</MudText>
+                @if(ViewModel.Players.Any())
+                {
+                    <MudTable Items="@ViewModel.Players" Striped="true" Bordered="false" Outlined="false" Hover="true">
+                        <HeaderContent>
+                            <MudTh>#</MudTh>
+                            <MudTh>Players</MudTh>
+                            <MudTh>TrueSkill</MudTh>
+                            <MudTh>Games</MudTh>
+                            <MudTh>Win Rate</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd></MudTd>
+                            <MudTd DataLabel="Name">@context.Name</MudTd>
+                            <MudTd DataLabel="TrueSkillRating" >@context.TrueSkillRating?.Mean.ToString("N")</MudTd>
+                            <MudTd DataLabel="MatchesPlayed">@context.MatchesPlayed</MudTd>
+                            <MudTd DataLabel="WinRate">@ViewModel.GetWinRate(context).ToString("P")</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager HideRowsPerPage="true" HidePageNumber="true" HorizontalAlignment="HorizontalAlignment.End"/>
+                        </PagerContent>
+                    </MudTable>
+                }
+            </MudPaper>
+        </MudItem>
         <MudItem xs="12" lg="4">
             <MudPaper Elevation="3">
                 @if (ViewModel.WeekChartData.Any())
@@ -17,6 +45,7 @@
                             <RadzenGridLines Visible="true"/>
                             <RadzenAxisTitle Text="Win Rate (%)"/>
                         </RadzenValueAxis>
+                        <RadzenLegend Visible="false"/>
                     </RadzenChart>
                 }
             </MudPaper>
