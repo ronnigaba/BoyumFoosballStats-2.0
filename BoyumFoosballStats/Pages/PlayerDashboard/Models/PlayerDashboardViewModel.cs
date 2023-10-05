@@ -48,16 +48,16 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         var relevantMatches = Matches
             .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
             .Where(m => 
-                (m.BlackAttackerPlayer?.Id == PlayerId) || 
-                (m.BlackDefenderPlayer?.Id == PlayerId) || 
-                (m.GreyAttackerPlayer?.Id == PlayerId) || 
-                (m.GreyDefenderPlayer?.Id == PlayerId));
+                m.BlackAttackerPlayer?.Id == PlayerId || 
+                m.BlackDefenderPlayer?.Id == PlayerId || 
+                m.GreyAttackerPlayer?.Id == PlayerId || 
+                m.GreyDefenderPlayer?.Id == PlayerId).ToList();
 
         var winRateByWeek = new Dictionary<string, double>();
 
         var calendar = CultureInfo.CurrentCulture.Calendar;
 
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
             var weekStartDate = startDate.AddDays(i * 7);
             var weekEndDate = weekStartDate.AddDays(6);
@@ -66,15 +66,15 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             if (!matchesThisWeek.Any())
                 continue;
 
-            int matchesWon = matchesThisWeek.Count(m => 
+            var matchesWon = matchesThisWeek.Count(m => 
                 (m.BlackAttackerPlayer?.Id == PlayerId && m.ScoreBlack > m.ScoreGrey) || 
                 (m.BlackDefenderPlayer?.Id == PlayerId && m.ScoreBlack > m.ScoreGrey) ||
                 (m.GreyAttackerPlayer?.Id == PlayerId && m.ScoreGrey > m.ScoreBlack) ||
                 (m.GreyDefenderPlayer?.Id == PlayerId && m.ScoreGrey > m.ScoreBlack));
 
-            double winRate = (double)matchesWon / matchesThisWeek.Count;
+            var winRate = (double)matchesWon / matchesThisWeek.Count;
 
-            int weekNumber = calendar.GetWeekOfYear(weekStartDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            var weekNumber = calendar.GetWeekOfYear(weekStartDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             winRateByWeek[$"{weekNumber}"] = winRate; // Using week number as the key
         }
 
