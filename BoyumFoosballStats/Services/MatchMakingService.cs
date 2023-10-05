@@ -22,7 +22,57 @@ public class MatchMakingService : IMatchMakingService
     {
         _blobStorageHelper = blobStorageHelper;
     }
-    
+
+    public async Task<Match> AutoSwapPlayers(List<Match> matches, List<Player> players, bool balanceMatch = false)
+    {
+        if (matches.Count == 0)
+        {
+            return await FindFairestMatch(players, MatchMakingMethod.Ai);
+        }
+
+        var newMatch = new Match();
+
+        var playersInLastMatch = players.Where(x => matches.Last().Players.Any(y => y.Id == x.Id)).ToList();
+        var playersNotInLastMatch = players.Except(playersInLastMatch).ToList();
+        if (playersNotInLastMatch.Count() >= 4)
+        {
+            return await FindFairestMatch(playersNotInLastMatch, MatchMakingMethod.Ai);
+        }
+        
+        var matchesPlayedByPlayer = new Dictionary<Player, int>();
+        foreach (var player in playersInLastMatch)
+        {
+            var matchesPlayed = 0;
+            foreach (var match in matches.OrderByDescending(x => x.MatchDate))
+            {
+                var wasPlayerInMatch = match.Players.Any(x => x.Id == player.Id);
+                if (wasPlayerInMatch)
+                {
+                    matchesPlayed++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (matchesPlayed > 0)
+            {
+                matchesPlayedByPlayer.Add(player, matchesPlayed);
+            }
+        }
+
+        if (balanceMatch)
+        {
+            var playersToKeep = matchesPlayedByPlayer.OrderBy(x => x.Value).Take(4 - playersNotInLastMatch.Count);
+            var playersForNewMatch = playersToKeep.Select(x=>x.Key).ToList();
+            playersForNewMatch.AddRange(playersNotInLastMatch);
+            return await FindFairestMatch(playersForNewMatch, MatchMakingMethod.Ai);
+        }
+        var playersToSwap = matchesPlayedByPlayer.OrderByDescending(x=>x.Value).Take(playersNotInLastMatch.Count);
+        //ToDo RGA - Swap players from/to specific positions without balancing
+        return newMatch;
+    }
 
     public Task<Match> FindFairestMatch(List<Player> players, MatchMakingMethod method)
     {
@@ -84,7 +134,7 @@ public class MatchMakingService : IMatchMakingService
     {
         var fairestMatch = new Match();
         double bestFairnessFactor = 0;
-        
+
         var combinations = CollectionCombinationHelper.GetAllCombinations(players, 2).ToList();
         foreach (var comb1 in combinations)
         {
@@ -101,6 +151,7 @@ public class MatchMakingService : IMatchMakingService
                 {
                     continue;
                 }
+
                 var blackAttacker = new Moserware.Skills.Player(match.BlackAttackerPlayer?.Id);
                 var blackDefender = new Moserware.Skills.Player(match.BlackDefenderPlayer?.Id);
                 var greyAttacker = new Moserware.Skills.Player(match.GreyAttackerPlayer?.Id);

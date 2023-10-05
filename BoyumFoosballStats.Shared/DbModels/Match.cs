@@ -30,8 +30,7 @@ public class Match : CosmosDbBaseModel
 
     public bool IsValid()
     {
-        var players = new List<Player>
-            { BlackAttackerPlayer, BlackDefenderPlayer, GreyAttackerPlayer, GreyDefenderPlayer };
+        var players = Players;
         if (players.Any(x => x == null) || players.GroupBy(x => x).Any(y => y.Count() > 1))
         {
             return false;
@@ -39,4 +38,7 @@ public class Match : CosmosDbBaseModel
 
         return true;
     }
+
+    public List<Player> Players => new()
+        { BlackAttackerPlayer, BlackDefenderPlayer, GreyAttackerPlayer, GreyDefenderPlayer };
 }
