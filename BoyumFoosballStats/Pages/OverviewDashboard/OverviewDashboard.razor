@@ -2,7 +2,7 @@
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-5">
     <MudGrid>
         <MudItem xs="12" Class="d-flex justify-center">
-            <MudSelect FullWidth="false" T="string" Value="ViewModel.SelectedSeason" SelectedValuesChanged="ViewModel.SeasonChanged" Clearable="true" Placeholder="All time">
+            <MudSelect FullWidth="false"  T="string" Value="ViewModel.SelectedSeason" SelectedValuesChanged="ViewModel.SeasonChanged" Clearable="true" Placeholder="All time">
                 @foreach (var season in ViewModel.AvailableSeasons)
                 {
                     <MudSelectItem T="string" Value="@season"></MudSelectItem>
