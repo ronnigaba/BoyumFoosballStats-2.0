@@ -1,33 +1,43 @@
-﻿@page "/PlayerDashboard/{PlayerId}"
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-5">
+﻿@page "/PlayerDashboard"
+@page "/PlayerDashboard/{PlayerId}"
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6 px-0 px-sm-6">
     <MudGrid>
 
-        <MudItem xs="12" lg="12" Class="">
-            <MudPaper Elevation="2" Class="pt-4 px-8 pb-8">
-                <MudText Typo="Typo.h3" Class="mb-8">PlayerRankings</MudText>
-                @if(ViewModel.Players.Any())
-                {
-                    <MudTable Items="@ViewModel.Players" Striped="true" Bordered="false" Outlined="false" Hover="true">
-                        <HeaderContent>
-                            <MudTh>#</MudTh>
-                            <MudTh>Players</MudTh>
-                            <MudTh>TrueSkill</MudTh>
-                            <MudTh>Games</MudTh>
-                            <MudTh>Win Rate</MudTh>
-                        </HeaderContent>
-                        <RowTemplate>
-                            <MudTd></MudTd>
-                            <MudTd DataLabel="Name">@context.Name</MudTd>
-                            <MudTd DataLabel="TrueSkillRating" >@context.TrueSkillRating?.Mean.ToString("N")</MudTd>
-                            <MudTd DataLabel="MatchesPlayed">@context.MatchesPlayed</MudTd>
-                            <MudTd DataLabel="WinRate">@ViewModel.GetWinRate(context).ToString("P")</MudTd>
-                        </RowTemplate>
-                        <PagerContent>
-                            <MudTablePager HideRowsPerPage="true" HidePageNumber="true" HorizontalAlignment="HorizontalAlignment.End"/>
-                        </PagerContent>
-                    </MudTable>
-                }
-            </MudPaper>
+        <MudItem xs="12" lg="12">
+            @if (ViewModel.Players.Any())
+            {
+                <MudTable Items="@ViewModel.Players" Striped="true" Bordered="false" Outlined="false" Hover="true" Class="mud--theme-dark pt-4 px-0 px-md-4" Breakpoint="Breakpoint.None">
+                    <ToolBarContent>
+                        <MudText Typo="Typo.h4" Class="mb-8">PlayerRankings</MudText>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Players</MudTh>
+                        <MudTh>TrueSkill</MudTh>
+                        <MudTh>Games</MudTh>
+                        @* <MudTh>Win Rate</MudTh> *@
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="TrueSkillRating">
+                            <div class="d-flex align-center">
+                                <MudText Inline="true">@context.TrueSkillRating?.Mean.ToString("N")</MudText>
+                                <MudProgressLinear Style="max-width: 150px" Color="Color.Success" Rounded="true" Size="Size.Medium" Value="@((double)context.TrueSkillRating?.Mean!)" Min="ViewModel.MinTrueSkill" Max="ViewModel.MaxTrueSkill" Class="ml-3 d-none d-sm-inline-block"/>
+                            </div>
+                        </MudTd>
+                        <MudTd DataLabel="MatchesPlayed">
+                            
+                            <div class="d-flex align-center">
+                                <MudText Inline="true">@context.MatchesPlayed</MudText>
+                                <MudProgressLinear Style="max-width: 150px" Color="Color.Warning" Rounded="true" Size="Size.Medium" Value="@((double)context.MatchesPlayed!)" Min="ViewModel.MinGames" Max="ViewModel.MaxGames" Class="ml-3 d-none d-sm-inline-block"/>
+                            </div>
+                        </MudTd>
+                        @* <MudTd DataLabel="WinRate">@ViewModel.GetWinRate(context).ToString("P")</MudTd> *@
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager HideRowsPerPage="true" HidePageNumber="true" HorizontalAlignment="HorizontalAlignment.End"/>
+                    </PagerContent>
+                </MudTable>
+            }
         </MudItem>
         <MudItem xs="12" lg="4">
             <MudPaper Elevation="3">

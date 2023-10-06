@@ -26,8 +26,13 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
 
     public string? PlayerId { get; set; }
     public List<WeekChartDataItem> WeekChartData { get; private set; }
+    public double MaxTrueSkill { get; private set; }
+    public double MinTrueSkill => 0;
 
+    public double MaxGames { get; private set; }
+    public double MinGames => 0;
     public List<Player> Players { get; private set; }
+
 
     public double GetWinRate(Player player)
     {
@@ -53,8 +58,15 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             .OrderByDescending(x => x.Active)
             .ThenBy(x => x.TrueSkillRating?.StandardDeviation > 3)
             .ThenByDescending(x => x.TrueSkillRating?.Mean).ToList();
-        Console.WriteLine($"Count: {Players.Count}");
-        DisplayWinRateChart();
+
+        MaxTrueSkill = Players.First().TrueSkillRating!.Mean;
+
+        MaxGames = (double) Players.MaxBy(x => x.MatchesPlayed)!.MatchesPlayed!;
+        
+        if (!string.IsNullOrEmpty(PlayerId))
+        {
+            DisplayWinRateChart();
+        }
     }
 
     private void DisplayWinRateChart()

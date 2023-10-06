@@ -15,4 +15,8 @@ public interface IPlayerDashboardViewModel : IViewModelBase
     public List<Player> Players { get; }
     double GetWinRate(Player player);
     string GetWinRateToString(Player player);
+    double MaxTrueSkill { get;  }
+    double MinTrueSkill { get;  }
+    double MaxGames { get; }
+    double MinGames { get;  }
 }
