@@ -25,11 +25,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     }
 
     public string? PlayerId { get; set; }
+    public Player? SelectedPlayer { get; set; }
     public List<WeekChartDataItem> WeekChartData { get; private set; }
     public double MaxTrueSkill { get; private set; }
     public double MinTrueSkill => 0;
     public double MaxGames { get; private set; }
     public double MinGames => 0;
+    public int RankingsColumnLg => SelectedPlayer is null ? 12 : 4;
+    public int RankingsColumnXs => 12;
     public List<Player> Players { get; private set; }
 
     public async Task InitializeAsync()
@@ -47,7 +50,7 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         
         if (!string.IsNullOrEmpty(PlayerId))
         {
-            DisplayWinRateChart();
+            DisplayWinRateChart(PlayerId);
         }
     }
 
@@ -56,33 +59,40 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         return Players.IndexOf(player) + 1;
     }
 
-    public double GetWinRate(Player player)
+    public Task HandlePlayerClicked(TableRowClickEventArgs<Player> args)
     {
-        var matchesWon = Matches.Count(m =>
-            (m.BlackAttackerPlayer?.Id == player.Id && m.ScoreBlack > m.ScoreGrey) ||
-            (m.BlackDefenderPlayer?.Id == player.Id && m.ScoreBlack > m.ScoreGrey) ||
-            (m.GreyAttackerPlayer?.Id == player.Id && m.ScoreGrey > m.ScoreBlack) ||
-            (m.GreyDefenderPlayer?.Id == player.Id && m.ScoreGrey > m.ScoreBlack));
+        SelectedPlayer = args.Item;
+        DisplayWinRateChart(args.Item.Id);
+        return Task.CompletedTask;
+    }
 
-        return (double)matchesWon / Matches.Count;
+    public void HandleClosePlayerStats()
+    {
+        SelectedPlayer = null;
     }
 
     public string GetWinRateToString(Player player)
     {
-        return $"{GetWinRate(player) * 100:0.##}%";
+        return $"{GetWinRate(player.Id!, Matches) * 100:0.##}%";
     }
 
-    private void DisplayWinRateChart()
+    public string FormatAsPercentage(object value)
     {
-        var last5WeeksData = GetPlayerWinRateForLast5Weeks();
+        // Convert the object value to double and format it as a percentage.
+        return $"{Convert.ToDouble(value) * 100:0.##}%";
+    }
+
+    private void DisplayWinRateChart(string? playerId)
+    {
+        var last5WeeksData = GetPlayerWinRateForLast5Weeks(playerId);
         WeekChartData = last5WeeksData.Select(k => new WeekChartDataItem
         {
             Date = k.Key,
             WinRate = k.Value
         }).ToList();
     }
-    
-    private Dictionary<string, double> GetPlayerWinRateForLast5Weeks()
+
+    private Dictionary<string, double> GetPlayerWinRateForLast5Weeks(string playerId)
     {
         var endDate = DateTime.Today;
         var startDate = endDate.AddDays(-35); // Start of the 5th week from the current date
@@ -90,10 +100,10 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         var relevantMatches = Matches
             .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
             .Where(m =>
-                m.BlackAttackerPlayer?.Id == PlayerId ||
-                m.BlackDefenderPlayer?.Id == PlayerId ||
-                m.GreyAttackerPlayer?.Id == PlayerId ||
-                m.GreyDefenderPlayer?.Id == PlayerId).ToList();
+                m.BlackAttackerPlayer?.Id == playerId ||
+                m.BlackDefenderPlayer?.Id == playerId ||
+                m.GreyAttackerPlayer?.Id == playerId ||
+                m.GreyDefenderPlayer?.Id == playerId).ToList();
 
         var winRateByWeek = new Dictionary<string, double>();
 
@@ -109,13 +119,7 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             if (!matchesThisWeek.Any())
                 continue;
 
-            var matchesWon = matchesThisWeek.Count(m =>
-                (m.BlackAttackerPlayer?.Id == PlayerId && m.ScoreBlack > m.ScoreGrey) ||
-                (m.BlackDefenderPlayer?.Id == PlayerId && m.ScoreBlack > m.ScoreGrey) ||
-                (m.GreyAttackerPlayer?.Id == PlayerId && m.ScoreGrey > m.ScoreBlack) ||
-                (m.GreyDefenderPlayer?.Id == PlayerId && m.ScoreGrey > m.ScoreBlack));
-
-            var winRate = (double)matchesWon / matchesThisWeek.Count;
+            var winRate = GetWinRate(playerId, matchesThisWeek);
 
             var weekNumber = calendar.GetWeekOfYear(weekStartDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             winRateByWeek[$"{weekNumber}"] = winRate; // Using week number as the key
@@ -124,9 +128,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         return winRateByWeek;
     }
 
-    public string FormatAsPercentage(object value)
+    private double GetWinRate(string playerId, List<Match> matches)
     {
-        // Convert the object value to double and format it as a percentage.
-        return $"{Convert.ToDouble(value) * 100:0.##}%";
+        var matchesWon = matches.Count(m =>
+            (m.BlackAttackerPlayer?.Id == playerId && m.ScoreBlack > m.ScoreGrey) ||
+            (m.BlackDefenderPlayer?.Id == playerId && m.ScoreBlack > m.ScoreGrey) ||
+            (m.GreyAttackerPlayer?.Id == playerId && m.ScoreGrey > m.ScoreBlack) ||
+            (m.GreyDefenderPlayer?.Id == playerId && m.ScoreGrey > m.ScoreBlack));
+
+        return (double)matchesWon / matches.Count;
     }
 }

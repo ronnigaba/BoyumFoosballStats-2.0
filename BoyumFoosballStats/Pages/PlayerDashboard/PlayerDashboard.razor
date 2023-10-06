@@ -1,14 +1,49 @@
 ﻿@page "/PlayerDashboard"
 @page "/PlayerDashboard/{PlayerId}"
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6 px-0 px-sm-6">
-    <MudGrid>
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 px-0 px-sm-6">
+    <MudGrid Justify="Justify.FlexEnd">
+        @if (ViewModel.SelectedPlayer != null)
+        {
+            <MudItem xs="8">
+                <MudPaper Elevation="5" Class="rounded-lg pa-8 h-100 mud-background-gray">
+                    <div class="w-100 d-flex justify-space-between mb-8">
+                        <MudText Typo="Typo.h4">@ViewModel.SelectedPlayer.Name</MudText>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" OnClick="ViewModel.HandleClosePlayerStats"></MudIconButton>
+                    </div>
+                    <MudGrid>
+                        <MudItem xs="6">
+                            <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                <MudText Typo="Typo.h6">Win Rate</MudText>
+                                @if (ViewModel.WeekChartData.Any())
+                                {
+                                    <RadzenChart>
+                                        <RadzenLineSeries Smooth="true" Data="@ViewModel.WeekChartData" CategoryProperty="Date" Title="Win Rate" ValueProperty="WinRate">
+                                            <RadzenMarkers MarkerType="MarkerType.Circle"/>
+                                            <RadzenSeriesDataLabels Visible="false"/>
+                                        </RadzenLineSeries>
+                                        <RadzenCategoryAxis>
+                                            <RadzenAxisTitle Text="Week number"/>
+                                        </RadzenCategoryAxis>
+                                        <RadzenValueAxis Formatter="@ViewModel.FormatAsPercentage">
+                                            <RadzenGridLines Visible="true"/>
+                                            <RadzenAxisTitle Text="Win Rate (%)"/>
+                                        </RadzenValueAxis>
+                                        <RadzenLegend Visible="false"/>
+                                    </RadzenChart>
+                                }
+                            </MudPaper>
+                        </MudItem>
+                    </MudGrid>
+                </MudPaper>
+            </MudItem>
+        }
 
-        <MudItem xs="12" lg="12">
+        <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg">
             @if (ViewModel.Players.Any())
             {
-                <MudTable Items="@ViewModel.Players" Striped="true" Bordered="false" Outlined="false" Hover="true" Class="mud--theme-dark pt-4 px-0 px-md-4" Breakpoint="Breakpoint.None">
+                <MudTable T="Player" RowClass="cursor-pointer" Items="@ViewModel.Players" OnRowClick="ViewModel.HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg" Elevation="5" Striped="true" Bordered="false" Outlined="false" Hover="true" Breakpoint="Breakpoint.None">
                     <ToolBarContent>
-                        <MudText Typo="Typo.h4" Class="mb-8">PlayerRankings</MudText>
+                        <MudText Typo="Typo.h4" Class="mb-8">Player rankings</MudText>
                     </ToolBarContent>
                     <ColGroup>
                         <col style="width: 60px;"/>
@@ -44,33 +79,6 @@
                     </PagerContent>
                 </MudTable>
             }
-        </MudItem>
-        <MudItem xs="12" lg="4">
-            <MudPaper Elevation="3">
-                @if (ViewModel.WeekChartData.Any())
-                {
-                    <RadzenChart>
-                        <RadzenLineSeries Smooth="true" Data="@ViewModel.WeekChartData" CategoryProperty="Date" Title="Win Rate" ValueProperty="WinRate">
-                            <RadzenMarkers MarkerType="MarkerType.Circle"/>
-                            <RadzenSeriesDataLabels Visible="false"/>
-                        </RadzenLineSeries>
-                        <RadzenCategoryAxis>
-                            <RadzenAxisTitle Text="Week number"/>
-                        </RadzenCategoryAxis>
-                        <RadzenValueAxis Formatter="@ViewModel.FormatAsPercentage">
-                            <RadzenGridLines Visible="true"/>
-                            <RadzenAxisTitle Text="Win Rate (%)"/>
-                        </RadzenValueAxis>
-                        <RadzenLegend Visible="false"/>
-                    </RadzenChart>
-                }
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" lg="4">
-
-        </MudItem>
-        <MudItem xs="12" lg="4">
-
         </MudItem>
     </MudGrid>
 </MudContainer>
