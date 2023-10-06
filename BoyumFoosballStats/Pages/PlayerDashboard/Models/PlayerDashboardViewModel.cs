@@ -28,27 +28,9 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     public List<WeekChartDataItem> WeekChartData { get; private set; }
     public double MaxTrueSkill { get; private set; }
     public double MinTrueSkill => 0;
-
     public double MaxGames { get; private set; }
     public double MinGames => 0;
     public List<Player> Players { get; private set; }
-
-
-    public double GetWinRate(Player player)
-    {
-        var matchesWon = Matches.Count(m =>
-            (m.BlackAttackerPlayer?.Id == player.Id && m.ScoreBlack > m.ScoreGrey) ||
-            (m.BlackDefenderPlayer?.Id == player.Id && m.ScoreBlack > m.ScoreGrey) ||
-            (m.GreyAttackerPlayer?.Id == player.Id && m.ScoreGrey > m.ScoreBlack) ||
-            (m.GreyDefenderPlayer?.Id == player.Id && m.ScoreGrey > m.ScoreBlack));
-
-        return (double)matchesWon / Matches.Count;
-    }
-
-    public string GetWinRateToString(Player player)
-    {
-        return $"{GetWinRate(player) * 100:0.##}%";
-    }
 
     public async Task InitializeAsync()
     {
@@ -67,6 +49,27 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         {
             DisplayWinRateChart();
         }
+    }
+
+    public int GetRankingNumber(Player player)
+    {
+        return Players.IndexOf(player) + 1;
+    }
+
+    public double GetWinRate(Player player)
+    {
+        var matchesWon = Matches.Count(m =>
+            (m.BlackAttackerPlayer?.Id == player.Id && m.ScoreBlack > m.ScoreGrey) ||
+            (m.BlackDefenderPlayer?.Id == player.Id && m.ScoreBlack > m.ScoreGrey) ||
+            (m.GreyAttackerPlayer?.Id == player.Id && m.ScoreGrey > m.ScoreBlack) ||
+            (m.GreyDefenderPlayer?.Id == player.Id && m.ScoreGrey > m.ScoreBlack));
+
+        return (double)matchesWon / Matches.Count;
+    }
+
+    public string GetWinRateToString(Player player)
+    {
+        return $"{GetWinRate(player) * 100:0.##}%";
     }
 
     private void DisplayWinRateChart()

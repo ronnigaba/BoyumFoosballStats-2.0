@@ -10,13 +10,20 @@
                     <ToolBarContent>
                         <MudText Typo="Typo.h4" Class="mb-8">PlayerRankings</MudText>
                     </ToolBarContent>
+                    <ColGroup>
+                        <col style="width: 60px;"/>
+                        <col/>
+                        <col/>
+                        <col/>
+                    </ColGroup>
                     <HeaderContent>
+                        <MudTh>#</MudTh>
                         <MudTh>Players</MudTh>
                         <MudTh>TrueSkill</MudTh>
                         <MudTh>Games</MudTh>
-                        @* <MudTh>Win Rate</MudTh> *@
                     </HeaderContent>
                     <RowTemplate>
+                        <MudTd>@ViewModel.GetRankingNumber(context)</MudTd>
                         <MudTd DataLabel="Name">@context.Name</MudTd>
                         <MudTd DataLabel="TrueSkillRating">
                             <div class="d-flex align-center">
@@ -25,13 +32,12 @@
                             </div>
                         </MudTd>
                         <MudTd DataLabel="MatchesPlayed">
-                            
+
                             <div class="d-flex align-center">
                                 <MudText Inline="true">@context.MatchesPlayed</MudText>
                                 <MudProgressLinear Style="max-width: 150px" Color="Color.Warning" Rounded="true" Size="Size.Medium" Value="@((double)context.MatchesPlayed!)" Min="ViewModel.MinGames" Max="ViewModel.MaxGames" Class="ml-3 d-none d-sm-inline-block"/>
                             </div>
                         </MudTd>
-                        @* <MudTd DataLabel="WinRate">@ViewModel.GetWinRate(context).ToString("P")</MudTd> *@
                     </RowTemplate>
                     <PagerContent>
                         <MudTablePager HideRowsPerPage="true" HidePageNumber="true" HorizontalAlignment="HorizontalAlignment.End"/>

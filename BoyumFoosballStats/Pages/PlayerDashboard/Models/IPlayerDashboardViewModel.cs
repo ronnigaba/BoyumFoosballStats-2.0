@@ -19,4 +19,5 @@ public interface IPlayerDashboardViewModel : IViewModelBase
     double MinTrueSkill { get;  }
     double MaxGames { get; }
     double MinGames { get;  }
+    int GetRankingNumber(Player player);
 }
