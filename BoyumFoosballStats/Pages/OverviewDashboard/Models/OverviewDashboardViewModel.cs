@@ -1,52 +1,81 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BoyumFoosballStats.Services.Extensions;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Extensions;
 
 namespace BoyumFoosballStats.Pages.OverviewDashboard.Models;
 
 public class OverviewDashboardViewModel : IOverviewDashboardViewModel
 {
-    public List<WinRateDataItem> WinRateMatchData { get; private set; } = new();
-    public List<MatchesPlayedDataItem> MatchesPlayedMatchData { get; private set; } = new();
-    public IEnumerable<string> FillColors { get; set; } = (new[] { "#594AE2", "#8D87DD" });
+    public List<ChartDataItem<double>> WinRateChartData { get; private set; } = new();
+    public List<ChartDataItem<int>> MatchesPlayedChartData { get; private set; } = new();
+    public List<ChartDataItem<double>> TableSideWinRateChartData { get; private set; } = new();
+    public IEnumerable<string> BarChartFillColors { get; } = (new[] { "#594AE2", "#58A2A3" });
+    public IEnumerable<string> PieChartFillColor { get; } = new[] { "#131313", "#bfbfbf" };
+
+    public List<string> AvailableSeasons { get; set; } = new();
+    public string? SelectedSeason { get; set; }
 
     private readonly IMatchCrudService _matchCrudService;
+    private readonly IMatchAnalysisService _matchAnalysisService;
+    private List<Match> _allMatches;
     private List<Match> _matches;
+    private List<IGrouping<string, Match>> _seasonGrouping;
 
-    public OverviewDashboardViewModel(IMatchCrudService matchCrudService)
+    public OverviewDashboardViewModel(IMatchCrudService matchCrudService, IMatchAnalysisService matchAnalysisService)
     {
         _matchCrudService = matchCrudService;
+        _matchAnalysisService = matchAnalysisService;
+        _allMatches = new List<Match>();
         _matches = new List<Match>();
     }
 
     public async Task InitializeAsync()
     {
-        _matches = (await _matchCrudService.GetAllAsync()).ToList();
+        _allMatches = (await _matchCrudService.GetAllAsync()).ToList();
+        LoadSeasonalMatchData();
         LoadPlayerMatchData();
+        LoadTableSideWinRateData();
+    }
+
+    public void SeasonChanged(IEnumerable<string> arg)
+    {
+        SelectedSeason = arg.FirstOrDefault();
+        _matches = _seasonGrouping.SingleOrDefault(x => x.Key == SelectedSeason)?.ToList() ?? _allMatches;
+        LoadPlayerMatchData();
+        LoadTableSideWinRateData();
+    }
+
+    private void LoadSeasonalMatchData()
+    {
+        _seasonGrouping = _allMatches.GroupBySeason().ToList();
+        AvailableSeasons = _seasonGrouping.Select(x => x.Key).OrderDescending().ToList();
+        SelectedSeason = AvailableSeasons.First();
+        _matches = _seasonGrouping.SingleOrDefault(x => x.Key == SelectedSeason)?.ToList() ?? _allMatches;
+    }
+
+    private void LoadTableSideWinRateData()
+    {
+        var winRates = _matchAnalysisService.GetTableSideWinRates(_matches);
+        TableSideWinRateChartData =
+            winRates.Select(x => new ChartDataItem<double> { Category = x.Key, Value = x.Value }).ToList();
     }
 
     private void LoadPlayerMatchData()
     {
-        var winRates = _matches.GetPlayerWinRates();
-        WinRateMatchData = winRates.Select(x => new WinRateDataItem { PlayerName = x.Key, WinRate = x.Value.WinRate })
-            .OrderByDescending(x => x.WinRate).ToList();
-        MatchesPlayedMatchData = winRates.Select(x => new MatchesPlayedDataItem
-                { PlayerName = x.Key, MatchesPlayed = x.Value.MatchesPlayed })
-            .OrderByDescending(x => x.MatchesPlayed).ToList();
+        var winRates = _matchAnalysisService.GetPlayerMatchStats(_matches);
+        WinRateChartData = winRates.Select(x => new ChartDataItem<double> { Category = x.Key, Value = x.Value.WinRate })
+            .OrderByDescending(x => x.Value).ToList();
+        MatchesPlayedChartData = winRates.Select(x => new ChartDataItem<int>
+                { Category = x.Key, Value = x.Value.MatchesPlayed })
+            .OrderByDescending(x => x.Value).ToList();
     }
 }
 
-public class WinRateDataItem
+public class ChartDataItem<T>
 {
-    public string? PlayerName { get; set; }
-    public double? WinRate { get; set; }
-}
-
-public class MatchesPlayedDataItem
-{
-    public string? PlayerName { get; set; }
-    public int? MatchesPlayed { get; set; }
+    public string? Category { get; set; }
+    public T? Value { get; set; }
 }

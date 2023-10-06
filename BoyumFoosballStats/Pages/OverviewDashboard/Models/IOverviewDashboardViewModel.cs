@@ -6,8 +6,13 @@ namespace BoyumFoosballStats.Pages.OverviewDashboard.Models;
 
 public interface IOverviewDashboardViewModel : IViewModelBase
 {
-    List<WinRateDataItem>? WinRateMatchData { get; }
-    List<MatchesPlayedDataItem>? MatchesPlayedMatchData { get; }
-    IEnumerable<string> FillColors { get; set; }
+    List<ChartDataItem<double>> WinRateChartData { get; }
+    List<ChartDataItem<int>> MatchesPlayedChartData { get; }
+    IEnumerable<string> BarChartFillColors { get; }
+    IEnumerable<string> PieChartFillColor { get; }
+    List<ChartDataItem<double>> TableSideWinRateChartData { get; }
+    List<string> AvailableSeasons { get; set; }
+    string SelectedSeason { get; set; }
     Task InitializeAsync();
+    void SeasonChanged(IEnumerable<string> value);
 }

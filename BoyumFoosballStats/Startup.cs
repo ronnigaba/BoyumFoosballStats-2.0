@@ -58,6 +58,7 @@ namespace BoyumFoosballStats
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<IMatchMakingService, MatchMakingService>();
+            services.AddTransient<IMatchAnalysisService, MatchAnalysisService>();
             services.AddTransient<IAzureBlobStorageHelper, AzureBlobStorageHelper>();
         }
 

@@ -38,18 +38,21 @@ public class Match : CosmosDbBaseModel
 
         return true;
     }
-
+    
     [JsonIgnore]
     public List<Player?> Players => new()
         { BlackAttackerPlayer, BlackDefenderPlayer, GreyAttackerPlayer, GreyDefenderPlayer };
 
     [JsonIgnore]
     public List<Player?> Winners => ScoreBlack > ScoreGrey
-        ? new List<Player?> { BlackAttackerPlayer, BlackDefenderPlayer }
-        : new List<Player?> { GreyAttackerPlayer, GreyDefenderPlayer };
+        ? new() { BlackAttackerPlayer, BlackDefenderPlayer }
+        : new() { GreyAttackerPlayer, GreyDefenderPlayer };
 
     [JsonIgnore]
     public List<Player?> Losers => ScoreGrey > ScoreBlack
-        ? new List<Player?> { GreyAttackerPlayer, GreyDefenderPlayer }
-        : new List<Player?> { BlackAttackerPlayer, BlackDefenderPlayer };
+        ? new() { GreyAttackerPlayer, GreyDefenderPlayer }
+        : new() { BlackAttackerPlayer, BlackDefenderPlayer };
+
+    [JsonIgnore] public List<Player?> Defenders => new() { BlackDefenderPlayer, GreyDefenderPlayer };
+    [JsonIgnore] public List<Player?> Attackers => new() { BlackAttackerPlayer, GreyAttackerPlayer };
 }
