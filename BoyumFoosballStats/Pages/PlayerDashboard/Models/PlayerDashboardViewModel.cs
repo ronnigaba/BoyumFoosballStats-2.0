@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using BoyumFoosballStats.Components.Charts.Models;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using MudBlazor;

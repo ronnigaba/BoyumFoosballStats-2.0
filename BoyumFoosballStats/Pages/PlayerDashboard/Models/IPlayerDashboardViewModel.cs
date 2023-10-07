@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BoyumFoosballStats.Components.Charts.Models;
 using BoyumFoosballStats.Models;
 using BoyumFoosballStats.Shared.DbModels;
 using MudBlazor;

@@ -1,4 +1,4 @@
-﻿namespace BoyumFoosballStats.Pages.PlayerDashboard.Models;
+﻿namespace BoyumFoosballStats.Components.Charts.Models;
 
 public class WeekChartDataItem
 {
