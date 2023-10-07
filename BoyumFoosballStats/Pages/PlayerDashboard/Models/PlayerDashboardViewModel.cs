@@ -47,6 +47,7 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         
         if (!string.IsNullOrEmpty(PlayerId))
         {
+            SelectedPlayer = Players.First(x => x.Id == PlayerId);
             DisplayWinRateChart(PlayerId);
         }
     }
@@ -69,7 +70,7 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
 
     private void DisplayWinRateChart(string? playerId)
     {
-        var last5WeeksData = GetPlayerWinRateForLast5Weeks(playerId);
+        var last5WeeksData = GetPlayerWinRateForLast5Weeks(playerId!);
         WeekChartData = last5WeeksData.Select(k => new WeekChartDataItem
         {
             Date = k.Key,

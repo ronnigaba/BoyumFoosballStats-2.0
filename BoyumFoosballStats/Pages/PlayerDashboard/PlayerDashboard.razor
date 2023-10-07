@@ -1,15 +1,14 @@
 ﻿@page "/PlayerDashboard"
 @page "/PlayerDashboard/{PlayerId}"
 
-
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 px-0 px-sm-6">
     <MudGrid Justify="Justify.FlexEnd">
         @if (ViewModel.SelectedPlayer != null)
         {
-            <MudItem xs="8">
+            <MudItem xs="12" lg="8">
                 <PlayerCard @bind-SelectedPlayer="ViewModel.SelectedPlayer">
                         <MudGrid>
-                            <MudItem xs="6">
+                            <MudItem xs="12" lg="6">
                                 <MudPaper Elevation="2" Class="pa-4 rounded-lg">
                                     <MudText Typo="Typo.h6">Win Rate</MudText>
                                     @if (ViewModel.WeekChartData.Any())
