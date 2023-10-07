@@ -1,0 +1,36 @@
+﻿<MudTable T="Player" RowClass="cursor-pointer" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg" Elevation="5" Striped="true" Bordered="false" Outlined="false" Hover="true" Breakpoint="Breakpoint.None">
+    <ToolBarContent>
+        <MudText Typo="Typo.h4" Class="mb-8">Player rankings</MudText>
+    </ToolBarContent>
+    <ColGroup>
+        <col style="width: 60px;"/>
+        <col/>
+        <col/>
+        <col/>
+    </ColGroup>
+    <HeaderContent>
+        <MudTh>#</MudTh>
+        <MudTh>Players</MudTh>
+        <MudTh>TrueSkill</MudTh>
+        <MudTh>Games</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@GetRankingNumber(context)</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="TrueSkillRating">
+            <div class="d-flex align-center">
+                <MudText Inline="true">@context.TrueSkillRating?.Mean.ToString("N")</MudText>
+                <MudProgressLinear Style="max-width: 150px" Color="Color.Success" Rounded="true" Size="Size.Medium" Value="@((double)context.TrueSkillRating?.Mean!)" Max="MaxTrueSkill" Class="ml-3 d-none d-sm-inline-block"/>
+            </div>
+        </MudTd>
+        <MudTd DataLabel="MatchesPlayed">
+            <div class="d-flex align-center">
+                <MudText Inline="true">@context.MatchesPlayed</MudText>
+                <MudProgressLinear Style="max-width: 150px" Color="Color.Warning" Rounded="true" Size="Size.Medium" Value="@((double)context.MatchesPlayed!)" Max="MaxGames" Class="ml-3 d-none d-sm-inline-block"/>
+            </div>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager HideRowsPerPage="true" HidePageNumber="true" HorizontalAlignment="HorizontalAlignment.End"/>
+    </PagerContent>
+</MudTable>

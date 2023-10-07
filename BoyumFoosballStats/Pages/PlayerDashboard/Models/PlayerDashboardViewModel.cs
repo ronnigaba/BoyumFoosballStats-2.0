@@ -28,10 +28,10 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     public string? PlayerId { get; set; }
     public Player? SelectedPlayer { get; set; }
     public List<WeekChartDataItem> WeekChartData { get; private set; }
-    public double MaxTrueSkill { get; private set; }
-    public double MinTrueSkill => 0;
-    public double MaxGames { get; private set; }
-    public double MinGames => 0;
+    // public double MaxTrueSkill { get; private set; }
+    // public double MinTrueSkill => 0;
+    // public double MaxGames { get; private set; }
+    // public double MinGames => 0;
     public int RankingsColumnLg => SelectedPlayer is null ? 12 : 4;
     public int RankingsColumnXs => 12;
     public List<Player> Players { get; private set; }
@@ -44,10 +44,6 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             .OrderByDescending(x => x.Active)
             .ThenBy(x => x.TrueSkillRating?.StandardDeviation > 3)
             .ThenByDescending(x => x.TrueSkillRating?.Mean).ToList();
-
-        MaxTrueSkill = Players.First().TrueSkillRating!.Mean;
-
-        MaxGames = (double) Players.MaxBy(x => x.MatchesPlayed)!.MatchesPlayed!;
         
         if (!string.IsNullOrEmpty(PlayerId))
         {
@@ -55,16 +51,10 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         }
     }
 
-    public int GetRankingNumber(Player player)
+    public void HandlePlayerClicked(Player player)
     {
-        return Players.IndexOf(player) + 1;
-    }
-
-    public Task HandlePlayerClicked(TableRowClickEventArgs<Player> args)
-    {
-        SelectedPlayer = args.Item;
-        DisplayWinRateChart(args.Item.Id);
-        return Task.CompletedTask;
+        SelectedPlayer = player;
+        DisplayWinRateChart(player.Id);
     }
 
     public void HandleClosePlayerStats()
@@ -75,12 +65,6 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     public string GetWinRateToString(Player player)
     {
         return $"{GetWinRate(player.Id!, Matches) * 100:0.##}%";
-    }
-
-    public string FormatAsPercentage(object value)
-    {
-        // Convert the object value to double and format it as a percentage.
-        return $"{Convert.ToDouble(value) * 100:0.##}%";
     }
 
     private void DisplayWinRateChart(string? playerId)
