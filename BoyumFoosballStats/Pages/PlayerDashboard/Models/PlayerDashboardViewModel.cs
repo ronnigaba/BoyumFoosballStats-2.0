@@ -7,6 +7,7 @@ using BoyumFoosballStats.Components.Charts.Models;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using MudBlazor;
+using MudBlazor.Extensions;
 
 namespace BoyumFoosballStats.Pages.PlayerDashboard.Models;
 
@@ -22,16 +23,13 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         _playerCrudService = playerCrudService;
         Players = new List<Player>();
         Matches = new List<Match>();
-        WeekChartData = new List<WeekChartDataItem>();
+        WeekChartData = new List<ChartDataItem>();
     }
 
     public string? PlayerId { get; set; }
     public Player? SelectedPlayer { get; set; }
-    public List<WeekChartDataItem> WeekChartData { get; private set; }
-    // public double MaxTrueSkill { get; private set; }
-    // public double MinTrueSkill => 0;
-    // public double MaxGames { get; private set; }
-    // public double MinGames => 0;
+    public List<ChartDataItem> WeekChartData { get; private set; }
+    public List<ChartDataItem> MatchesWeekChartData { get; private set; }
     public int RankingsColumnLg => SelectedPlayer is null ? 12 : 4;
     public int RankingsColumnXs => 12;
     public List<Player> Players { get; private set; }
@@ -58,60 +56,96 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         DisplayWinRateChart(player.Id);
     }
 
-    public void HandleClosePlayerStats()
-    {
-        SelectedPlayer = null;
-    }
-
     public string GetWinRateToString(Player player)
     {
         return $"{GetWinRate(player.Id!, Matches) * 100:0.##}%";
     }
 
+    public string FormatAsPercentage(object value)
+    {
+        return $"{Convert.ToDouble(value) * 100:0.##}%";
+    }
+
     private void DisplayWinRateChart(string? playerId)
     {
-        var last5WeeksData = GetPlayerWinRateForLast5Weeks(playerId!);
-        WeekChartData = last5WeeksData.Select(k => new WeekChartDataItem
+        var winRateData = GetPlayerWinRateForLast5Weeks(playerId!);
+        WeekChartData = winRateData.Select(k => new ChartDataItem
         {
-            Date = k.Key,
-            WinRate = k.Value
+            XData = k.Key,
+            YData = k.Value
+        }).ToList();
+        
+        var matchesPlayedData = GetMatchesPlayedForLast5Weeks(playerId!);
+        MatchesWeekChartData = matchesPlayedData.Select(k => new ChartDataItem
+        {
+            XData = k.Key,
+            YData = k.Value
         }).ToList();
     }
 
     private Dictionary<string, double> GetPlayerWinRateForLast5Weeks(string playerId)
     {
-        var endDate = DateTime.Today;
-        var startDate = endDate.AddDays(-35); // Start of the 5th week from the current date
-
         var relevantMatches = Matches
-            .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
             .Where(m =>
                 m.BlackAttackerPlayer?.Id == playerId ||
                 m.BlackDefenderPlayer?.Id == playerId ||
                 m.GreyAttackerPlayer?.Id == playerId ||
-                m.GreyDefenderPlayer?.Id == playerId).ToList();
+                m.GreyDefenderPlayer?.Id == playerId)
+            .ToList();
 
-        var winRateByWeek = new Dictionary<string, double>();
+        // Determine the last match date for the specified player
+        var endDate = relevantMatches.MaxBy(m => m.MatchDate)?.MatchDate ?? DateTime.Today;
 
+        var startDate = endDate.AddDays(-35); 
         var calendar = CultureInfo.CurrentCulture.Calendar;
 
-        for (var i = 0; i < 5; i++)
-        {
-            var weekStartDate = startDate.AddDays(i * 7);
-            var weekEndDate = weekStartDate.AddDays(6);
+        var last5WeeksMatches = relevantMatches
+            .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
+            .ToList();
 
-            var matchesThisWeek = relevantMatches.Where(m => m.MatchDate >= weekStartDate && m.MatchDate <= weekEndDate)
-                .ToList();
-            if (!matchesThisWeek.Any())
-                continue;
-
-            var winRate = GetWinRate(playerId, matchesThisWeek);
-
-            var weekNumber = calendar.GetWeekOfYear(weekStartDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
-            winRateByWeek[$"{weekNumber}"] = winRate; // Using week number as the key
-        }
+        // Group by week number, calculate win rate for each group, and take the last 5 weeks
+        var winRateByWeek = last5WeeksMatches
+            .GroupBy(m => calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday))
+            .OrderBy(g => g.Key)
+            .Take(5)
+            .ToDictionary(
+                g => g.Key.ToString("00"), 
+                g => GetWinRate(playerId, g.ToList())
+            );
 
         return winRateByWeek;
+    }
+    
+    private Dictionary<string, int> GetMatchesPlayedForLast5Weeks(string playerId)
+    {
+        var relevantMatches = Matches
+            .Where(m =>
+                m.BlackAttackerPlayer?.Id == playerId ||
+                m.BlackDefenderPlayer?.Id == playerId ||
+                m.GreyAttackerPlayer?.Id == playerId ||
+                m.GreyDefenderPlayer?.Id == playerId)
+            .ToList();
+
+        // Determine the last match date for the specified player
+        var endDate = relevantMatches.MaxBy(m => m.MatchDate)?.MatchDate ?? DateTime.Today;
+
+        var startDate = endDate.AddDays(-35); 
+        var calendar = CultureInfo.CurrentCulture.Calendar;
+
+        var last5WeeksMatches = relevantMatches
+            .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
+            .ToList();
+
+        var matchesByWeek = last5WeeksMatches
+            .GroupBy(m => calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday))
+            .OrderBy(g => g.Key)
+            .Take(5)
+            .ToDictionary(
+                g => g.Key.ToString(""),
+                g => g.Count()
+            );
+
+        return matchesByWeek;
     }
 
     private double GetWinRate(string playerId, List<Match> matches)

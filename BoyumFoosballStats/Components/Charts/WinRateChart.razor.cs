@@ -5,11 +5,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace BoyumFoosballStats.Components.Charts;
 
-public partial class WeekChart
+public partial class WinRateChart : ChartComponentBase
 {
-    [Parameter] 
-    public required List<WeekChartDataItem> Data { get; set; }
-    
     public string FormatAsPercentage(object value)
     {
         return $"{Convert.ToDouble(value) * 100:0.##}%";

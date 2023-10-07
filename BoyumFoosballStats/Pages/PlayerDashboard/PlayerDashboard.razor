@@ -7,17 +7,26 @@
         {
             <MudItem xs="12" lg="8">
                 <PlayerCard @bind-SelectedPlayer="ViewModel.SelectedPlayer">
-                        <MudGrid>
+                    <MudGrid>
+                        @if (ViewModel.MatchesWeekChartData.Any())
+                        {
                             <MudItem xs="12" lg="6">
                                 <MudPaper Elevation="2" Class="pa-4 rounded-lg">
                                     <MudText Typo="Typo.h6">Win Rate</MudText>
-                                    @if (ViewModel.WeekChartData.Any())
-                                    {
-                                        <WeekChart Data="ViewModel.WeekChartData"></WeekChart>
-                                    }
+                                    <WinRateChart Data="ViewModel.WeekChartData"></WinRateChart>
                                 </MudPaper>
                             </MudItem>
-                        </MudGrid>
+                        }
+                        @if (ViewModel.MatchesWeekChartData.Any())
+                        {
+                            <MudItem xs="12" lg="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">Matches played</MudText>
+                                    <MatchesPlayedChart Data="ViewModel.MatchesWeekChartData"></MatchesPlayedChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                    </MudGrid>
                 </PlayerCard>
             </MudItem>
         }

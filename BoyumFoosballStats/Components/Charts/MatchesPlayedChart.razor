@@ -1,0 +1,16 @@
+﻿@inherits ChartComponentBase
+
+<RadzenChart>
+    <RadzenLineSeries Stroke="var(--mud-palette-warning)" Smooth="true" Data="Data" CategoryProperty="@nameof(ChartDataItem.XData)" ValueProperty="@nameof(ChartDataItem.YData)" Title="Matches played">
+        <RadzenMarkers MarkerType="MarkerType.Circle"/>
+        <RadzenSeriesDataLabels Visible="false"/>
+    </RadzenLineSeries>
+    <RadzenCategoryAxis>
+        @* <RadzenAxisTitle Text="Week number"/> *@
+    </RadzenCategoryAxis>
+    <RadzenValueAxis>
+        <RadzenGridLines Visible="true"/>
+        @* <RadzenAxisTitle/> *@
+    </RadzenValueAxis>
+    <RadzenLegend Visible="false"/>
+</RadzenChart>
