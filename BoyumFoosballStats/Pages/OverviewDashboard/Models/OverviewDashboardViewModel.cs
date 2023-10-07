@@ -35,9 +35,12 @@ public class OverviewDashboardViewModel : IOverviewDashboardViewModel
     public async Task InitializeAsync()
     {
         _allMatches = (await _matchCrudService.GetAllAsync()).ToList();
-        LoadSeasonalMatchData();
-        LoadPlayerMatchData();
-        LoadTableSideWinRateData();
+        if (_allMatches.Any())
+        {
+            LoadSeasonalMatchData();
+            LoadPlayerMatchData();
+            LoadTableSideWinRateData();
+        }
     }
 
     public void SeasonChanged(IEnumerable<string> arg)
@@ -52,7 +55,7 @@ public class OverviewDashboardViewModel : IOverviewDashboardViewModel
     {
         _seasonGrouping = _allMatches.GroupBySeason().ToList();
         AvailableSeasons = _seasonGrouping.Select(x => x.Key).OrderDescending().ToList();
-        SelectedSeason = AvailableSeasons.First();
+        SelectedSeason = AvailableSeasons.FirstOrDefault();
         _matches = _seasonGrouping.SingleOrDefault(x => x.Key == SelectedSeason)?.ToList() ?? _allMatches;
     }
 

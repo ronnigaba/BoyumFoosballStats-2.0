@@ -14,3 +14,12 @@ public class SessionCrudService : CosmosDbCrudService<Session>, ISessionCrudServ
     {
     }
 }
+
+public class DebugSessionCrudService : CosmosDbCrudService<Session>, ISessionCrudService
+{
+    public DebugSessionCrudService(IOptions<CosmosDbSettings> dbSettings) : base(dbSettings,
+        BoyumFoosballStatsConsts.DebugPrefix + BoyumFoosballStatsConsts.SessionsContainerName,
+        BoyumFoosballStatsConsts.SessionsPartitionKey)
+    {
+    }
+}
