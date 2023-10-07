@@ -1,4 +1,4 @@
-﻿<MudTable T="Player" RowClass="cursor-pointer" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg" Elevation="5" Striped="true" Bordered="false" Outlined="false" Hover="true" Breakpoint="Breakpoint.None">
+﻿<MudTable T="Player" RowClass="cursor-pointer" RowClassFunc="@SelectedRowClassFunc" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg" Elevation="5" Bordered="false" Outlined="false" Hover="true" Breakpoint="Breakpoint.None">
     <ToolBarContent>
         <MudText Typo="Typo.h4" Class="mb-8">Player rankings</MudText>
     </ToolBarContent>
@@ -12,7 +12,7 @@
         <MudTh>#</MudTh>
         <MudTh>Players</MudTh>
         <MudTh>TrueSkill</MudTh>
-        <MudTh>Games</MudTh>
+        <MudTh>Matches</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>@GetRankingNumber(context)</MudTd>
