@@ -23,13 +23,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         _playerCrudService = playerCrudService;
         Players = new List<Player>();
         Matches = new List<Match>();
-        WeekChartData = new List<ChartDataItem>();
+        WinRateByWeekChartData = new List<ChartDataItem>();
     }
 
     public string? PlayerId { get; set; }
     public Player? SelectedPlayer { get; set; }
-    public List<ChartDataItem> WeekChartData { get; private set; }
+    public List<ChartDataItem> WinRateByWeekChartData { get; private set; }
     public List<ChartDataItem> MatchesWeekChartData { get; private set; }
+    public List<ChartDataItem> WinRateByDayChartData { get; private set; }
     public int RankingsColumnLg => SelectedPlayer is null ? 12 : 4;
     public int RankingsColumnXs => 12;
     public List<Player> Players { get; private set; }
@@ -46,14 +47,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         if (!string.IsNullOrEmpty(PlayerId))
         {
             SelectedPlayer = Players.First(x => x.Id == PlayerId);
-            DisplayWinRateChart(PlayerId);
+            DisplayCharts(PlayerId);
         }
     }
 
     public void HandlePlayerClicked(Player player)
     {
         SelectedPlayer = player;
-        DisplayWinRateChart(player.Id);
+        DisplayCharts(player.Id);
     }
 
     public string GetWinRateToString(Player player)
@@ -61,15 +62,10 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         return $"{GetWinRate(player.Id!, Matches) * 100:0.##}%";
     }
 
-    public string FormatAsPercentage(object value)
-    {
-        return $"{Convert.ToDouble(value) * 100:0.##}%";
-    }
-
-    private void DisplayWinRateChart(string? playerId)
+    private void DisplayCharts(string? playerId)
     {
         var winRateData = GetPlayerWinRateForLast5Weeks(playerId!);
-        WeekChartData = winRateData.Select(k => new ChartDataItem
+        WinRateByWeekChartData = winRateData.Select(k => new ChartDataItem
         {
             XData = k.Key,
             YData = k.Value
@@ -81,31 +77,22 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             XData = k.Key,
             YData = k.Value
         }).ToList();
+        
+        var winRateByDayData = GetPlayerWinRateByWeekDay(playerId!);
+        WinRateByDayChartData = winRateByDayData.Select(k => new ChartDataItem
+        {
+            XData = k.Key,
+            YData = k.Value
+        }).ToList();
     }
 
     private Dictionary<string, double> GetPlayerWinRateForLast5Weeks(string playerId)
     {
-        var relevantMatches = Matches
-            .Where(m =>
-                m.BlackAttackerPlayer?.Id == playerId ||
-                m.BlackDefenderPlayer?.Id == playerId ||
-                m.GreyAttackerPlayer?.Id == playerId ||
-                m.GreyDefenderPlayer?.Id == playerId)
-            .ToList();
-
-        // Determine the last match date for the specified player
-        var endDate = relevantMatches.MaxBy(m => m.MatchDate)?.MatchDate ?? DateTime.Today;
-
-        var startDate = endDate.AddDays(-35); 
-        var calendar = CultureInfo.CurrentCulture.Calendar;
-
-        var last5WeeksMatches = relevantMatches
-            .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
-            .ToList();
+        var last5WeeksMatches = GetLast5WeekMatches(playerId);
 
         // Group by week number, calculate win rate for each group, and take the last 5 weeks
         var winRateByWeek = last5WeeksMatches
-            .GroupBy(m => calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday))
+            .GroupBy(m => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday))
             .OrderBy(g => g.Key)
             .Take(5)
             .ToDictionary(
@@ -115,8 +102,38 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
 
         return winRateByWeek;
     }
-    
-    private Dictionary<string, int> GetMatchesPlayedForLast5Weeks(string playerId)
+
+    private Dictionary<string, double> GetPlayerWinRateByWeekDay(string playerId)
+    {
+        var relevantMatches = GetRelevantMatches(playerId);
+
+        // Grouping by day of the week and calculating win rate
+        var winRateByWeekDay = relevantMatches
+            .GroupBy(m => m.MatchDate.DayOfWeek.ToString())
+            .OrderBy(g => (int)g.First().MatchDate.DayOfWeek)  // Ensuring a consistent order
+            .ToDictionary(
+                g => g.Key, 
+                g => GetWinRate(playerId, g.ToList())
+            );
+
+        return winRateByWeekDay;
+    }
+
+    private List<Match> GetLast5WeekMatches(string playerId)
+    {
+        var relevantMatches = GetRelevantMatches(playerId);
+
+        // Determine the last match date for the specified player
+        var endDate = relevantMatches.MaxBy(m => m.MatchDate)?.MatchDate ?? DateTime.Today;
+        var startDate = endDate.AddDays(-35);
+
+        var last5WeeksMatches = relevantMatches
+            .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
+            .ToList();
+        return last5WeeksMatches;
+    }
+
+    private List<Match> GetRelevantMatches(string playerId)
     {
         var relevantMatches = Matches
             .Where(m =>
@@ -125,23 +142,19 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
                 m.GreyAttackerPlayer?.Id == playerId ||
                 m.GreyDefenderPlayer?.Id == playerId)
             .ToList();
+        return relevantMatches;
+    }
 
-        // Determine the last match date for the specified player
-        var endDate = relevantMatches.MaxBy(m => m.MatchDate)?.MatchDate ?? DateTime.Today;
-
-        var startDate = endDate.AddDays(-35); 
-        var calendar = CultureInfo.CurrentCulture.Calendar;
-
-        var last5WeeksMatches = relevantMatches
-            .Where(m => m.MatchDate >= startDate && m.MatchDate <= endDate)
-            .ToList();
-
+    private Dictionary<string, int> GetMatchesPlayedForLast5Weeks(string playerId)
+    {
+        var last5WeeksMatches = GetLast5WeekMatches(playerId);
+        
         var matchesByWeek = last5WeeksMatches
-            .GroupBy(m => calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday))
+            .GroupBy(m => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday))
             .OrderBy(g => g.Key)
             .Take(5)
             .ToDictionary(
-                g => g.Key.ToString(""),
+                g => FormatWeekRange(g.First().MatchDate), 
                 g => g.Count()
             );
 
@@ -157,5 +170,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             (m.GreyDefenderPlayer?.Id == playerId && m.ScoreGrey > m.ScoreBlack));
 
         return (double)matchesWon / matches.Count;
+    }
+    
+    private string FormatWeekRange(DateTime dateInWeek)
+    {
+        // Calculate start and end dates of the week
+        var weekStart = dateInWeek.StartOfWeek(DayOfWeek.Monday);
+        var weekEnd = weekStart.AddDays(4); // Adding 4 days to get to Friday
+    
+        return $"{weekStart:MMM dd}-{weekEnd:dd}";
     }
 }

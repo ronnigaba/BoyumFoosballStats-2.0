@@ -12,11 +12,11 @@ public interface IPlayerDashboardViewModel : IViewModelBase
     Task InitializeAsync();
     string? PlayerId { get; set; }
     Player? SelectedPlayer { get; set; }
-    List<ChartDataItem> WeekChartData { get; }
     public List<Player> Players { get; }
+    List<ChartDataItem> WinRateByWeekChartData { get; }
+    List<ChartDataItem> MatchesWeekChartData { get; }
+    List<ChartDataItem> WinRateByDayChartData { get; }
     int RankingsColumnLg { get; }
     int RankingsColumnXs { get; }
     void HandlePlayerClicked(Player player);
-    List<ChartDataItem> MatchesWeekChartData { get; }
-    string FormatAsPercentage(object value);
 }

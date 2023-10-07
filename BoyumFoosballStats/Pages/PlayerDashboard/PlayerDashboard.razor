@@ -13,7 +13,7 @@
                             <MudItem xs="12" lg="6">
                                 <MudPaper Elevation="2" Class="pa-4 rounded-lg">
                                     <MudText Typo="Typo.h6">Win Rate</MudText>
-                                    <WinRateChart Data="ViewModel.WeekChartData"></WinRateChart>
+                                    <WinRateByWeekChart Data="ViewModel.WinRateByWeekChartData"></WinRateByWeekChart>
                                 </MudPaper>
                             </MudItem>
                         }
@@ -23,6 +23,15 @@
                                 <MudPaper Elevation="2" Class="pa-4 rounded-lg">
                                     <MudText Typo="Typo.h6">Matches played</MudText>
                                     <MatchesPlayedChart Data="ViewModel.MatchesWeekChartData"></MatchesPlayedChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                        @if (ViewModel.WinRateByDayChartData.Any())
+                        {
+                            <MudItem xs="12" lg="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">Win Rate By Day</MudText>
+                                    <WinRateByDayChart Data="ViewModel.WinRateByDayChartData"></WinRateByDayChart>
                                 </MudPaper>
                             </MudItem>
                         }
