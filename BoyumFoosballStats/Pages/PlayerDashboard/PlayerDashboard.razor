@@ -7,23 +7,19 @@
         @if (ViewModel.SelectedPlayer != null)
         {
             <MudItem xs="8">
-                <MudPaper Elevation="5" Class="rounded-lg pa-8 h-100 mud-background-gray">
-                    <div class="w-100 d-flex justify-space-between mb-8">
-                        <MudText Typo="Typo.h4">@ViewModel.SelectedPlayer.Name</MudText>
-                        <MudIconButton Icon="@Icons.Material.Filled.Close" OnClick="ViewModel.HandleClosePlayerStats"></MudIconButton>
-                    </div>
-                    <MudGrid>
-                        <MudItem xs="6">
-                            <MudPaper Elevation="2" Class="pa-4 rounded-lg">
-                                <MudText Typo="Typo.h6">Win Rate</MudText>
-                                @if (ViewModel.WeekChartData.Any())
-                                {
-                                    <WeekChart Data="ViewModel.WeekChartData"></WeekChart>
-                                }
-                            </MudPaper>
-                        </MudItem>
-                    </MudGrid>
-                </MudPaper>
+                <PlayerCard @bind-SelectedPlayer="ViewModel.SelectedPlayer">
+                        <MudGrid>
+                            <MudItem xs="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">Win Rate</MudText>
+                                    @if (ViewModel.WeekChartData.Any())
+                                    {
+                                        <WeekChart Data="ViewModel.WeekChartData"></WeekChart>
+                                    }
+                                </MudPaper>
+                            </MudItem>
+                        </MudGrid>
+                </PlayerCard>
             </MudItem>
         }
         <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg">
