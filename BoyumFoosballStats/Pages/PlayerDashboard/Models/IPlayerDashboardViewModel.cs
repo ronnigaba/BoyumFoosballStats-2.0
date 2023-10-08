@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using BoyumFoosballStats.Components.Charts.Models;
 using BoyumFoosballStats.Models;
 using BoyumFoosballStats.Shared.DbModels;
-using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.PlayerDashboard.Models;
 

@@ -1,4 +1,4 @@
-﻿<MudTable T="Player" RowClass="cursor-pointer" RowClassFunc="@SelectedRowClassFunc" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg" Elevation="5" Hover="true" Breakpoint="Breakpoint.None">
+﻿<MudTable T="Player" RowClass="cursor-pointer" RowClassFunc="@SelectedRowClassFunc" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg h-100 d-flex flex-column rankings-pagination" Elevation="5" Hover="true" Breakpoint="Breakpoint.None">
     <ToolBarContent>
         <MudText Typo="Typo.h4" Class="mb-8">Player rankings</MudText>
     </ToolBarContent>
@@ -19,13 +19,13 @@
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="TrueSkillRating">
             <div class="d-flex align-center">
-                <MudText Inline="true">@context.TrueSkillRating?.Mean.ToString("N")</MudText>
+                <MudText Typo="Typo.inherit" Inline="true">@context.TrueSkillRating?.Mean.ToString("N")</MudText>
                 <MudProgressLinear Style="max-width: 150px" Color="Color.Success" Rounded="true" Size="Size.Medium" Value="@((double)context.TrueSkillRating?.Mean!)" Max="MaxTrueSkill" Class="ml-3 d-none d-sm-inline-block"/>
             </div>
         </MudTd>
         <MudTd DataLabel="MatchesPlayed">
             <div class="d-flex align-center">
-                <MudText Inline="true">@context.MatchesPlayed</MudText>
+                <MudText Typo="Typo.inherit" Inline="true">@context.MatchesPlayed</MudText>
                 <MudProgressLinear Style="max-width: 150px" Color="Color.Warning" Rounded="true" Size="Size.Medium" Value="@((double)context.MatchesPlayed!)" Max="MaxGames" Class="ml-3 d-none d-sm-inline-block"/>
             </div>
         </MudTd>

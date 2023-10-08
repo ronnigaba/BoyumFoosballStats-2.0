@@ -38,4 +38,23 @@ public class ChartComponentBase : ComponentBase
         return CultureInfo.CurrentCulture.Calendar
             .GetWeekOfYear(dateInWeek, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday).ToString("00");
     }
+    
+    protected string FormatAsShortDayName(object value)
+    {
+        if (value is not DateTime dateInWeek)
+        {
+            return string.Empty;
+        }
+
+        return dateInWeek.DayOfWeek.ToString().Substring(0,3);
+    }    
+    protected string FormatAsFullDayName(object value)
+    {
+        if (value is not DateTime dateInWeek)
+        {
+            return string.Empty;
+        }
+
+        return dateInWeek.DayOfWeek.ToString();
+    }
 }

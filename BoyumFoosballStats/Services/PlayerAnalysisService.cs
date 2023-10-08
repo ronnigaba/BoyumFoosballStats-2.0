@@ -5,33 +5,32 @@ using System.Linq;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Extensions;
-using MudBlazor.Extensions;
 
 namespace BoyumFoosballStats.Services;
 
 public class PlayerAnalysisService : IPlayerAnalysisService
 {
     
-    public Dictionary<string, double> GetPlayerWinRateForLast5Weeks(IEnumerable<Match> matches, string playerId)
+    public Dictionary<DateTime, double> GetPlayerWinRateForLast5Weeks(IEnumerable<Match> matches, string playerId)
     {
         var last5WeeksMatches = GetLast5WeekMatches(matches, playerId);
 
         // Group by week number, calculate win rate for each group, and take the last 5 weeks
+
         var winRateByWeek = last5WeeksMatches
             .GroupBy(m =>
-                CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek,
+                CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay,
                     DayOfWeek.Monday))
             .OrderBy(g => g.Key)
             .Take(5)
             .ToDictionary(
-                g => g.Key.ToString("00"),
-                g => GetWinRate(playerId, g.ToList())
+                g => g.First().MatchDate,
+                g => GetWinRate(g.ToList(), playerId)
             );
-
         return winRateByWeek;
     }
 
-    public Dictionary<string, double> GetPlayerWinRateByWeekDay(IEnumerable<Match> matches, string playerId)
+    public Dictionary<DateTime, double> GetPlayerWinRateByWeekDay(IEnumerable<Match> matches, string playerId)
     {
         var relevantMatches = GetRelevantMatches(matches,playerId);
 
@@ -40,8 +39,8 @@ public class PlayerAnalysisService : IPlayerAnalysisService
             .GroupBy(m => m.MatchDate.DayOfWeek.ToString())
             .OrderBy(g => (int)g.First().MatchDate.DayOfWeek) // Ensuring a consistent order
             .ToDictionary(
-                g => g.Key,
-                g => GetWinRate(playerId, g.ToList())
+                g => g.First().MatchDate,
+                g => GetWinRate(g.ToList(), playerId)
             );
 
         return winRateByWeekDay;
@@ -53,7 +52,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
 
         var matchesByWeek = last5WeeksMatches
             .GroupBy(m =>
-                CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstFullWeek,
+                CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay,
                     DayOfWeek.Monday))
             .OrderBy(g => g.Key)
             .Take(5)
@@ -87,7 +86,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
         return relevantMatches;
     }
 
-    private double GetWinRate(string playerId, List<Match> matches)
+    private double GetWinRate(List<Match> matches, string playerId)
     {
         var matchesWon = matches.Count(m =>
             (m.BlackAttackerPlayer?.Id == playerId && m.ScoreBlack > m.ScoreGrey) ||
@@ -96,14 +95,5 @@ public class PlayerAnalysisService : IPlayerAnalysisService
             (m.GreyDefenderPlayer?.Id == playerId && m.ScoreGrey > m.ScoreBlack));
 
         return (double)matchesWon / matches.Count;
-    }
-
-    private string FormatWeekRange(DateTime dateInWeek)
-    {
-        // Calculate start and end dates of the week
-        var weekStart = dateInWeek.StartOfWeek(DayOfWeek.Monday);
-        var weekEnd = weekStart.AddDays(4); // Adding 4 days to get to Friday
-
-        return $"{weekStart:MMM dd}-{weekEnd:dd}";
     }
 }

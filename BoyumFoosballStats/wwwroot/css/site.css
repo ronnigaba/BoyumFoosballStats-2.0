@@ -287,3 +287,6 @@ px-4 {
     background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
+.rankings-pagination .mud-table-pagination {
+    margin-top: auto;
+}
