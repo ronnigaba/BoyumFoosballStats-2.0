@@ -6,7 +6,7 @@ public static class BoyumFoosballStatsConsts
     public static string DefaultBucketName => $"{ProjectName}.appspot.com";
     public const string AiModelName = "MatchOutcomeModel.zip";
     public const string PlayerPartitionKey = "player";
-    public const string PlayerContainernName = "players";
+    public const string PlayerContainerName = "players";
     public const string MatchesPartitionKey = "match";
     public const string MatchesContainerName = "matches";
     public const string SessionsPartitionKey = "session";
@@ -15,5 +15,5 @@ public static class BoyumFoosballStatsConsts
 
     public const string GreyTeamName = "Grey";
     public const string BlackTeamName = "Black";
-    
+    public const string DebugPrefix = "debug_";
 }

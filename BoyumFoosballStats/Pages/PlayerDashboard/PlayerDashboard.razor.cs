@@ -14,7 +14,9 @@ namespace BoyumFoosballStats.Pages.PlayerDashboard;
 public partial class PlayerDashboard
 {
     [Inject] public IPlayerDashboardViewModel ViewModel { get; set; } = null!;
-    [Parameter] public string? PlayerId
+
+    [Parameter]
+    public string? PlayerId
     {
         get => ViewModel.PlayerId;
         set => ViewModel.PlayerId = value;
@@ -25,5 +27,4 @@ public partial class PlayerDashboard
         await base.OnInitializedAsync();
         await ViewModel.InitializeAsync();
     }
-
 }

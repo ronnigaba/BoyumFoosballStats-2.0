@@ -4,7 +4,7 @@ using BoyumFoosballStats.Components.TeamCard.Models;
 using BoyumFoosballStats.Models;
 using BoyumFoosballStats.Shared.DbModels;
 
-namespace BoyumFoosballStats.Pages.ScoreCollection;
+namespace BoyumFoosballStats.Pages.ScoreCollection.Models;
 
 public interface IScoreCollectionViewModel : IViewModelBase
 {

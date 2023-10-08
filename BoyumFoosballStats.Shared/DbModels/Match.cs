@@ -30,8 +30,7 @@ public class Match : CosmosDbBaseModel
 
     public bool IsValid()
     {
-        var players = new List<Player>
-            { BlackAttackerPlayer, BlackDefenderPlayer, GreyAttackerPlayer, GreyDefenderPlayer };
+        var players = Players;
         if (players.Any(x => x == null) || players.GroupBy(x => x).Any(y => y.Count() > 1))
         {
             return false;
@@ -39,4 +38,21 @@ public class Match : CosmosDbBaseModel
 
         return true;
     }
+    
+    [JsonIgnore]
+    public List<Player?> Players => new()
+        { BlackAttackerPlayer, BlackDefenderPlayer, GreyAttackerPlayer, GreyDefenderPlayer };
+
+    [JsonIgnore]
+    public List<Player?> Winners => ScoreBlack > ScoreGrey
+        ? new() { BlackAttackerPlayer, BlackDefenderPlayer }
+        : new() { GreyAttackerPlayer, GreyDefenderPlayer };
+
+    [JsonIgnore]
+    public List<Player?> Losers => ScoreGrey > ScoreBlack
+        ? new() { GreyAttackerPlayer, GreyDefenderPlayer }
+        : new() { BlackAttackerPlayer, BlackDefenderPlayer };
+
+    [JsonIgnore] public List<Player?> Defenders => new() { BlackDefenderPlayer, GreyDefenderPlayer };
+    [JsonIgnore] public List<Player?> Attackers => new() { BlackAttackerPlayer, GreyAttackerPlayer };
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Pages.ScoreCollection;
 using BoyumFoosballStats.Shared.DbModels;
 
