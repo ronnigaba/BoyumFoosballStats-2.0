@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using BoyumFoosballStats.Services.Extensions;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Extensions;
 using MudBlazor.Extensions;
 
 namespace BoyumFoosballStats.Services;
