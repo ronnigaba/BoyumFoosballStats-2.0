@@ -69,7 +69,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
         var relevantMatches = GetRelevantMatches(matches, playerId);
 
         // Determine the last match date for the specified player
-        var endDate = relevantMatches.MaxBy(m => m.MatchDate)?.MatchDate ?? DateTime.Today;
+        var endDate = DateTime.Today;
         var startDate = endDate.AddDays(-35);
 
         var last5WeeksMatches = relevantMatches
