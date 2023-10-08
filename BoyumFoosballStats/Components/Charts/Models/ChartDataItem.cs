@@ -2,6 +2,6 @@
 
 public class ChartDataItem
 {
-    public required string XData { get; set; }
+    public required object XData { get; set; }
     public required double YData { get; set; }
 }

@@ -1,12 +1,12 @@
 ﻿@inherits ChartComponentBase
 
 
-<RadzenChart>
+<RadzenChart Style="height: 250px;">
     <RadzenColumnSeries Data="Data" CategoryProperty="@nameof(ChartDataItem.XData)" ValueProperty="@nameof(ChartDataItem.YData)" Title="Win Rate">
         <RadzenMarkers MarkerType="MarkerType.Circle"/>
         <RadzenSeriesDataLabels Visible="false"/>
     </RadzenColumnSeries>
-    <RadzenValueAxis Formatter="@FormatAsPercentage">
+    <RadzenValueAxis Formatter="@FormatAsPercentage" Step="0.25" Min="0" Max="1">
         <RadzenGridLines Visible="true"/>
     </RadzenValueAxis>
     <RadzenLegend Visible="false"/>
