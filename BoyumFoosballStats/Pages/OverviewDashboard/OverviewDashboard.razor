@@ -1,0 +1,70 @@
+﻿@page "/OverviewDashboard"
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-5">
+    <MudGrid>
+        <MudItem xs="12" Class="d-flex justify-center">
+            @if (ViewModel.AvailableSeasons.Any())
+            {
+                <MudSelect FullWidth="false" T="string" Value="ViewModel.SelectedSeason" SelectedValuesChanged="ViewModel.SeasonChanged" Clearable="true" Placeholder="All time">
+                    @foreach (var season in ViewModel.AvailableSeasons)
+                    {
+                        <MudSelectItem T="string" Value="@season"></MudSelectItem>
+                    }
+                </MudSelect>
+            }
+        </MudItem>
+        <MudItem xs="12" lg="6">
+            <MudPaper Elevation="3">
+                @if (ViewModel.WinRateChartData.Any())
+                {
+                    <RadzenChart>
+                        <RadzenBarSeries Data="@ViewModel.WinRateChartData" CategoryProperty="Category" Title="Win Rate" ValueProperty="Value"
+                                         Fills="ViewModel.BarChartFillColors">
+                            <RadzenSeriesDataLabels Visible="false"/>
+                            <RadzenColumnOptions Margin="0"/>
+                        </RadzenBarSeries >
+                        <RadzenLegend Visible="false"/>
+                        <RadzenValueAxis Formatter="(percentage) => percentage.ToPercentageString()">
+                            <RadzenGridLines Visible="true"/>
+                            <RadzenAxisTitle Text="Win Rate (%)"/>
+                        </RadzenValueAxis>
+                    </RadzenChart>
+                }
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="6">
+            <MudPaper Elevation="3">
+                @if (ViewModel.MatchesPlayedChartData.Any())
+                {
+                    <RadzenChart>
+                        <RadzenBarSeries Data="@ViewModel.MatchesPlayedChartData" CategoryProperty="Category" Title="Matches Played" ValueProperty="Value"
+                                         Fills="ViewModel.BarChartFillColors">
+                            <RadzenSeriesDataLabels Visible="false"/>
+                            <RadzenColumnOptions Margin="0"/>
+                        </RadzenBarSeries >
+                        <RadzenLegend Visible="false"/>
+                        <RadzenValueAxis>
+                            <RadzenGridLines Visible="true"/>
+                            <RadzenAxisTitle Text="Matches Played"/>
+                        </RadzenValueAxis>
+                    </RadzenChart>
+                }
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudPaper Elevation="3">
+                @if (ViewModel.TableSideWinRateChartData.Any())
+                {
+                    <RadzenChart>
+                        <RadzenPieSeries Data="ViewModel.TableSideWinRateChartData" Title="Win Rate (%)" CategoryProperty="Category" ValueProperty="Value"
+                                         Fills="ViewModel.PieChartFillColor">
+                            <RadzenLegend Visible="false"/>
+                            <RadzenSeriesDataLabels Visible="true"/>
+                        </RadzenPieSeries>
+                        <RadzenValueAxis Formatter="(percentage) => percentage.ToPercentageString()">
+                        </RadzenValueAxis>
+                    </RadzenChart>
+                }
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

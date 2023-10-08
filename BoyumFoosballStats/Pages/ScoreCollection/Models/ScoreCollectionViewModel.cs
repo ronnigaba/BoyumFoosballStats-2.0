@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Components.TeamCard.Models;
-using BoyumFoosballStats.Services.Extensions;
+using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Enums;
+using BoyumFoosballStats.Shared.Extensions;
 using CosmosDb.Services;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using MudBlazor;
 
-namespace BoyumFoosballStats.Pages.ScoreCollection;
+namespace BoyumFoosballStats.Pages.ScoreCollection.Models;
 
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
@@ -81,7 +82,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             return;
         }
 
-        match.UpdateMatchesPlayed();
+        match.IncrementMatchesPlayed();
         match.UpdateTrueSkill();
         await _matchCrudService.CreateOrUpdateAsync(match);
         _snackbarService.Add("Match saved. GG!", Severity.Success);

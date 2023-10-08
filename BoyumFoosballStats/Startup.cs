@@ -40,8 +40,7 @@ namespace BoyumFoosballStats
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
 
-            
-            
+
             services.AddOptions();
             var tokenCredential = new DefaultAzureCredential();
             var secretClient =
@@ -52,12 +51,22 @@ namespace BoyumFoosballStats
                 secretClient.GetSecret("BlobStorageConnectionString").Value.Value;
             services.Configure<CosmosDbSettings>(Configuration.GetSection("CosmosConnectionStrings"));
             services.Configure<BlobStorageOptions>(Configuration.GetSection("BlobStorageSettings"));
+
+#if DEBUG
+            services.AddSingleton<IPlayerCrudService, DebugPlayerCrudService>();
+            services.AddSingleton<IMatchCrudService, DebugMatchCrudService>();
+            services.AddSingleton<ISessionCrudService, DebugSessionCrudService>();
+#else
             services.AddSingleton<IPlayerCrudService, PlayerCrudService>();
             services.AddSingleton<IMatchCrudService, MatchCrudService>();
             services.AddSingleton<ISessionCrudService, SessionCrudService>();
+#endif
+
+
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<ITeamCardViewModel, TeamCardViewModel>();
             services.AddTransient<IMatchMakingService, MatchMakingService>();
+            services.AddTransient<IMatchAnalysisService, MatchAnalysisService>();
             services.AddTransient<IAzureBlobStorageHelper, AzureBlobStorageHelper>();
 
             services.AddSingleton<IPlayerAnalysisService, PlayerAnalysisService>();

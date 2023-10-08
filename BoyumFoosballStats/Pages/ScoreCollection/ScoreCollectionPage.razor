@@ -1,19 +1,18 @@
 ﻿@page "/ScoreCollection"
-@inject IScoreCollectionViewModel _ViewModel
 
 <MudContainer MaxWidth="MaxWidth.Medium">
-    @if (_ViewModel.AvailablePlayers != null)
+    @if (ViewModel.AvailablePlayers != null)
     {
         <div class="d-flex flex-column gap-2 mt-5 mb-8">
             <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="align-self-end" Size="Size.Medium" OverrideStyles="false">
-                <MudButton EndIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => _ViewModel.SaveMatch()">Save</MudButton>
-                <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined" OnClick="() => _ViewModel.BalanceMatch()"></MudIconButton>
+                <MudButton EndIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ViewModel.SaveMatch()">Save</MudButton>
+                <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined" OnClick="() => ViewModel.BalanceMatch()"></MudIconButton>
                 <MudToggleIconButton Icon="@Icons.Material.Filled.Save" Color="@Color.Error"
-                                     ToggledIcon="@Icons.Material.Filled.Save" ToggledColor="@Color.Success" Toggled="_ViewModel.IsSessionActive" ToggledChanged="_ViewModel.ActivateSessionChanged">
+                                     ToggledIcon="@Icons.Material.Filled.Save" ToggledColor="@Color.Success" Toggled="ViewModel.IsSessionActive" ToggledChanged="ViewModel.ActivateSessionChanged">
                 </MudToggleIconButton >
             </MudButtonGroup>
-            <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" SelectedValues="_ViewModel.SelectedPlayers" SelectedValuesChanged="_ViewModel.HandleSelectedPlayersChanged" Variant="Variant.Filled">
-                @foreach (var player in _ViewModel.AvailablePlayers)
+            <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" SelectedValues="ViewModel.SelectedPlayers" SelectedValuesChanged="ViewModel.HandleSelectedPlayersChanged" Variant="Variant.Filled">
+                @foreach (var player in ViewModel.AvailablePlayers)
                 {
                     <MudSelectItem T="Player" Value="@player">@player.Name</MudSelectItem>
                 }
@@ -21,9 +20,9 @@
         </div>
     }
 
-    @if (_ViewModel.SelectedPlayers != null && _ViewModel.SelectedPlayers.Any())
+    @if (ViewModel.SelectedPlayers != null && ViewModel.SelectedPlayers.Any())
     {
-        <TeamCard PlayersList="_ViewModel.SelectedPlayers" TeamInfo="_ViewModel.GreyTeam" TeamInfoChanged="_ViewModel.TeamInfoChanged"/>
-        <TeamCard PlayersList="_ViewModel.SelectedPlayers" TeamInfo="_ViewModel.BlackTeam" IsFlipped="true" Type="TeamCardType.Dark" TeamInfoChanged="_ViewModel.TeamInfoChanged"/>
+        <TeamCard PlayersList="ViewModel.SelectedPlayers" TeamInfo="ViewModel.GreyTeam" TeamInfoChanged="ViewModel.TeamInfoChanged"/>
+        <TeamCard PlayersList="ViewModel.SelectedPlayers" TeamInfo="ViewModel.BlackTeam" IsFlipped="true" Type="TeamCardType.Dark" TeamInfoChanged="ViewModel.TeamInfoChanged"/>
     }
 </MudContainer>
