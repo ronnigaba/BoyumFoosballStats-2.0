@@ -82,7 +82,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             return;
         }
 
-        match.UpdateMatchesPlayed();
+        match.IncrementMatchesPlayed();
         match.UpdateTrueSkill();
         await _matchCrudService.CreateOrUpdateAsync(match);
         _snackbarService.Add("Match saved. GG!", Severity.Success);

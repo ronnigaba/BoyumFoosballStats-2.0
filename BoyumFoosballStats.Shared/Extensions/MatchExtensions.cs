@@ -43,7 +43,7 @@ public static class MatchExtensions
         match.GreyDefenderPlayer!.TrueSkillRating = new TrueSkillRating(newRatings[greyDefender]);
     }
 
-    public static void UpdateMatchesPlayed(this Match match)
+    public static void IncrementMatchesPlayed(this Match match)
     {
         if (!match.IsValid())
         {
