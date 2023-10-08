@@ -55,7 +55,7 @@ public class MatchesV1MigrationTest
                     MatchDate = oldMatch.MatchDate.ToUniversalTime(),
                     LegacyMatchId = oldMatch.Id
                 };
-                migratedMatch.UpdateMatchesPlayed();
+                migratedMatch.IncrementMatchesPlayed();
                 migratedMatch.UpdateTrueSkill();
                 await matchController.CreateOrUpdateAsync(migratedMatch);
             }
