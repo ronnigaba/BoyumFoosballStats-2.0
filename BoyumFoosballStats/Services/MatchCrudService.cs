@@ -14,3 +14,12 @@ public class MatchCrudService : CosmosDbCrudService<Match>, IMatchCrudService
     {
     }
 }
+
+public class DebugMatchCrudService : CosmosDbCrudService<Match>, IMatchCrudService
+{
+    public DebugMatchCrudService(IOptions<CosmosDbSettings> dbSettings) : base(dbSettings,
+        BoyumFoosballStatsConsts.DebugPrefix + BoyumFoosballStatsConsts.MatchesContainerName,
+        BoyumFoosballStatsConsts.MatchesPartitionKey)
+    {
+    }
+}

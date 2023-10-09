@@ -10,7 +10,16 @@ namespace BoyumFoosballStats.Services;
 public class PlayerCrudService : CosmosDbCrudService<Player>, IPlayerCrudService
 {
     public PlayerCrudService(IOptions<CosmosDbSettings> dbSettings) : base(dbSettings,
-        BoyumFoosballStatsConsts.PlayerContainernName, BoyumFoosballStatsConsts.PlayerPartitionKey)
+        BoyumFoosballStatsConsts.PlayerContainerName, BoyumFoosballStatsConsts.PlayerPartitionKey)
+    {
+    }
+}
+
+public class DebugPlayerCrudService : CosmosDbCrudService<Player>, IPlayerCrudService
+{
+    public DebugPlayerCrudService(IOptions<CosmosDbSettings> dbSettings) : base(dbSettings,
+        BoyumFoosballStatsConsts.DebugPrefix + BoyumFoosballStatsConsts.PlayerContainerName,
+        BoyumFoosballStatsConsts.PlayerPartitionKey)
     {
     }
 }

@@ -1,0 +1,23 @@
+﻿@inherits ChartComponentBase
+
+<RadzenChart Style="height: 250px;">
+    <RadzenLineSeries Smooth="true" Data="Data" CategoryProperty="@nameof(ChartDataItem.XData)" ValueProperty="@nameof(ChartDataItem.YData)" Title="Win Rate">
+        <ChildContent>
+            <RadzenMarkers MarkerType="MarkerType.Circle"/>
+            <RadzenSeriesDataLabels Visible="false"/>
+        </ChildContent>
+        <TooltipTemplate>
+            <MudText Typo="Typo.body2">@FormatAsWeekRange(context.XData)</MudText>
+            <MudText Typo="Typo.body2">
+                Win rate: <b>@FormatAsPercentage(context.YData)</b>
+            </MudText>
+        </TooltipTemplate>
+    </RadzenLineSeries>
+    <RadzenValueAxis Formatter="@FormatAsPercentage" Step="0.25" Min="0" Max="1">
+        <RadzenGridLines Visible="true"/>
+    </RadzenValueAxis>
+    <RadzenCategoryAxis Formatter="@FormatAsWeekNumber">
+        <RadzenAxisTitle Text="Week"/>
+    </RadzenCategoryAxis>
+    <RadzenLegend Visible="false"/>
+</RadzenChart>

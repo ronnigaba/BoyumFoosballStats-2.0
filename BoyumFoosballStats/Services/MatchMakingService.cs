@@ -161,7 +161,7 @@ public class MatchMakingService : IMatchMakingService
     {
         var fairestMatch = new Match();
         double bestFairnessFactor = 0;
-
+        
         var combinations = CollectionCombinationHelper.GetAllCombinations(players, 2).ToList();
         foreach (var comb1 in combinations)
         {
@@ -178,7 +178,6 @@ public class MatchMakingService : IMatchMakingService
                 {
                     continue;
                 }
-
                 var blackAttacker = new Moserware.Skills.Player(match.BlackAttackerPlayer?.Id);
                 var blackDefender = new Moserware.Skills.Player(match.BlackDefenderPlayer?.Id);
                 var greyAttacker = new Moserware.Skills.Player(match.GreyAttackerPlayer?.Id);

@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Components.TeamCard.Models;
-using BoyumFoosballStats.Services.Extensions;
+using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Enums;
+using BoyumFoosballStats.Shared.Extensions;
 using CosmosDb.Services;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 
-namespace BoyumFoosballStats.Pages.ScoreCollection;
+namespace BoyumFoosballStats.Pages.ScoreCollection.Models;
 
+//ToDo RGA - Split into components!
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
@@ -41,7 +44,8 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     private Session ActiveSession { get; set; } = new();
     public IEnumerable<Player>? AvailablePlayers { get; set; }
     public IEnumerable<Player> SelectedPlayers { get; set; } = new List<Player>();
-    public bool IsSessionActive { get; set; }
+    private bool IsSessionActive { get; set; }
+    private bool ShowInactivePlayers { get; set; }
 
     public TeamInfo GreyTeam { get; set; } = new()
     {
@@ -58,8 +62,13 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
 
     public async Task LoadPlayers()
     {
-        var players = await _playerCrudService.GetAllAsync();
-        AvailablePlayers = players;
+        var selected = SelectedPlayers;
+        AvailablePlayers = await _playerCrudService.GetAllAsync();
+        if (!ShowInactivePlayers)
+        {
+            AvailablePlayers = AvailablePlayers.Where(x=>x.Active);
+        }
+        SelectedPlayers = AvailablePlayers.Where(x => selected.Any(y => y.Id == x.Id));
     }
 
     public async Task SaveMatch()
@@ -81,7 +90,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             return;
         }
 
-        match.UpdateMatchesPlayed();
+        match.IncrementMatchesPlayed();
         match.UpdateTrueSkill();
         await _matchCrudService.CreateOrUpdateAsync(match);
         _snackbarService.Add("Match saved. GG!", Severity.Success);
@@ -173,10 +182,19 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             }
         }
     }
-
-    public async Task ActivateSessionChanged(bool arg)
+    public string GetInactivePlayerMenuText()
     {
-        IsSessionActive = arg;
+        return ShowInactivePlayers ? "Hide inactive players" : "Show inactive players";
+    }
+
+    public string GetSessionMenuText()
+    {
+        return IsSessionActive ? "Stop session" : "Start session";
+    }
+
+    public async Task SessionMenuClicked(MouseEventArgs arg)
+    {
+        IsSessionActive = !IsSessionActive;
         if (!IsSessionActive && ActiveSession.Id != null)
         {
             ActiveSession.State = SessionState.Closed;
@@ -189,6 +207,12 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         {
             _snackbarService.Add("Session started!", Severity.Info);
         }
+    }
+
+    public async Task InactivePlayerMenuClicked(MouseEventArgs arg)
+    {
+        ShowInactivePlayers = !ShowInactivePlayers;
+        await LoadPlayers();
     }
 
     private async Task SaveSessionIfActive(Match? match = null)

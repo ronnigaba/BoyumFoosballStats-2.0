@@ -1,7 +1,5 @@
 ﻿@page "/MatchHistory"
 
-@* <MudBreakpointProvider OnBreakpointChanged="HandleBreakpointChanged"/> *@
-
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-5 px-0 px-sm-6">
     <MudTable Items="ViewModel.Matches" Bordered="false" Outlined="false" Dense="true" Breakpoint="Breakpoint.None">
         <ToolBarContent>
@@ -54,7 +52,7 @@
             </MudTd>
             <MudTd Class="d-none d-sm-table-cell">
                 <div class="w-100 d-flex justify-end">
-                    <MudIconButton Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="() => ViewModel.DeleteMatch(context)" Color="Color.Error"/>
+                    <MudIconButton Disabled="true" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" OnClick="() => ViewModel.DeleteMatch(context)" Color="Color.Error"/>
                 </div>
             </MudTd>
         </RowTemplate>
