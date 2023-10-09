@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using BoyumFoosballStats.Shared.DbModels;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.Utilities;
@@ -11,12 +13,15 @@ public class TeamCardViewModel : ITeamCardViewModel
     public TeamCardType Type { get; set; } = TeamCardType.Light;
     public TeamInfo TeamInfo { get; set; }
     public EventCallback<TeamInfo> TeamInfoChanged { get; set; }
+
     public string WrapperClasses =>
         new CssBuilder("pa-4 d-flex justify-space-between gap-4")
             .AddClass("flex-column-reverse", when: IsFlipped)
             .AddClass("flex-column", when: !IsFlipped)
             .AddClass("mud--theme-dark", when: Type == TeamCardType.Dark)
             .Build();
+
+    public IEnumerable<Player>? PlayersList { get; set; }
 
     public string GetDefenderName()
     {
@@ -44,8 +49,8 @@ public class TeamCardViewModel : ITeamCardViewModel
         TeamInfo.Score -= 1;
         await TeamInfoChanged.InvokeAsync(TeamInfo);
     }
-    
-    
+
+
     public async Task HandleDefenderChanged(Player defender)
     {
         TeamInfo.Defender = defender;

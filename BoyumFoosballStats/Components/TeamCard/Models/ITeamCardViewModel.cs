@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BoyumFoosballStats.Shared.DbModels;
 using Microsoft.AspNetCore.Components;
 
@@ -17,4 +18,5 @@ public interface ITeamCardViewModel
     Task HandleDefenderChanged(Player defender);
     Task HandleAttackerChanged(Player attacker);
     string WrapperClasses { get; }
+    IEnumerable<Player>? PlayersList { get; set; }
 }
