@@ -23,7 +23,7 @@
 
     @if (ViewModel.SelectedPlayers != null && ViewModel.SelectedPlayers.Any())
     {
-        <TeamCard PlayersList="ViewModel.SelectedPlayers" TeamInfo="ViewModel.GreyTeam" TeamInfoChanged="ViewModel.TeamInfoChanged"/>
-        <TeamCard PlayersList="ViewModel.SelectedPlayers" TeamInfo="ViewModel.BlackTeam" IsFlipped="true" Type="TeamCardType.Dark" TeamInfoChanged="ViewModel.TeamInfoChanged"/>
+        <TeamCard PlayersList="ViewModel.SelectedPlayers.OrderBy(x => x.Name)" TeamInfo="ViewModel.GreyTeam" TeamInfoChanged="ViewModel.TeamInfoChanged"/>
+        <TeamCard PlayersList="ViewModel.SelectedPlayers.OrderBy(x => x.Name)" TeamInfo="ViewModel.BlackTeam" IsFlipped="true" Type="TeamCardType.Dark" TeamInfoChanged="ViewModel.TeamInfoChanged"/>
     }
 </MudContainer>
