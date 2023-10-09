@@ -55,4 +55,12 @@ public static class MatchExtensions
         match.GreyAttackerPlayer!.MatchesPlayed++;
         match.GreyDefenderPlayer!.MatchesPlayed++;
     }
+    
+    public static bool WasPlayerInMatch(this Match match, string playerId)
+    {
+        return match.BlackAttackerPlayer?.Id == playerId ||
+               match.BlackDefenderPlayer?.Id == playerId ||
+               match.GreyAttackerPlayer?.Id == playerId ||
+               match.GreyDefenderPlayer?.Id == playerId;
+    }
 }

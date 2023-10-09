@@ -7,9 +7,10 @@
             <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined" Class="align-self-end" Size="Size.Medium" OverrideStyles="false">
                 <MudButton EndIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ViewModel.SaveMatch()">Save</MudButton>
                 <MudIconButton Icon="@Icons.Material.Filled.AutoFixHigh" Color="Color.Primary" Variant="Variant.Outlined" OnClick="() => ViewModel.BalanceMatch()"></MudIconButton>
-                <MudToggleIconButton Icon="@Icons.Material.Filled.Save" Color="@Color.Error"
-                                     ToggledIcon="@Icons.Material.Filled.Save" ToggledColor="@Color.Success" Toggled="ViewModel.IsSessionActive" ToggledChanged="ViewModel.ActivateSessionChanged">
-                </MudToggleIconButton >
+                <MudMenu Icon="@Icons.Material.Filled.ArrowDropDown" AnchorOrigin="Origin.TopRight">
+                    <MudMenuItem OnClick="ViewModel.SessionMenuClicked">@ViewModel.GetSessionMenuText()</MudMenuItem>
+                    <MudMenuItem OnClick="ViewModel.InactivePlayerMenuClicked">@ViewModel.GetInactivePlayerMenuText()</MudMenuItem>
+                </MudMenu>
             </MudButtonGroup>
             <MudSelect FullWidth="true" T="Player" Class="mt-0 flex-grow-1" Label="Players at the table" MultiSelection="true" SelectedValues="ViewModel.SelectedPlayers" SelectedValuesChanged="ViewModel.HandleSelectedPlayersChanged" Variant="Variant.Filled">
                 @foreach (var player in ViewModel.AvailablePlayers)

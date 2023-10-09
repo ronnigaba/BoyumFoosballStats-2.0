@@ -1,31 +1,49 @@
-﻿@page "/PlayerDashboard/{PlayerId}"
-<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-5">
-    <MudGrid>
-        <MudItem xs="12" lg="4">
-            <MudPaper Elevation="3">
-                @if (ViewModel.WeekChartData.Any())
-                {
-                    <RadzenChart>
-                        <RadzenLineSeries Smooth="true" Data="@ViewModel.WeekChartData" CategoryProperty="Date" Title="Win Rate" ValueProperty="WinRate">
-                            <RadzenMarkers MarkerType="MarkerType.Circle"/>
-                            <RadzenSeriesDataLabels Visible="false"/>
-                        </RadzenLineSeries>
-                        <RadzenCategoryAxis>
-                            <RadzenAxisTitle Text="Week number"/>
-                        </RadzenCategoryAxis>
-                        <RadzenValueAxis Formatter="(percentage) => percentage.ToPercentageString()">
-                            <RadzenGridLines Visible="true"/>
-                            <RadzenAxisTitle Text="Win Rate (%)"/>
-                        </RadzenValueAxis>
-                    </RadzenChart>
-                }
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" lg="4">
+@page "/PlayerDashboard"
+@page "/PlayerDashboard/{PlayerId}"
 
-        </MudItem>
-        <MudItem xs="12" lg="4">
-
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 px-0 px-sm-6">
+    <MudGrid Justify="Justify.FlexEnd">
+        @if (ViewModel.SelectedPlayer != null)
+        {
+            <MudItem xs="12" lg="8">
+                <PlayerCard @bind-SelectedPlayer="ViewModel.SelectedPlayer">
+                    <MudGrid>
+                        @if (ViewModel.MatchesWeekChartData.Any())
+                        {
+                            <MudItem xs="12" lg="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">Win Rate</MudText>
+                                    <WinRateByWeekChart Data="ViewModel.WinRateByWeekChartData"></WinRateByWeekChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                        @if (ViewModel.MatchesWeekChartData.Any())
+                        {
+                            <MudItem xs="12" lg="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">Matches played</MudText>
+                                    <MatchesPlayedChart Data="ViewModel.MatchesWeekChartData"></MatchesPlayedChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                        @if (ViewModel.WinRateByDayChartData.Any())
+                        {
+                            <MudItem xs="12" lg="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">Win Rate By Day</MudText>
+                                    <WinRateByDayChart Data="ViewModel.WinRateByDayChartData"></WinRateByDayChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </PlayerCard>
+            </MudItem>
+        }
+        <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg">
+            @if (ViewModel.Players.Any())
+            {
+                <PlayerRankingsTable Players="@ViewModel.Players" SelectedPlayer="ViewModel.SelectedPlayer" SelectedPlayerChanged="ViewModel.HandlePlayerClicked"/>
+            }
         </MudItem>
     </MudGrid>
 </MudContainer>

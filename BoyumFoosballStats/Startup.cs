@@ -68,6 +68,8 @@ namespace BoyumFoosballStats
             services.AddTransient<IMatchMakingService, MatchMakingService>();
             services.AddTransient<IMatchAnalysisService, MatchAnalysisService>();
             services.AddTransient<IAzureBlobStorageHelper, AzureBlobStorageHelper>();
+
+            services.AddSingleton<IPlayerAnalysisService, PlayerAnalysisService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

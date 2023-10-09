@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BoyumFoosballStats.Pages.PlayerDashboard.Models;
-using BoyumFoosballStats.Services.Interface;
-using BoyumFoosballStats.Shared.DbModels;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.PlayerDashboard;
 
