@@ -8,6 +8,7 @@ using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Helpers;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Extensions;
 using Moserware.Skills;
 using MudBlazor.Extensions;
 using Player = BoyumFoosballStats.Shared.DbModels.Player;
@@ -42,35 +43,23 @@ public class MatchMakingService : IMatchMakingService
         };
         var playersInLastMatch = players.Where(x => lastMatch.Players.Any(y => y.Id == x.Id)).ToList();
         var playersNotInLastMatch = players.Except(playersInLastMatch).ToList();
-        if (playersNotInLastMatch.Count() >= 4)
+        if (playersNotInLastMatch.Count >= 4)
         {
             //If all players need to swap - find the fairest match
             return await FindFairestMatch(playersNotInLastMatch, matchMakingMethod ?? MatchMakingMethod.Ai);
         }
 
-        var matchesPlayedByPlayer = new Dictionary<Player, int>();
-        foreach (var player in playersInLastMatch)
-        {
-            var matchesPlayed = 0;
-            foreach (var match in matches.OrderByDescending(x => x.MatchDate))
-            {
-                var wasPlayerInMatch = match.Players.Any(x => x.Id == player.Id);
-                if (wasPlayerInMatch)
-                {
-                    matchesPlayed++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            if (matchesPlayed > 0)
-            {
-                matchesPlayedByPlayer.Add(player, matchesPlayed);
-            }
-        }
-
+        var matchesPlayedByPlayer = playersInLastMatch
+            .ToDictionary(
+                player => player,
+                player => matches
+                    .OrderByDescending(match => match.MatchDate)
+                    .TakeWhile(match => match.Players.Any(x => x.Id == player.Id))
+                    .Count()
+            )
+            .Where(kv => kv.Value > 0)
+            .ToDictionary(kv => kv.Key, kv => kv.Value);
+        
         if (matchMakingMethod != null)
         {
             //If a matchmaking method was explicitly specified - find the fairest match
