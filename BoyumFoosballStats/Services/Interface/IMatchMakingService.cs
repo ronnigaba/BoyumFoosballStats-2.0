@@ -9,4 +9,5 @@ namespace BoyumFoosballStats.Services.Interface;
 public interface IMatchMakingService
 {
     Task<Match> FindFairestMatch(List<Player> players, MatchMakingMethod method);
+    Task<Match> AutoSwapPlayers(List<Match> matches, List<Player> players, MatchMakingMethod? matchMakingMethod = null);
 }

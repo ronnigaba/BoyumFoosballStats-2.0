@@ -66,8 +66,9 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         AvailablePlayers = await _playerCrudService.GetAllAsync();
         if (!ShowInactivePlayers)
         {
-            AvailablePlayers = AvailablePlayers.Where(x=>x.Active);
+            AvailablePlayers = AvailablePlayers.Where(x => x.Active);
         }
+
         SelectedPlayers = AvailablePlayers.Where(x => selected.Any(y => y.Id == x.Id));
     }
 
@@ -101,6 +102,19 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         GreyTeam.Score = 5;
         BlackTeam.Score = 5;
         await SaveSessionIfActive(match);
+        if (IsSessionActive)
+        {
+            var swappedMatch =
+                await _matchMakingService.AutoSwapPlayers(ActiveSession.Matches, SelectedPlayers.ToList());
+            GreyTeam = GreyTeam with
+            {
+                Attacker = swappedMatch.GreyAttackerPlayer, Defender = swappedMatch.GreyDefenderPlayer
+            };
+            BlackTeam = BlackTeam with
+            {
+                Attacker = swappedMatch.BlackAttackerPlayer, Defender = swappedMatch.BlackDefenderPlayer
+            };
+        }
     }
 
     public async Task HandleSelectedPlayersChanged(IEnumerable<Player> selectedPlayers)
@@ -174,14 +188,15 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             {
                 IsSessionActive = true;
                 ActiveSession = sessionById;
-                GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id == ActiveSession.GreyAttackerId);
-                GreyTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession.GreyDefenderId);
-                BlackTeam.Attacker = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession.BlackAttackerId);
-                BlackTeam.Defender = AvailablePlayers?.SingleOrDefault(x=>x.Id ==ActiveSession.BlackDefenderId);
-                SelectedPlayers = AvailablePlayers?.Where(x=> ActiveSession.SelectedPlayers.Contains(x.Id)).ToList()!;
+                GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x => x.Id == ActiveSession.GreyAttackerId);
+                GreyTeam.Defender = AvailablePlayers?.SingleOrDefault(x => x.Id == ActiveSession.GreyDefenderId);
+                BlackTeam.Attacker = AvailablePlayers?.SingleOrDefault(x => x.Id == ActiveSession.BlackAttackerId);
+                BlackTeam.Defender = AvailablePlayers?.SingleOrDefault(x => x.Id == ActiveSession.BlackDefenderId);
+                SelectedPlayers = AvailablePlayers?.Where(x => ActiveSession.SelectedPlayers.Contains(x.Id)).ToList()!;
             }
         }
     }
+
     public string GetInactivePlayerMenuText()
     {
         return ShowInactivePlayers ? "Hide inactive players" : "Show inactive players";
@@ -205,6 +220,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         }
         else
         {
+            ActiveSession = new Session();
             _snackbarService.Add("Session started!", Severity.Info);
         }
     }
@@ -222,15 +238,16 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             return;
         }
 
-        ActiveSession.GreyDefenderId = GreyTeam.Defender?.Id;
-        ActiveSession.GreyAttackerId = GreyTeam.Attacker?.Id;
-        ActiveSession.BlackDefenderId = BlackTeam.Defender?.Id;
-        ActiveSession.BlackAttackerId = BlackTeam.Attacker?.Id;
-        ActiveSession.SelectedPlayers = SelectedPlayers.Select(x=>x.Id).ToList();
         if (match != null)
         {
             ActiveSession.Matches.Add(match);
         }
+
+        ActiveSession.GreyDefenderId = GreyTeam.Defender?.Id;
+        ActiveSession.GreyAttackerId = GreyTeam.Attacker?.Id;
+        ActiveSession.BlackDefenderId = BlackTeam.Defender?.Id;
+        ActiveSession.BlackAttackerId = BlackTeam.Attacker?.Id;
+        ActiveSession.SelectedPlayers = SelectedPlayers.Select(x => x.Id).ToList();
 
         var session = await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
         if (session.Id != null)
