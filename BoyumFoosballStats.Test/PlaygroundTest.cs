@@ -56,8 +56,9 @@ public class PlaygroundTest
         var lastMatch = matchesList.Last();
         
         var matchMakingService = new MatchMakingService(blobHelper);
-        var swappedMatch = await matchMakingService.AutoSwapPlayers(matchesList, players.Take(6).ToList(), true);
-        
-        
+        var playerInMatch = players.Where(x => !lastMatch.Players.Contains(x)).TakeLast(2).ToList();
+        playerInMatch.AddRange(lastMatch.Players);
+        var swappedMatch = await matchMakingService.AutoSwapPlayers(matchesList, playerInMatch);
+
     }
 }

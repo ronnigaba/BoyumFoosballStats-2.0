@@ -23,22 +23,24 @@ public class MatchMakingService : IMatchMakingService
         _blobStorageHelper = blobStorageHelper;
     }
 
-    public async Task<Match> AutoSwapPlayers(List<Match> matches, List<Player> players, bool balanceMatch = false)
+    public async Task<Match> AutoSwapPlayers(List<Match> matches, List<Player> players, MatchMakingMethod? matchMakingMethod = null)
     {
         if (matches.Count == 0)
         {
-            return await FindFairestMatch(players, MatchMakingMethod.Ai);
+            //If no matches are supplied - find the fairest match
+            return await FindFairestMatch(players, matchMakingMethod ?? MatchMakingMethod.Ai);
         }
 
-        var newMatch = new Match();
-
-        var playersInLastMatch = players.Where(x => matches.Last().Players.Any(y => y.Id == x.Id)).ToList();
+        var lastMatch = matches.Last();
+        var newMatch = lastMatch;
+        var playersInLastMatch = players.Where(x => lastMatch.Players.Any(y => y.Id == x.Id)).ToList();
         var playersNotInLastMatch = players.Except(playersInLastMatch).ToList();
         if (playersNotInLastMatch.Count() >= 4)
         {
-            return await FindFairestMatch(playersNotInLastMatch, MatchMakingMethod.Ai);
+            //If all players need to swap - find the fairest match
+            return await FindFairestMatch(playersNotInLastMatch,  matchMakingMethod ?? MatchMakingMethod.Ai);
         }
-        
+
         var matchesPlayedByPlayer = new Dictionary<Player, int>();
         foreach (var player in playersInLastMatch)
         {
@@ -62,15 +64,40 @@ public class MatchMakingService : IMatchMakingService
             }
         }
 
-        if (balanceMatch)
+        if (matchMakingMethod != null)
         {
+            //If a matchmaking method was explicitly specified - find the fairest match
             var playersToKeep = matchesPlayedByPlayer.OrderBy(x => x.Value).Take(4 - playersNotInLastMatch.Count);
-            var playersForNewMatch = playersToKeep.Select(x=>x.Key).ToList();
+            var playersForNewMatch = playersToKeep.Select(x => x.Key).ToList();
             playersForNewMatch.AddRange(playersNotInLastMatch);
-            return await FindFairestMatch(playersForNewMatch, MatchMakingMethod.Ai);
+            return await FindFairestMatch(playersForNewMatch, matchMakingMethod.Value);
         }
-        var playersToSwap = matchesPlayedByPlayer.OrderByDescending(x=>x.Value).Take(playersNotInLastMatch.Count);
-        //ToDo RGA - Swap players from/to specific positions without balancing
+
+        //If none of the other cases are true - swap each player individually
+        var playersToSwap = matchesPlayedByPlayer.OrderByDescending(x => x.Value).Take(playersNotInLastMatch.Count);
+        foreach (var playerToSwap in playersToSwap)
+        {
+            var swapId = playerToSwap.Key.Id;
+            if (lastMatch.BlackAttackerPlayer?.Id == swapId)
+            {
+                newMatch.BlackAttackerPlayer = playerToSwap.Key;
+            }
+
+            if (lastMatch.BlackDefenderPlayer?.Id == swapId)
+            {
+                newMatch.BlackDefenderPlayer = playerToSwap.Key;
+            }
+
+            if (lastMatch.GreyAttackerPlayer?.Id == swapId)
+            {
+                newMatch.GreyAttackerPlayer = playerToSwap.Key;
+            }
+
+            if (lastMatch.GreyDefenderPlayer?.Id == swapId)
+            {
+                newMatch.GreyDefenderPlayer = playerToSwap.Key;
+            }
+        }
         return newMatch;
     }
 
