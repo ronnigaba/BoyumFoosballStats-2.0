@@ -37,7 +37,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
         // Grouping by day of the week and calculating win rate
         var winRateByWeekDay = relevantMatches
             .GroupBy(m => m.MatchDate.DayOfWeek.ToString())
-            .OrderBy(g => (int)g.First().MatchDate.DayOfWeek) // Ensuring a consistent order
+            .OrderBy(g => (int)g.First().MatchDate.DayOfWeek)
             .ToDictionary(
                 g => g.First().MatchDate,
                 g => GetWinRate(g.ToList(), playerId)
@@ -55,7 +55,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
                 CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay,
                     DayOfWeek.Monday))
             .OrderBy(g => g.Key)
-            .Take(5)
+            .TakeLast(5)
             .ToDictionary(
                 g => g.First().MatchDate, 
                 g => g.Count()
@@ -67,9 +67,8 @@ public class PlayerAnalysisService : IPlayerAnalysisService
     private List<Match> GetLast5WeekMatches(IEnumerable<Match> matches, string playerId)
     {
         var relevantMatches = GetRelevantMatches(matches, playerId);
-
-        // Determine the last match date for the specified player
-        var endDate = DateTime.Today;
+        
+        var endDate = DateTime.Today.AddDays(1);
         var startDate = endDate.AddDays(-35);
 
         var last5WeeksMatches = relevantMatches
@@ -81,7 +80,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
     private List<Match> GetRelevantMatches(IEnumerable<Match> matches, string playerId)
     {
         var relevantMatches = matches
-            .Where(m => m.WasPlayerInMatch(playerId))
+            .Where(m => m.Players.Any(x => x?.Id == playerId))
             .ToList();
         return relevantMatches;
     }
