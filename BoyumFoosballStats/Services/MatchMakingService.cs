@@ -6,9 +6,9 @@ using BoyumFoosballStats.Ai;
 using BoyumFoosballStats.BlobStorage;
 using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Helpers;
-using BoyumFoosballStats.Pages.ScoreCollection;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Extensions;
 using Moserware.Skills;
 using MudBlazor.Extensions;
 using Player = BoyumFoosballStats.Shared.DbModels.Player;
@@ -22,6 +22,84 @@ public class MatchMakingService : IMatchMakingService
     public MatchMakingService(IAzureBlobStorageHelper blobStorageHelper)
     {
         _blobStorageHelper = blobStorageHelper;
+    }
+
+    public async Task<Match> AutoSwapPlayers(List<Match> matches, List<Player> players,
+        MatchMakingMethod? matchMakingMethod = null)
+    {
+        if (matches.Count == 0)
+        {
+            //If no matches are supplied - find the fairest match
+            return await FindFairestMatch(players, matchMakingMethod ?? MatchMakingMethod.Ai);
+        }
+
+        var lastMatch = matches.Last();
+        var newMatch = new Match
+        {
+            BlackAttackerPlayer = lastMatch.BlackAttackerPlayer,
+            BlackDefenderPlayer = lastMatch.BlackDefenderPlayer,
+            GreyAttackerPlayer = lastMatch.GreyAttackerPlayer,
+            GreyDefenderPlayer = lastMatch.GreyDefenderPlayer
+        };
+        var playersInLastMatch = players.Where(x => lastMatch.Players.Any(y => y.Id == x.Id)).ToList();
+        var playersNotInLastMatch = players.Except(playersInLastMatch).ToList();
+        if (playersNotInLastMatch.Count >= 4)
+        {
+            //If all players need to swap - find the fairest match
+            return await FindFairestMatch(playersNotInLastMatch, matchMakingMethod ?? MatchMakingMethod.Ai);
+        }
+
+        var matchesPlayedByPlayer = playersInLastMatch
+            .ToDictionary(
+                player => player,
+                player => matches
+                    .OrderByDescending(match => match.MatchDate)
+                    .TakeWhile(match => match.Players.Any(x => x.Id == player.Id))
+                    .Count()
+            )
+            .Where(kv => kv.Value > 0)
+            .ToDictionary(kv => kv.Key, kv => kv.Value);
+        
+        if (matchMakingMethod != null)
+        {
+            //If a matchmaking method was explicitly specified - find the fairest match
+            var playersToKeep = matchesPlayedByPlayer.OrderBy(x => x.Value).Take(4 - playersNotInLastMatch.Count);
+            var playersForNewMatch = playersToKeep.Select(x => x.Key).ToList();
+            playersForNewMatch.AddRange(playersNotInLastMatch);
+            return await FindFairestMatch(playersForNewMatch, matchMakingMethod.Value);
+        }
+
+        //If none of the other cases are true - swap each player individually
+        var playersToSwap = matchesPlayedByPlayer.OrderByDescending(x => x.Value)
+            .ThenBy(x => lastMatch.Winners.Contains(x.Key)).Take(playersNotInLastMatch.Count);
+        var swapIndex = 0;
+        foreach (var playerToSwap in playersToSwap)
+        {
+            var swapId = playerToSwap.Key.Id;
+            if (lastMatch.BlackAttackerPlayer?.Id == swapId)
+            {
+                newMatch.BlackAttackerPlayer = playersNotInLastMatch[swapIndex];
+            }
+
+            if (lastMatch.BlackDefenderPlayer?.Id == swapId)
+            {
+                newMatch.BlackDefenderPlayer = playersNotInLastMatch[swapIndex];
+            }
+
+            if (lastMatch.GreyAttackerPlayer?.Id == swapId)
+            {
+                newMatch.GreyAttackerPlayer = playersNotInLastMatch[swapIndex];
+            }
+
+            if (lastMatch.GreyDefenderPlayer?.Id == swapId)
+            {
+                newMatch.GreyDefenderPlayer = playersNotInLastMatch[swapIndex];
+            }
+
+            swapIndex++;
+        }
+
+        return newMatch;
     }
 
     public Task<Match> FindFairestMatch(List<Player> players, MatchMakingMethod method)
@@ -84,7 +162,7 @@ public class MatchMakingService : IMatchMakingService
     {
         var fairestMatch = new Match();
         double bestFairnessFactor = 0;
-        
+
         var combinations = CollectionCombinationHelper.GetAllCombinations(players, 2).ToList();
         foreach (var comb1 in combinations)
         {
@@ -101,6 +179,7 @@ public class MatchMakingService : IMatchMakingService
                 {
                     continue;
                 }
+
                 var blackAttacker = new Moserware.Skills.Player(match.BlackAttackerPlayer?.Id);
                 var blackDefender = new Moserware.Skills.Player(match.BlackDefenderPlayer?.Id);
                 var greyAttacker = new Moserware.Skills.Player(match.GreyAttackerPlayer?.Id);
