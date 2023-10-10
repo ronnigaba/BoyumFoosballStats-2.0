@@ -1,6 +1,7 @@
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Models;
 using Moserware.Skills;
+using Player = BoyumFoosballStats.Shared.DbModels.Player;
 
 namespace BoyumFoosballStats.Shared.Extensions;
 
@@ -9,6 +10,29 @@ public static class MatchExtensions
     public static IEnumerable<IGrouping<string, Match>> GroupBySeason(this List<Match> matches)
     {
         return matches.GroupBy(x => x.MatchDate.ToString("yyyy/MM"));
+    }
+
+    public static void SwapPlayer(this Match match, string oldPlayerId, Player newPlayer)
+    {
+        if (match.BlackAttackerPlayer?.Id == oldPlayerId)
+        {
+            match.BlackAttackerPlayer = newPlayer;
+        }
+
+        if (match.BlackDefenderPlayer?.Id == oldPlayerId)
+        {
+            match.BlackDefenderPlayer = newPlayer;
+        }
+
+        if (match.GreyAttackerPlayer?.Id == oldPlayerId)
+        {
+            match.GreyAttackerPlayer = newPlayer;
+        }
+
+        if (match.GreyDefenderPlayer?.Id == oldPlayerId)
+        {
+            match.GreyDefenderPlayer = newPlayer;
+        }
     }
     
     public static void UpdateTrueSkill(this Match match)

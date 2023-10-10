@@ -76,26 +76,7 @@ public class MatchMakingService : IMatchMakingService
         foreach (var playerToSwap in playersToSwap)
         {
             var swapId = playerToSwap.Key.Id;
-            if (lastMatch.BlackAttackerPlayer?.Id == swapId)
-            {
-                newMatch.BlackAttackerPlayer = playersNotInLastMatch[swapIndex];
-            }
-
-            if (lastMatch.BlackDefenderPlayer?.Id == swapId)
-            {
-                newMatch.BlackDefenderPlayer = playersNotInLastMatch[swapIndex];
-            }
-
-            if (lastMatch.GreyAttackerPlayer?.Id == swapId)
-            {
-                newMatch.GreyAttackerPlayer = playersNotInLastMatch[swapIndex];
-            }
-
-            if (lastMatch.GreyDefenderPlayer?.Id == swapId)
-            {
-                newMatch.GreyDefenderPlayer = playersNotInLastMatch[swapIndex];
-            }
-
+            newMatch.SwapPlayer(swapId, playersNotInLastMatch[swapIndex]);
             swapIndex++;
         }
 
