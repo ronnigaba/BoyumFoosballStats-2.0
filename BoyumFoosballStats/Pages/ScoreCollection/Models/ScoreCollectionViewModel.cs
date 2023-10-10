@@ -16,7 +16,6 @@ using MudBlazor;
 
 namespace BoyumFoosballStats.Pages.ScoreCollection.Models;
 
-//ToDo RGA - Split into components!
 public class ScoreCollectionViewModel : IScoreCollectionViewModel
 {
     private readonly ICosmosDbCrudService<Player> _playerCrudService;
@@ -165,15 +164,6 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
 
     public async Task TeamInfoChanged(TeamInfo teamInfo)
     {
-        if (teamInfo.TeamName == BoyumFoosballStatsConsts.GreyTeamName)
-        {
-            GreyTeam = teamInfo;
-        }
-        else
-        {
-            BlackTeam = teamInfo;
-        }
-
         await SaveSessionIfActive();
     }
 

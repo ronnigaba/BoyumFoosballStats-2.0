@@ -50,7 +50,6 @@ public class TeamCardViewModel : ITeamCardViewModel
         await TeamInfoChanged.InvokeAsync(TeamInfo);
     }
 
-
     public async Task HandleDefenderChanged(Player defender)
     {
         TeamInfo.Defender = defender;
