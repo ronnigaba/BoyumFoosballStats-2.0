@@ -22,7 +22,7 @@ public class PlayerAnalysisService : IPlayerAnalysisService
                 CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay,
                     DayOfWeek.Monday))
             .OrderBy(g => g.Key)
-            .Take(5)
+            .TakeLast(5)
             .ToDictionary(
                 g => g.First().MatchDate,
                 g => GetWinRate(g.ToList(), playerId)
