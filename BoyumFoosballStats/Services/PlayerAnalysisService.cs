@@ -15,8 +15,6 @@ public class PlayerAnalysisService : IPlayerAnalysisService
     {
         var last5WeeksMatches = GetLast5WeekMatches(matches, playerId);
 
-        // Group by week number, calculate win rate for each group, and take the last 5 weeks
-
         var winRateByWeek = last5WeeksMatches
             .GroupBy(m =>
                 CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay,
@@ -62,6 +60,59 @@ public class PlayerAnalysisService : IPlayerAnalysisService
             );
 
         return matchesByWeek;
+    }
+    
+    public Dictionary<DateTime, double> GetPlayerHighestTrueSkillForLast5Weeks(IEnumerable<Match> matches, string playerId)
+    {
+        var last5WeeksMatches = GetLast5WeekMatches(matches, playerId);
+
+        var highestTrueSkillByWeek = last5WeeksMatches
+            .GroupBy(m => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday))
+            .OrderBy(g => g.Key)
+            .TakeLast(5)
+            .ToDictionary(
+                g => g.First().MatchDate, 
+                g => GetHighestTrueSkill(g.ToList(), playerId)
+            );
+
+        return highestTrueSkillByWeek;
+    }
+
+    public Dictionary<DateTime, double> GetPlayerLowestTrueSkillForLast5Weeks(IEnumerable<Match> matches, string playerId)
+    {
+        var matchesList = matches.ToList();
+        var last5WeeksMatches = GetLast5WeekMatches(matchesList, playerId);
+
+        var lowestTrueSkillByWeek = GetLast5WeeksGroupedMatches(matchesList, playerId)
+            .ToDictionary(
+                g => g.First().MatchDate, 
+                g => GetLowestTrueSkill(g.ToList(), playerId)
+            );
+
+        return lowestTrueSkillByWeek;
+    }
+
+    private double GetHighestTrueSkill(List<Match> matches, string playerId)
+    {
+        return matches
+            .Where(m => m.Players.Any(p => p.Id == playerId))
+            .Max(m => m.Players.First(p => p.Id == playerId).TrueSkillRating.Mean); 
+    }
+
+    private IEnumerable<IGrouping<int, Match>> GetLast5WeeksGroupedMatches(IEnumerable<Match> matches, string playerId)
+    {
+        return GetLast5WeekMatches(matches, playerId)
+            .GroupBy(m => CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(m.MatchDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday))
+            .OrderBy(g => g.Key)
+            .TakeLast(5);
+    }
+
+    private double GetLowestTrueSkill(List<Match> matches, string playerId)
+    {
+        return matches
+            .Where(m => m.Players.Any(p => p.Id == playerId))
+            .Min(m => m.Players.First(p => p.Id == playerId).TrueSkillRating.Mean);
+        // Note: add error handling for scenarios where Min can't be computed
     }
 
     private List<Match> GetLast5WeekMatches(IEnumerable<Match> matches, string playerId)

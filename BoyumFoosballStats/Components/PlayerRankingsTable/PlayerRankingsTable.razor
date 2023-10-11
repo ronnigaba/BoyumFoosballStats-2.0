@@ -1,4 +1,5 @@
-﻿<MudTable T="Player" RowClass="cursor-pointer" RowClassFunc="@SelectedRowClassFunc" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg h-100 d-flex flex-column rankings-pagination" Elevation="5" Hover="true" Breakpoint="Breakpoint.None">
+﻿@using BoyumFoosballStats.Shared.Extensions
+<MudTable T="Player" RowClass="cursor-pointer" RowClassFunc="@SelectedRowClassFunc" Items="@Players" OnRowClick="HandlePlayerClicked" Class="mud--theme-dark pt-8 px-0 px-md-8 rounded-lg h-100 d-flex flex-column rankings-pagination" Elevation="5" Hover="true" Breakpoint="Breakpoint.None">
     <ToolBarContent>
         <MudText Typo="Typo.h4" Class="mb-8">Player rankings</MudText>
     </ToolBarContent>
@@ -19,7 +20,7 @@
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="TrueSkillRating">
             <div class="d-flex align-center">
-                <MudText Typo="Typo.inherit" Inline="true">@context.TrueSkillRating?.Mean.ToString("N")</MudText>
+                <MudText Typo="Typo.inherit" Inline="true">@context.TrueSkillRating?.Mean.ToTrueSkillString()</MudText>
                 <MudProgressLinear Style="max-width: 150px" Color="Color.Success" Rounded="true" Size="Size.Medium" Value="@((double)context.TrueSkillRating?.Mean!)" Max="MaxTrueSkill" Class="ml-3 d-none d-sm-inline-block"/>
             </div>
         </MudTd>

@@ -1,4 +1,4 @@
-@page "/PlayerDashboard"
+﻿@page "/PlayerDashboard"
 @page "/PlayerDashboard/{PlayerId}"
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 px-0 px-sm-6">
@@ -32,6 +32,15 @@
                                 <MudPaper Elevation="2" Class="pa-4 rounded-lg">
                                     <MudText Typo="Typo.h6">Win Rate By Day</MudText>
                                     <WinRateByDayChart Data="ViewModel.WinRateByDayChartData"></WinRateByDayChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                        @if (ViewModel.HighestTrueSkillByWeekChartData.Any() && ViewModel.LowestTrueSkillByWeekChartData.Any())
+                        {
+                            <MudItem xs="12" lg="6">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">TrueSkill evolution</MudText>
+                                    <TrueSkillByWeekChart Data="ViewModel.HighestTrueSkillByWeekChartData" SecondaryData="ViewModel.LowestTrueSkillByWeekChartData"></TrueSkillByWeekChart>
                                 </MudPaper>
                             </MudItem>
                         }

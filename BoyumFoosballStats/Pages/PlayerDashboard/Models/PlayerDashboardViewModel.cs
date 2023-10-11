@@ -29,6 +29,8 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     public List<ChartDataItem> WinRateByWeekChartData { get; private set; }
     public List<ChartDataItem> MatchesWeekChartData { get; private set; }
     public List<ChartDataItem> WinRateByDayChartData { get; private set; }
+    public List<ChartDataItem> HighestTrueSkillByWeekChartData { get; private set; }
+    public List<ChartDataItem> LowestTrueSkillByWeekChartData { get; private set; }
     public int RankingsColumnLg => SelectedPlayer is null ? 12 : 4;
     public int RankingsColumnXs => 12;
     public List<Player> Players { get; private set; }
@@ -73,6 +75,20 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
         
         var winRateByDayData = _playerAnalysisService.GetPlayerWinRateByWeekDay(Matches, playerId!);
         WinRateByDayChartData = winRateByDayData.Select(k => new ChartDataItem
+        {
+            XData = k.Key,
+            YData = k.Value
+        }).ToList();
+        
+        var highestTrueSkillByWeekData = _playerAnalysisService.GetPlayerHighestTrueSkillForLast5Weeks(Matches, playerId!);
+        HighestTrueSkillByWeekChartData = highestTrueSkillByWeekData.Select(k => new ChartDataItem
+        {
+            XData = k.Key,
+            YData = k.Value
+        }).ToList();        
+        
+        var lowestTrueSkillByWeekData = _playerAnalysisService.GetPlayerLowestTrueSkillForLast5Weeks(Matches, playerId!);
+        LowestTrueSkillByWeekChartData = lowestTrueSkillByWeekData.Select(k => new ChartDataItem
         {
             XData = k.Key,
             YData = k.Value
