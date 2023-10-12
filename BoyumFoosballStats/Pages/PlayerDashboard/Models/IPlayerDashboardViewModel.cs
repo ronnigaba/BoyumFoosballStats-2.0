@@ -19,5 +19,9 @@ public interface IPlayerDashboardViewModel : IViewModelBase
     List<ChartDataItem> LowestTrueSkillByWeekChartData { get; }
     int RankingsColumnLg { get; }
     int RankingsColumnXs { get; }
+    int ChartsColumnLg { get; }
+    int ChartsColumnXs { get; }
+    string ChartsGridItemClasses { get;}
+    string RankingsGridItemClasses { get;}
     void HandlePlayerClicked(Player player);
 }

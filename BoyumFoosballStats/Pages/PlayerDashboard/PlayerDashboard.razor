@@ -2,10 +2,10 @@
 @page "/PlayerDashboard/{PlayerId}"
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 px-0 px-sm-6">
-    <MudGrid Justify="Justify.FlexEnd">
-        @if (ViewModel.SelectedPlayer != null)
-        {
-            <MudItem xs="12" lg="8">
+    <MudGrid Justify="Justify.FlexStart">
+        <MudItem xs="@ViewModel.ChartsColumnXs" lg="@ViewModel.ChartsColumnLg" Class="@ViewModel.ChartsGridItemClasses">
+            @if (ViewModel.SelectedPlayer != null)
+            {
                 <PlayerCard @bind-SelectedPlayer="ViewModel.SelectedPlayer">
                     <MudGrid>
                         @if (ViewModel.MatchesWeekChartData.Any())
@@ -46,9 +46,9 @@
                         }
                     </MudGrid>
                 </PlayerCard>
-            </MudItem>
-        }
-        <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg">
+            }
+        </MudItem>
+        <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg" Class="@ViewModel.RankingsGridItemClasses">
             @if (ViewModel.Players.Any())
             {
                 <PlayerRankingsTable Players="@ViewModel.Players" SelectedPlayer="ViewModel.SelectedPlayer" SelectedPlayerChanged="ViewModel.HandlePlayerClicked"/>

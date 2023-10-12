@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BoyumFoosballStats.Components.Charts.Models;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using MudBlazor.Utilities;
 
 namespace BoyumFoosballStats.Pages.PlayerDashboard.Models;
 
@@ -33,6 +34,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
     public List<ChartDataItem> LowestTrueSkillByWeekChartData { get; private set; }
     public int RankingsColumnLg => SelectedPlayer is null ? 12 : 4;
     public int RankingsColumnXs => 12;
+    public int ChartsColumnLg => SelectedPlayer is null ? 0 : 8;
+    public int ChartsColumnXs => SelectedPlayer is null ? 0 : 12;
+
+    public string ChartsGridItemClasses => new CssBuilder("grid-item-transition overflow-hidden")
+        .AddClass("pa-0 grid-item-hidden", SelectedPlayer is null)
+        .Build();
+    public string RankingsGridItemClasses => new CssBuilder("grid-item-transition flex-1 mud-width-full")
+        .Build();
     public List<Player> Players { get; private set; }
 
     public async Task InitializeAsync()
