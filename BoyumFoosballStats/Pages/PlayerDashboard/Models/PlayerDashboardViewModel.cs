@@ -89,14 +89,14 @@ public class PlayerDashboardViewModel : IPlayerDashboardViewModel
             YData = k.Value
         }).ToList();
         
-        var highestTrueSkillByWeekData = _playerAnalysisService.GetPlayerHighestTrueSkillForLast5Weeks(Matches, playerId!);
+        var highestTrueSkillByWeekData = _playerAnalysisService.GetPlayerHighestTrueSkillForLastWeeks(Matches, playerId!, 10);
         HighestTrueSkillByWeekChartData = highestTrueSkillByWeekData.Select(k => new ChartDataItem
         {
             XData = k.Key,
             YData = k.Value
         }).ToList();        
         
-        var lowestTrueSkillByWeekData = _playerAnalysisService.GetPlayerLowestTrueSkillForLast5Weeks(Matches, playerId!);
+        var lowestTrueSkillByWeekData = _playerAnalysisService.GetPlayerLowestTrueSkillForLastWeeks(Matches, playerId!, 10);
         LowestTrueSkillByWeekChartData = lowestTrueSkillByWeekData.Select(k => new ChartDataItem
         {
             XData = k.Key,
