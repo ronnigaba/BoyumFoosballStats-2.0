@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
-using BoyumFoosballStats.Shared.Extensions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -15,7 +15,8 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     private readonly IBrowserViewportService _browserViewportService;
     private readonly NavigationManager _navigationManager;
 
-    public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService, NavigationManager navigationManager)
+    public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService,
+        NavigationManager navigationManager)
     {
         _matchCrudService = matchCrudService;
         _browserViewportService = browserViewportService;
@@ -25,6 +26,7 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     public List<Match> Matches { get; set; }
 
     public bool ShouldHidePager { get; private set; }
+
     public async Task DeleteMatch(Match match)
     {
         await _matchCrudService.DeleteAsync(match.Id!);
@@ -34,6 +36,31 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     public void HandlePlayerClicked(Player player)
     {
         _navigationManager.NavigateTo("/PlayerDashboard/" + player.Id);
+    }
+
+    public string GetTrueSkillChange(Player player, string? matchId)
+    {
+        var trueSkillChange = "-";
+        if (Matches.Any())
+        {
+            var matchIndex = Matches.FindIndex(x => x.Id == matchId);
+            for (int i = matchIndex + 1; i <= Matches.Count; i++)
+            {
+                var match = Matches[i];
+                if (!match.Players.Any(x => x.Id == player.Id))
+                {
+                    continue;
+                }
+
+                var prevMatchPlayer = match.Players.Single(x => x.Id == player.Id);
+
+                trueSkillChange =
+                    ((player.TrueSkillRating!.Mean - prevMatchPlayer!.TrueSkillRating!.Mean) * 100).ToString("+#;-#;0");
+                break;
+            }
+        }
+
+        return trueSkillChange;
     }
 
     public async Task InitializeAsync()

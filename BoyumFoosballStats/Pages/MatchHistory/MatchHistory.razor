@@ -30,21 +30,33 @@
         <RowTemplate>
             <MudTd DataLabel="@nameof(Match.GreyDefenderPlayer)" Class="border-0 border-b-sm">
                 <div class="d-flex w-100 flex-column align-end">
-                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.GreyDefenderPlayer)" EndIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
-                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.GreyAttackerPlayer)" EndIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
+                    <div>
+                        <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.GreyDefenderPlayer)" EndIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.GreyDefenderPlayer!.Name</MudButton>
+                        <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="ViewModel.GetGreyScoreColor(context)">@ViewModel.GetTrueSkillChange(context.GreyDefenderPlayer, context.Id)</MudChip>
+                    </div>
+                    <div>
+                        <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.GreyAttackerPlayer)" EndIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.GreyAttackerPlayer!.Name</MudButton>
+                        <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="ViewModel.GetGreyScoreColor(context)">@ViewModel.GetTrueSkillChange(context.GreyAttackerPlayer, context.Id)</MudChip>
+                    </div>
                 </div>
             </MudTd>
             <MudTd Class="border-0 border-b-sm">
                 <MudText Align="Align.Center">
-                    <MudText Inline="true" Typo="Typo.button" Color="ViewModel.GetGreyScoreColor(context)">@context.ScoreGrey</MudText>
-                    <MudText Inline="true" Typo="Typo.button"> - </MudText>
-                    <MudText Inline="true" Typo="Typo.button" Color="ViewModel.GetBlackScoreColor(context)">@context.ScoreBlack</MudText>
+                    <MudText Inline="true" Typo="Typo.h5" Color="ViewModel.GetGreyScoreColor(context)" >@context.ScoreGrey</MudText>
+                    <MudText Inline="true" Typo="Typo.h5"> - </MudText>
+                    <MudText Inline="true" Typo="Typo.h5" Color="ViewModel.GetBlackScoreColor(context)">@context.ScoreBlack</MudText>
                 </MudText>
             </MudTd>
             <MudTd Class="border-0 border-b-sm">
                 <div class="d-flex w-100 flex-column align-start">
-                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.BlackDefenderPlayer)" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
-                    <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.BlackAttackerPlayer)" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
+                    <div>
+                        <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="ViewModel.GetBlackScoreColor(context)">@ViewModel.GetTrueSkillChange(context.BlackDefenderPlayer, context.Id)</MudChip>
+                        <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.BlackDefenderPlayer)" StartIcon="@Icons.Material.Filled.Security" IconColor="Color.Primary">@context.BlackDefenderPlayer!.Name</MudButton>
+                    </div>
+                    <div>
+                        <MudChip Size="Size.Small" Variant="Variant.Outlined" Color="ViewModel.GetBlackScoreColor(context)">@ViewModel.GetTrueSkillChange(context.BlackAttackerPlayer, context.Id)</MudChip>
+                        <MudButton Variant="Variant.Text" Class="normal-case" OnClick="() => ViewModel.HandlePlayerClicked(context.BlackAttackerPlayer)" StartIcon="@Icons.Material.Filled.Bolt" IconColor="Color.Primary">@context.BlackAttackerPlayer!.Name</MudButton>
+                    </div>
                 </div>
             </MudTd>
             <MudTd DataLabel="@nameof(Match.MatchDate)" Class="d-none d-sm-table-cell">
