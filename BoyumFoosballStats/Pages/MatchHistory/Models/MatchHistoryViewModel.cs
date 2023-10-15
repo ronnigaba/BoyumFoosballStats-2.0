@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
+using BoyumFoosballStats.Shared.Extensions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -14,13 +15,15 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     private readonly IMatchCrudService _matchCrudService;
     private readonly IBrowserViewportService _browserViewportService;
     private readonly NavigationManager _navigationManager;
+    private readonly IMatchAnalysisService _matchAnalysisService;
 
     public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService,
-        NavigationManager navigationManager)
+        NavigationManager navigationManager, IMatchAnalysisService matchAnalysisService)
     {
         _matchCrudService = matchCrudService;
         _browserViewportService = browserViewportService;
         _navigationManager = navigationManager;
+        _matchAnalysisService = matchAnalysisService;
     }
 
     public List<Match> Matches { get; set; }
@@ -40,27 +43,7 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
 
     public string GetTrueSkillChange(Player player, string? matchId)
     {
-        var trueSkillChange = "-";
-        if (Matches.Any())
-        {
-            var matchIndex = Matches.FindIndex(x => x.Id == matchId);
-            for (int i = matchIndex + 1; i <= Matches.Count; i++)
-            {
-                var match = Matches[i];
-                if (!match.Players.Any(x => x.Id == player.Id))
-                {
-                    continue;
-                }
-
-                var prevMatchPlayer = match.Players.Single(x => x.Id == player.Id);
-
-                trueSkillChange =
-                    ((player.TrueSkillRating!.Mean - prevMatchPlayer!.TrueSkillRating!.Mean) * 100).ToString("+#;-#;0");
-                break;
-            }
-        }
-
-        return trueSkillChange;
+        return _matchAnalysisService.GetTrueSkillChangeFromPreviousMatch(Matches, player, matchId).ToTrueSkillChangeString();
     }
 
     public async Task InitializeAsync()

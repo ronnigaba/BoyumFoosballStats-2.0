@@ -17,7 +17,7 @@ public class MatchAnalysisService : IMatchAnalysisService
         TableSideWinRateCache = null;
     }
 
-    public double GetTrueSkillDeltaFromPreviousMatch(Player player, string? matchId, List<Match> matches)
+    public double GetTrueSkillChangeFromPreviousMatch(List<Match> matches, Player player, string? matchId)
     {
         var trueSkillChange = 0d;
         if (matches.Any())
