@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using BoyumFoosballStats.Components.Charts.Models;
+using BoyumFoosballStats.Shared.Extensions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor.Extensions;
 
@@ -56,5 +57,15 @@ public class ChartComponentBase : ComponentBase
         }
 
         return dateInWeek.DayOfWeek.ToString();
+    }
+    
+    protected string FormatAsTrueSkill(object value)
+    {
+        if (value is not double number)
+        {
+            return string.Empty;
+        }
+        
+        return number.ToTrueSkillString();
     }
 }

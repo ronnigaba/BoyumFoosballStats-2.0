@@ -1,14 +1,23 @@
-@page "/PlayerDashboard"
+﻿@page "/PlayerDashboard"
 @page "/PlayerDashboard/{PlayerId}"
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-6 px-0 px-sm-6">
-    <MudGrid Justify="Justify.FlexEnd">
-        @if (ViewModel.SelectedPlayer != null)
-        {
-            <MudItem xs="12" lg="8">
+    <MudGrid Justify="Justify.FlexStart">
+        <MudItem xs="@ViewModel.ChartsColumnXs" lg="@ViewModel.ChartsColumnLg" Class="@ViewModel.ChartsGridItemClasses">
+            @if (ViewModel.SelectedPlayer != null)
+            {
                 <PlayerCard @bind-SelectedPlayer="ViewModel.SelectedPlayer">
                     <MudGrid>
-                        @if (ViewModel.MatchesWeekChartData.Any())
+                        @if (ViewModel.HighestTrueSkillByWeekChartData.Any() && ViewModel.LowestTrueSkillByWeekChartData.Any())
+                        {
+                            <MudItem xs="12" lg="12">
+                                <MudPaper Elevation="2" Class="pa-4 rounded-lg">
+                                    <MudText Typo="Typo.h6">TrueSkill evolution</MudText>
+                                    <TrueSkillByWeekChart Data="ViewModel.HighestTrueSkillByWeekChartData" SecondaryData="ViewModel.LowestTrueSkillByWeekChartData"></TrueSkillByWeekChart>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                        @if (ViewModel.WinRateByWeekChartData.Any())
                         {
                             <MudItem xs="12" lg="6">
                                 <MudPaper Elevation="2" Class="pa-4 rounded-lg">
@@ -35,11 +44,12 @@
                                 </MudPaper>
                             </MudItem>
                         }
+
                     </MudGrid>
                 </PlayerCard>
-            </MudItem>
-        }
-        <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg">
+            }
+        </MudItem>
+        <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg" Class="@ViewModel.RankingsGridItemClasses">
             @if (ViewModel.Players.Any())
             {
                 <PlayerRankingsTable Players="@ViewModel.Players" SelectedPlayer="ViewModel.SelectedPlayer" SelectedPlayerChanged="ViewModel.HandlePlayerClicked"/>

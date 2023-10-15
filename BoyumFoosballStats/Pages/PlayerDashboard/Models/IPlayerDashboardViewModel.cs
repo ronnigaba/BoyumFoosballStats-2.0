@@ -15,7 +15,13 @@ public interface IPlayerDashboardViewModel : IViewModelBase
     List<ChartDataItem> WinRateByWeekChartData { get; }
     List<ChartDataItem> MatchesWeekChartData { get; }
     List<ChartDataItem> WinRateByDayChartData { get; }
+    List<ChartDataItem> HighestTrueSkillByWeekChartData { get; }
+    List<ChartDataItem> LowestTrueSkillByWeekChartData { get; }
     int RankingsColumnLg { get; }
     int RankingsColumnXs { get; }
+    int ChartsColumnLg { get; }
+    int ChartsColumnXs { get; }
+    string ChartsGridItemClasses { get;}
+    string RankingsGridItemClasses { get;}
     void HandlePlayerClicked(Player player);
 }

@@ -1,0 +1,37 @@
+﻿@using BoyumFoosballStats.Shared.Extensions
+@inherits ChartComponentBase
+
+<RadzenChart Style="height: 250px;">
+    <RadzenLineSeries Smooth="true" Data="Data" Stroke="var(--mud-palette-success)" CategoryProperty="@nameof(ChartDataItem.XData)" ValueProperty="@nameof(ChartDataItem.YData)" Title="Highest win rate">
+        <ChildContent>
+            <RadzenMarkers MarkerType="MarkerType.Circle"/>
+            <RadzenSeriesDataLabels Visible="false"/>
+            <RadzenSeriesTrendLine Stroke="var(--mud-palette-dark-lighten)" LineType="LineType.Dashed" />
+        </ChildContent>
+        <TooltipTemplate>
+            <MudText Typo="Typo.body2">@FormatAsWeekRange(context.XData)</MudText>
+            <MudText Typo="Typo.body2">
+                Highest TrueSkill: <b>@context.YData.ToTrueSkillString()</b>
+            </MudText>
+        </TooltipTemplate>
+    </RadzenLineSeries>
+    <RadzenLineSeries Smooth="true" Data="@SecondaryData" Stroke="var(--mud-palette-error)" CategoryProperty="@nameof(ChartDataItem.XData)" ValueProperty="@nameof(ChartDataItem.YData)" Title="Lowest win rate">
+        <ChildContent>
+            <RadzenMarkers MarkerType="MarkerType.Circle"/>
+            <RadzenSeriesDataLabels Visible="false"/>
+        </ChildContent>
+        <TooltipTemplate>
+            <MudText Typo="Typo.body2">@FormatAsWeekRange(context.XData)</MudText>
+            <MudText Typo="Typo.body2">
+                Lowest TrueSkill: <b>@context.YData.ToTrueSkillString()</b>
+            </MudText>
+        </TooltipTemplate>
+    </RadzenLineSeries>
+    <RadzenValueAxis Formatter="@FormatAsTrueSkill">
+        <RadzenGridLines Visible="true"/>
+    </RadzenValueAxis>
+    <RadzenCategoryAxis Formatter="@FormatAsWeekNumber">
+        <RadzenAxisTitle Text="Week"/>
+    </RadzenCategoryAxis>
+    <RadzenLegend Visible="false"/>
+</RadzenChart>
