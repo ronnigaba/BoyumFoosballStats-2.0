@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Services.Interface;
@@ -14,17 +15,21 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     private readonly IMatchCrudService _matchCrudService;
     private readonly IBrowserViewportService _browserViewportService;
     private readonly NavigationManager _navigationManager;
+    private readonly IMatchAnalysisService _matchAnalysisService;
 
-    public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService, NavigationManager navigationManager)
+    public MatchHistoryViewModel(IMatchCrudService matchCrudService, IBrowserViewportService browserViewportService,
+        NavigationManager navigationManager, IMatchAnalysisService matchAnalysisService)
     {
         _matchCrudService = matchCrudService;
         _browserViewportService = browserViewportService;
         _navigationManager = navigationManager;
+        _matchAnalysisService = matchAnalysisService;
     }
 
     public List<Match> Matches { get; set; }
 
     public bool ShouldHidePager { get; private set; }
+
     public async Task DeleteMatch(Match match)
     {
         await _matchCrudService.DeleteAsync(match.Id!);
@@ -34,6 +39,11 @@ public class MatchHistoryViewModel : IMatchHistoryViewModel
     public void HandlePlayerClicked(Player player)
     {
         _navigationManager.NavigateTo("/PlayerDashboard/" + player.Id);
+    }
+
+    public string GetTrueSkillChange(Player player, string? matchId)
+    {
+        return _matchAnalysisService.GetTrueSkillChangeFromPreviousMatch(Matches, player, matchId).ToTrueSkillChangeString();
     }
 
     public async Task InitializeAsync()

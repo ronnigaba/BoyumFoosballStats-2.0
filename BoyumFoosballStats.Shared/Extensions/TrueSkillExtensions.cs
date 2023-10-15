@@ -6,4 +6,9 @@ public static class TrueSkillExtensions
     {
         return ((int)(trueSkillMean * 100)).ToString();
     }
+    
+    public static string ToTrueSkillChangeString(this double trueSkillChange)
+    {
+        return ((int)(trueSkillChange * 100)).ToString("+#;-#;0");
+    }
 }
