@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Models;
@@ -14,6 +15,30 @@ public class MatchAnalysisService : IMatchAnalysisService
     {
         PlayerMatchStatsCache = null;
         TableSideWinRateCache = null;
+    }
+
+    public double GetTrueSkillDeltaFromPreviousMatch(Player player, string? matchId, List<Match> matches)
+    {
+        var trueSkillChange = 0d;
+        if (matches.Any())
+        {
+            var matchIndex = matches.FindIndex(x => x.Id == matchId);
+            for (int i = matchIndex + 1; i <= matches.Count; i++)
+            {
+                var match = matches[i];
+                if (!match.Players.Any(x => x.Id == player.Id))
+                {
+                    continue;
+                }
+
+                var prevMatchPlayer = match.Players.Single(x => x.Id == player.Id);
+
+                trueSkillChange = player.TrueSkillRating!.Mean - prevMatchPlayer!.TrueSkillRating!.Mean;
+                break;
+            }
+        }
+
+        return trueSkillChange;
     }
 
     public Dictionary<string, double> GetTableSideWinRates(List<Match> matches)
