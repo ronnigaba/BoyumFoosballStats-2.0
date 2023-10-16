@@ -4,8 +4,10 @@ using BoyumFoosballStats.BlobStorage;
 using BoyumFoosballStats.BlobStorage.Model;
 using BoyumFoosballStats.Services;
 using BoyumFoosballStats.Shared.Extensions;
+using BoyumFoosballStats.Shared.Models;
 using CosmosDb.Model;
 using Microsoft.Extensions.Options;
+using Moserware.Skills;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -24,7 +26,7 @@ public class MatchesV1MigrationTest
             DatabaseName = "BoyumFoosballStats"
         };
         var cosmosOptions = Options.Create(cosmosSettings);
-       var blobSettings = new BlobStorageOptions
+        var blobSettings = new BlobStorageOptions
         {
             BlobUrl = secretClient.GetSecret("BlobStorageConnectionString").Value.Value,
             ContainerName = "BoyumFoosballStats"
@@ -32,8 +34,8 @@ public class MatchesV1MigrationTest
         var blobOptions = Options.Create(blobSettings);
         var blobHelper = new AzureBlobStorageHelper(blobOptions);
         var matches = await blobHelper.GetEntriesAsync<Match>("matches.json");
-        var matchController = new MatchCrudService(cosmosOptions);
-        var playerController = new PlayerCrudService(cosmosOptions);
+        var matchController = new DebugMatchCrudService(cosmosOptions);
+        var playerController = new DebugPlayerCrudService(cosmosOptions);
         var players = await playerController.GetAllAsync();
 
         if (matches != null)
@@ -67,6 +69,60 @@ public class MatchesV1MigrationTest
         }
 
         var test = matches;
+    }
+
+    [Fact]
+    public async void RecalculateTrueSkillForAllMatches()
+    {
+        var tokenCredential = new DefaultAzureCredential();
+        var secretClient = new SecretClient(new Uri("https://boyumfoosballstats.vault.azure.net/"), tokenCredential);
+        var cosmosSettings = new CosmosDbSettings
+        {
+            ConnectionString = secretClient.GetSecret("CosmosDbConnectionString").Value.Value,
+            DatabaseName = "BoyumFoosballStats"
+        };
+        var cosmosOptions = Options.Create(cosmosSettings);
+        var matchController = new DebugMatchCrudService(cosmosOptions);
+        var playerController = new DebugPlayerCrudService(cosmosOptions);
+        var matches = await matchController.GetAllAsync();
+        var origPlayers = await playerController.GetAllAsync();
+        var players = await playerController.GetAllAsync();
+        foreach (var player in players)
+        {
+            var gameInfo = GameInfo.DefaultGameInfo;
+            player.TrueSkillRating = new TrueSkillRating(gameInfo.DefaultRating);
+            player.MatchesPlayed = 0;
+        }
+
+        foreach (var match in matches)
+        {
+            match.BlackAttackerPlayer = players.Single(x => x.Id == match.BlackAttackerPlayer.Id);
+            match.BlackDefenderPlayer = players.Single(x => x.Id == match.BlackDefenderPlayer.Id);
+            match.GreyAttackerPlayer = players.Single(x => x.Id == match.GreyAttackerPlayer.Id);
+            match.GreyDefenderPlayer = players.Single(x => x.Id == match.GreyDefenderPlayer.Id);
+            match.IncrementMatchesPlayed();
+            match.UpdateTrueSkill();
+            await playerController.CreateOrUpdateAsync(new List<BoyumFoosballStats.Shared.DbModels.Player>
+            {
+                match.BlackDefenderPlayer!, match.BlackAttackerPlayer!, match.GreyAttackerPlayer!, match.GreyDefenderPlayer!
+            });
+        }
+
+        var updatedPlayers = await playerController.GetAllAsync();
+        foreach (var updatedPlayer in updatedPlayers)
+        {
+            var origPlayer = origPlayers.Single(x => x.Id == updatedPlayer.Id);
+            if (updatedPlayer.TrueSkillRating.Mean != origPlayer.TrueSkillRating.Mean)
+            {
+                var test = 1;
+            }
+
+            if (updatedPlayer.MatchesPlayed != origPlayer.MatchesPlayed)
+            {
+                var test = 1;
+            }
+        }
+        
     }
 }
 
