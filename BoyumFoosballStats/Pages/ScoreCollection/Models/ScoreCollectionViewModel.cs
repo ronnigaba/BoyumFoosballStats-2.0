@@ -63,7 +63,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
     public async Task LoadPlayers()
     {
         var selected = SelectedPlayers;
-        AvailablePlayers = await _playerCrudService.GetAllAsync();
+        AvailablePlayers = (await _playerCrudService.GetAllAsync()).OrderBy(x => x.Name);
         if (!ShowInactivePlayers)
         {
             AvailablePlayers = AvailablePlayers.Where(x => x.Active);
