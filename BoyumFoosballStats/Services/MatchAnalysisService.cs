@@ -23,7 +23,7 @@ public class MatchAnalysisService : IMatchAnalysisService
         if (matches.Any())
         {
             var matchIndex = matches.FindIndex(x => x.Id == matchId);
-            for (int i = matchIndex + 1; i <= matches.Count; i++)
+            for (int i = matchIndex + 1; i < matches.Count; i++)
             {
                 var match = matches[i];
                 if (!match.Players.Any(x => x.Id == player.Id))

@@ -20,14 +20,14 @@
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="TrueSkillRating">
             <div class="d-flex align-center">
-                <MudText Typo="Typo.inherit" Inline="true">@context.TrueSkillRating?.Mean.ToTrueSkillString()</MudText>
                 <MudProgressLinear Style="max-width: 150px" Color="Color.Success" Rounded="true" Size="Size.Medium" Value="@((double)context.TrueSkillRating?.Mean!)" Max="MaxTrueSkill" Class="ml-3 d-none d-sm-inline-block"/>
+                <MudText Typo="Typo.inherit" Inline="true" Class="pl-2">@context.TrueSkillRating?.Mean.ToTrueSkillString()</MudText>
             </div>
         </MudTd>
         <MudTd DataLabel="MatchesPlayed">
             <div class="d-flex align-center">
-                <MudText Typo="Typo.inherit" Inline="true">@context.MatchesPlayed</MudText>
                 <MudProgressLinear Style="max-width: 150px" Color="Color.Warning" Rounded="true" Size="Size.Medium" Value="@((double)context.MatchesPlayed!)" Max="MaxGames" Class="ml-3 d-none d-sm-inline-block"/>
+                <MudText Typo="Typo.inherit" Inline="true" Class="pl-2">@context.MatchesPlayed</MudText>
             </div>
         </MudTd>
     </RowTemplate>
