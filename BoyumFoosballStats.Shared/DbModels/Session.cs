@@ -16,4 +16,5 @@ public class Session : CosmosDbBaseModel
     [JsonProperty("GreyDefenderId")] public string? GreyDefenderId { get; set; }
     [JsonProperty("StartDate")] public DateTime StartDate { get; set; } = DateTime.Now;
     [JsonProperty("EndDate")] public DateTime? EndDate { get; set; }
+    [JsonProperty("ShowInactivePlayers")]public bool ShowInactivePlayers { get; set; }
 }

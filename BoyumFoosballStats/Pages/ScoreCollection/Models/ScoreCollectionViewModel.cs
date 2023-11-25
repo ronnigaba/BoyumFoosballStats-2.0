@@ -186,6 +186,12 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
             var sessionById = await _sessionCrudService.GetByIdAsync(sessionRetrieval.Value);
             if (sessionById != null)
             {
+                if (sessionById.ShowInactivePlayers)
+                {
+                    ShowInactivePlayers = sessionById.ShowInactivePlayers;
+                    await LoadPlayers();
+                }
+
                 IsSessionActive = true;
                 ActiveSession = sessionById;
                 GreyTeam.Attacker = AvailablePlayers?.SingleOrDefault(x => x.Id == ActiveSession.GreyAttackerId);
@@ -247,6 +253,7 @@ public class ScoreCollectionViewModel : IScoreCollectionViewModel
         ActiveSession.GreyAttackerId = GreyTeam.Attacker?.Id;
         ActiveSession.BlackDefenderId = BlackTeam.Defender?.Id;
         ActiveSession.BlackAttackerId = BlackTeam.Attacker?.Id;
+        ActiveSession.ShowInactivePlayers = ShowInactivePlayers;
         ActiveSession.SelectedPlayers = SelectedPlayers.Select(x => x.Id).ToList();
 
         var session = await _sessionCrudService.CreateOrUpdateAsync(ActiveSession);
