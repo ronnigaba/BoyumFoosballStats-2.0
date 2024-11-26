@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Models;
 using Microsoft.AspNetCore.Components;
@@ -19,6 +22,7 @@ public partial class PlayerRankingsTable
     private double MaxTrueSkill { get; set; }
     private double MaxGames { get; set; }
     private int SelectedRowNumber { get; set; } = -1;
+    public PlayerPosition SelectedPosition { get; set; }
 
     protected override void OnInitialized()
     {
@@ -32,6 +36,7 @@ public partial class PlayerRankingsTable
         SelectedPlayer = args.Item;
         await SelectedPlayerChanged.InvokeAsync(args.Item);
     }
+
 
     private int GetRankingNumber(Player player)
     {
@@ -47,5 +52,59 @@ public partial class PlayerRankingsTable
         }
 
         return string.Empty;
+    }
+
+    private double GetTrueSkillMean(Player context)
+    {
+        switch (SelectedPosition)
+        {
+            case PlayerPosition.Overall:
+                return context.TrueSkillRating!.Mean;
+            case PlayerPosition.Attacker:
+                return context.TrueSkillRatingAttacker!.Mean;
+            case PlayerPosition.Defender:
+                return context.TrueSkillRatingDefender!.Mean;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private int? GetmatchesPlayed(Player context)
+    {
+        switch (SelectedPosition)
+        {
+            case PlayerPosition.Overall:
+                return context.MatchesPlayed;
+            case PlayerPosition.Attacker:
+                return context.MatchesPlayedAttacker;
+            case PlayerPosition.Defender:
+                return context.MatchesPlayedDefender;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void PlayerPositionChanged(PlayerPosition position)
+    {
+        SelectedPosition = position;
+        switch (SelectedPosition)
+        {
+            case PlayerPosition.Overall:
+                MaxTrueSkill = Players.MaxBy(x => x.TrueSkillRating.Mean)!.TrueSkillRating.Mean!;
+                MaxGames = (double)Players.MaxBy(x => x.MatchesPlayed)!.MatchesPlayed!;
+                break;
+            case PlayerPosition.Attacker:
+                MaxTrueSkill = Players.MaxBy(x => x.TrueSkillRatingAttacker.Mean)!.TrueSkillRatingAttacker.Mean!;
+                MaxGames = (double)Players.MaxBy(x => x.MatchesPlayedAttacker)!.MatchesPlayedAttacker!;
+                break;
+            case PlayerPosition.Defender:
+                MaxTrueSkill = Players.MaxBy(x => x.TrueSkillRatingDefender.Mean)!.TrueSkillRatingDefender.Mean!;
+                MaxGames = (double)Players.MaxBy(x => x.MatchesPlayedDefender)!.MatchesPlayedDefender!;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        StateHasChanged();
     }
 }

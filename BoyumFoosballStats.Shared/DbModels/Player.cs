@@ -13,8 +13,14 @@ public class Player : CosmosDbBaseModel
     [JsonProperty("Active")] public bool Active { get; set; }
 
     [JsonProperty("TrueSkillRating")] public TrueSkillRating? TrueSkillRating { get; set; }
-
+    [JsonProperty("TrueSkillRatingAttacker")] public TrueSkillRating? TrueSkillRatingAttacker { get; set; }
+    [JsonProperty("TrueSkillRatingDefender")] public TrueSkillRating? TrueSkillRatingDefender { get; set; }
+    
+    // [JsonProperty("TrueSkillRating")] public Dictionary<string, TrueSkillRating?>? SeasonalTrueSkill { get; set; }
+    
     [JsonProperty("MatchesPlayed")] public int? MatchesPlayed { get; set; }
+    [JsonProperty("MatchesPlayedAttacker")] public int? MatchesPlayedAttacker { get; set; }
+    [JsonProperty("MatchesPlayedDefender")] public int? MatchesPlayedDefender { get; set; }
 
     [JsonProperty("LegacyPlayerId")] public int? LegacyPlayerId { get; set; }
 

@@ -10,8 +10,46 @@ public static class MatchExtensions
     {
         return matches.GroupBy(x => x.MatchDate.ToString("yyyy/MM"));
     }
-    
+
     public static void UpdateTrueSkill(this Match match)
+    {
+        UpdateOverallTrueSkill(match);
+        UpdatePositionTrueSkill(match);
+    }
+
+    public static void UpdatePositionTrueSkill(this Match match)
+    {
+        if (!match.IsValid())
+        {
+            return;
+        }
+
+        var gameInfo = GameInfo.DefaultGameInfo;
+        var blackAttacker = new Moserware.Skills.Player(match.BlackAttackerPlayer?.Id);
+        var blackDefender = new Moserware.Skills.Player(match.BlackDefenderPlayer?.Id);
+        var greyAttacker = new Moserware.Skills.Player(match.GreyAttackerPlayer?.Id);
+        var greyDefender = new Moserware.Skills.Player(match.GreyDefenderPlayer?.Id);
+
+        var blackTeam = new Team()
+            .AddPlayer(blackAttacker, match.BlackAttackerPlayer?.TrueSkillRatingAttacker ?? gameInfo.DefaultRating)
+            .AddPlayer(blackDefender, match.BlackDefenderPlayer?.TrueSkillRatingDefender ?? gameInfo.DefaultRating);
+
+        var greyTeam = new Team()
+            .AddPlayer(greyAttacker, match.GreyAttackerPlayer?.TrueSkillRatingAttacker ?? gameInfo.DefaultRating)
+            .AddPlayer(greyDefender, match.GreyDefenderPlayer?.TrueSkillRatingDefender ?? gameInfo.DefaultRating);
+
+        var teams = Teams.Concat(blackTeam, greyTeam);
+        var blackRank = match.ScoreBlack > match.ScoreGrey ? 1 : 2;
+        var grayRank = match.ScoreGrey > match.ScoreBlack ? 1 : 2;
+        var newRatings = TrueSkillCalculator.CalculateNewRatings(gameInfo, teams, blackRank, grayRank);
+
+        match.BlackAttackerPlayer!.TrueSkillRatingAttacker = new TrueSkillRating(newRatings[blackAttacker]);
+        match.BlackDefenderPlayer!.TrueSkillRatingDefender = new TrueSkillRating(newRatings[blackDefender]);
+        match.GreyAttackerPlayer!.TrueSkillRatingAttacker = new TrueSkillRating(newRatings[greyAttacker]);
+        match.GreyDefenderPlayer!.TrueSkillRatingDefender = new TrueSkillRating(newRatings[greyDefender]);
+    }
+
+    public static void UpdateOverallTrueSkill(this Match match)
     {
         if (!match.IsValid())
         {
@@ -51,8 +89,12 @@ public static class MatchExtensions
         }
 
         match.BlackAttackerPlayer!.MatchesPlayed++;
+        match.BlackAttackerPlayer!.MatchesPlayedAttacker++;
         match.BlackDefenderPlayer!.MatchesPlayed++;
+        match.BlackDefenderPlayer!.MatchesPlayedDefender++;
         match.GreyAttackerPlayer!.MatchesPlayed++;
+        match.GreyAttackerPlayer!.MatchesPlayedAttacker++;
         match.GreyDefenderPlayer!.MatchesPlayed++;
+        match.GreyDefenderPlayer!.MatchesPlayedDefender++;
     }
 }
