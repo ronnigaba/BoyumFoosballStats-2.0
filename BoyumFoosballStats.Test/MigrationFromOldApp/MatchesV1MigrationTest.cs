@@ -82,8 +82,8 @@ public class MatchesV1MigrationTest
             DatabaseName = "BoyumFoosballStats"
         };
         var cosmosOptions = Options.Create(cosmosSettings);
-        var matchController = new DebugMatchCrudService(cosmosOptions);
-        var playerController = new DebugPlayerCrudService(cosmosOptions);
+        var matchController = new MatchCrudService(cosmosOptions);
+        var playerController = new PlayerCrudService(cosmosOptions);
         var matches = await matchController.GetAllAsync();
         var origPlayers = await playerController.GetAllAsync();
         var players = await playerController.GetAllAsync();
@@ -91,7 +91,12 @@ public class MatchesV1MigrationTest
         {
             var gameInfo = GameInfo.DefaultGameInfo;
             player.TrueSkillRating = new TrueSkillRating(gameInfo.DefaultRating);
+            player.TrueSkillRatingAttacker = new TrueSkillRating(gameInfo.DefaultRating);
+            player.TrueSkillRatingDefender = new TrueSkillRating(gameInfo.DefaultRating);
+            player.SeasonalTrueSkill = new Dictionary<string, TrueSkillRatings?>();
             player.MatchesPlayed = 0;
+            player.MatchesPlayedAttacker = 0;
+            player.MatchesPlayedDefender = 0;
         }
 
         foreach (var match in matches)

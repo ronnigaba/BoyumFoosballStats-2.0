@@ -52,7 +52,7 @@
         <MudItem xs="@ViewModel.RankingsColumnXs" lg="@ViewModel.RankingsColumnLg" Class="@ViewModel.RankingsGridItemClasses">
             @if (ViewModel.Players.Any())
             {
-                <PlayerRankingsTable Players="@ViewModel.Players" SelectedPlayer="ViewModel.SelectedPlayer" SelectedPlayerChanged="ViewModel.HandlePlayerClicked"/>
+                <PlayerRankingsTable Players="@ViewModel.Players" SelectedPlayer="ViewModel.SelectedPlayer" SelectedPlayerChanged="ViewModel.HandlePlayerClicked" SelectedPositionChanged="ViewModel.SortPlayers"/>
             }
         </MudItem>
     </MudGrid>
