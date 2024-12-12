@@ -8,7 +8,7 @@ public class Match : CosmosDbBaseModel
 {
     [JsonProperty("DsId")] public string? PartitionKey { get; set; } = "match";
 
-    [JsonProperty("MatchDate")] public DateTime MatchDate { get; set; }
+    [JsonProperty("MatchDate")] public DateTime MatchDate { get; set; } = DateTime.Now;
 
     [JsonProperty("LegacyMatchId")] public string? LegacyMatchId { get; set; }
 

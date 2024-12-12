@@ -93,6 +93,7 @@ public class MatchesV1MigrationTest
             player.TrueSkillRating = new TrueSkillRating(gameInfo.DefaultRating);
             player.TrueSkillRatingAttacker = new TrueSkillRating(gameInfo.DefaultRating);
             player.TrueSkillRatingDefender = new TrueSkillRating(gameInfo.DefaultRating);
+            player.SeasonalTrueSkill = new Dictionary<string, TrueSkillRatings?>();
             player.MatchesPlayed = 0;
             player.MatchesPlayedAttacker = 0;
             player.MatchesPlayedDefender = 0;

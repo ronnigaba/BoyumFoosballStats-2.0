@@ -16,6 +16,7 @@ public partial class PlayerRankingsTable
     [Parameter] public List<Player> Players { get; set; }
 
     [Parameter] public EventCallback<Player> SelectedPlayerChanged { get; set; }
+    [Parameter] public EventCallback<PlayerPosition> SelectedPositionChanged { get; set; }
 
     [Parameter] public Player? SelectedPlayer { get; set; }
 
@@ -84,9 +85,10 @@ public partial class PlayerRankingsTable
         }
     }
 
-    private void PlayerPositionChanged(PlayerPosition position)
+    private async Task PlayerPositionChanged(PlayerPosition position)
     {
         SelectedPosition = position;
+        
         switch (SelectedPosition)
         {
             case PlayerPosition.Overall:
@@ -104,7 +106,7 @@ public partial class PlayerRankingsTable
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
+        await SelectedPositionChanged.InvokeAsync(position);
         StateHasChanged();
     }
 }
