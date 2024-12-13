@@ -3,6 +3,7 @@ using Azure.Security.KeyVault.Secrets;
 using BoyumFoosballStats.Ai;
 using BoyumFoosballStats.BlobStorage;
 using BoyumFoosballStats.BlobStorage.Model;
+using BoyumFoosballStats.Cosmos.Services;
 using BoyumFoosballStats.Services;
 using BoyumFoosballStats.Shared.DbModels;
 using CosmosDb.Model;

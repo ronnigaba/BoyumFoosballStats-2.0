@@ -15,19 +15,19 @@ namespace BoyumFoosballStats.Ai
         public class ModelInput
         {
             [ColumnName(@"GrayDefender")]
-            public float GrayDefender { get; set; }
+            public string GrayDefender { get; set; }
 
             [ColumnName(@"GrayAttacker")]
-            public float GrayAttacker { get; set; }
+            public string GrayAttacker { get; set; }
 
             [ColumnName(@"BlackDefender")]
-            public float BlackDefender { get; set; }
+            public string BlackDefender { get; set; }
 
             [ColumnName(@"BlackAttacker")]
-            public float BlackAttacker { get; set; }
+            public string BlackAttacker { get; set; }
 
             [ColumnName(@"Winner")]
-            public float Winner { get; set; }
+            public string Winner { get; set; }
 
         }
 

@@ -4,6 +4,8 @@ using Azure.Security.KeyVault.Secrets;
 using BoyumFoosballStats.BlobStorage;
 using BoyumFoosballStats.BlobStorage.Model;
 using BoyumFoosballStats.Components.TeamCard.Models;
+using BoyumFoosballStats.Cosmos.Services;
+using BoyumFoosballStats.Cosmos.Services.Interfaces;
 using BoyumFoosballStats.Models;
 using BoyumFoosballStats.Services;
 using BoyumFoosballStats.Services.Interface;

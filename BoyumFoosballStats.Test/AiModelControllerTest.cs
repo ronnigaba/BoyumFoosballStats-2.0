@@ -15,17 +15,17 @@ public class AiModelControllerTest
     {
         var sampleData = new MatchOutcomeModel.ModelInput
         {
-            GrayDefender = 1,
-            GrayAttacker = 2,
-            BlackDefender = 3,
-            BlackAttacker = 4,
+            GrayDefender = "",
+            GrayAttacker = "",
+            BlackDefender = "",
+            BlackAttacker = "",
         };
         var tokenCredential = new DefaultAzureCredential();
         var secretClient = new SecretClient(new Uri("https://boyumfoosballstats.vault.azure.net/"), tokenCredential);
         var blobSettings = new BlobStorageOptions
         {
-            BlobUrl = secretClient.GetSecret("BlobStorageConnectionString").Value.Value,
-            ContainerName = "BoyumFoosballStats"
+            BlobUrl = secretClient.GetSecret(BlobStorageConstants.BlobStorageConnectionStringSecretKey).Value.Value,
+            ContainerName = BlobStorageConstants.ContainerName
         };
         var blobOptions = Options.Create(blobSettings);
         var blobHelper = new AzureBlobStorageHelper(blobOptions);

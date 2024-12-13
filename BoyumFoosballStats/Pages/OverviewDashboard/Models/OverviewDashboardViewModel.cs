@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BoyumFoosballStats.Cosmos.Services.Interfaces;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using BoyumFoosballStats.Shared.Extensions;

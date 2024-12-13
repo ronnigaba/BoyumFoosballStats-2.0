@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Azure.Identity" Version="1.10.1" />
+        <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.5.0" />
+        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.5.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="host.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="local.settings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj" />
+      <ProjectReference Include="..\BoyumFoosballStats.Cosmos\BoyumFoosballStats.Cosmos.csproj" />
+      <ProjectReference Include="..\CosmosDb\CosmosDb.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="AiModelTrainingController.cs">
+        <DependentUpon>Controllers</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>

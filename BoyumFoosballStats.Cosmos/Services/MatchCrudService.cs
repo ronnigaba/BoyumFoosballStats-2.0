@@ -1,11 +1,11 @@
-﻿using BoyumFoosballStats.Services.Interface;
+﻿using BoyumFoosballStats.Cosmos.Services.Interfaces;
 using BoyumFoosballStats.Shared;
 using BoyumFoosballStats.Shared.DbModels;
 using CosmosDb.Model;
 using CosmosDb.Services;
 using Microsoft.Extensions.Options;
 
-namespace BoyumFoosballStats.Services;
+namespace BoyumFoosballStats.Cosmos.Services;
 
 public class MatchCrudService : CosmosDbCrudService<Match>, IMatchCrudService
 {

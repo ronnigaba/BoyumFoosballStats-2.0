@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosDb", "CosmosDb\Cosmos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.BlobStorage", "BoyumFoosballStats.BlobStorage\BoyumFoosballStats.BlobStorage.csproj", "{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Functions", "BoyumFoosballStats.Functions\BoyumFoosballStats.Functions.csproj", "{1F33FF27-9589-4F67-9693-D2B974FC0FE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoyumFoosballStats.Cosmos", "BoyumFoosballStats.Cosmos\BoyumFoosballStats.Cosmos.csproj", "{AA37D716-61F7-40E3-AE25-8E2B374B44B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA6CF568-B1D5-4DB8-B117-E88D2FF6F412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F33FF27-9589-4F67-9693-D2B974FC0FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F33FF27-9589-4F67-9693-D2B974FC0FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F33FF27-9589-4F67-9693-D2B974FC0FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F33FF27-9589-4F67-9693-D2B974FC0FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA37D716-61F7-40E3-AE25-8E2B374B44B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA37D716-61F7-40E3-AE25-8E2B374B44B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA37D716-61F7-40E3-AE25-8E2B374B44B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA37D716-61F7-40E3-AE25-8E2B374B44B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
