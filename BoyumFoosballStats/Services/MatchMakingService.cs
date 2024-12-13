@@ -59,7 +59,7 @@ public class MatchMakingService : IMatchMakingService
             )
             .Where(kv => kv.Value > 0)
             .ToDictionary(kv => kv.Key, kv => kv.Value);
-        
+
         if (matchMakingMethod != null)
         {
             //If a matchmaking method was explicitly specified - find the fairest match
@@ -140,10 +140,10 @@ public class MatchMakingService : IMatchMakingService
                 //ToDo RGA - Move to method that can calculate based on Match instead
                 var sampleData = new MatchOutcomeModel.ModelInput
                 {
-                    GrayDefender = comb1.First().LegacyPlayerId.As<int>(),
-                    GrayAttacker = comb1.Last().LegacyPlayerId.As<int>(),
-                    BlackDefender = comb2.First().LegacyPlayerId.As<int>(),
-                    BlackAttacker = comb2.Last().LegacyPlayerId.As<int>(),
+                    GrayDefender = comb1.First().Id,
+                    GrayAttacker = comb1.Last().Id,
+                    BlackDefender = comb2.First().Id,
+                    BlackAttacker = comb2.Last().Id
                 };
                 var result = await outcomeModel.Predict(sampleData);
                 double resultDifference = Math.Abs(result.Score * 100 - 50f);

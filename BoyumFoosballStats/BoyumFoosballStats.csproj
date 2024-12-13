@@ -16,6 +16,7 @@
         <PackageReference Include="Scrutor" Version="4.2.2" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\BoyumFoosballStats.Cosmos\BoyumFoosballStats.Cosmos.csproj" />
       <ProjectReference Include="..\BoyumFoosballStats.Shared\BoyumFoosballStats.Shared.csproj" />
       <ProjectReference Include="..\BoyumFoosballStats.Ai\BoyumFoosballStats.Ai.csproj" />
       <ProjectReference Include="..\CosmosDb\CosmosDb.csproj" />

@@ -1,9 +1,8 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Components.Charts.Models;
-using BoyumFoosballStats.Enums;
+using BoyumFoosballStats.Cosmos.Services.Interfaces;
 using BoyumFoosballStats.Services.Interface;
 using BoyumFoosballStats.Shared.DbModels;
 using MudBlazor.Utilities;

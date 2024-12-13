@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "BoyumFoosballStats.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7003",
+      "launchBrowser": false
+    }
+  }
+}

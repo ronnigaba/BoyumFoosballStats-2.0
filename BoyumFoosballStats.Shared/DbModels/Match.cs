@@ -55,4 +55,5 @@ public class Match : CosmosDbBaseModel
 
     [JsonIgnore] public List<Player?> Defenders => new() { BlackDefenderPlayer, GreyDefenderPlayer };
     [JsonIgnore] public List<Player?> Attackers => new() { BlackAttackerPlayer, GreyAttackerPlayer };
+    [JsonIgnore] public string WinningSide => ScoreBlack > ScoreGrey ? "Black" : "Grey";
 }

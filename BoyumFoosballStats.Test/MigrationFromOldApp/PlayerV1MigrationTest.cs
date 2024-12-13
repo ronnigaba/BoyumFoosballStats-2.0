@@ -1,5 +1,6 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using BoyumFoosballStats.Cosmos.Services;
 using BoyumFoosballStats.Services;
 using BoyumFoosballStats.Shared.Models;
 using CosmosDb.Model;

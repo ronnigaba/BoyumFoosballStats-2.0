@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using BoyumFoosballStats.Cosmos.Services.Interfaces;
 using BoyumFoosballStats.Pages.ScoreCollection.Models;
 using BoyumFoosballStats.Services.Interface;
 using Microsoft.AspNetCore.Components;
