@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BoyumFoosballStats.Components.Charts.Models;
+using BoyumFoosballStats.Enums;
 using BoyumFoosballStats.Models;
 using BoyumFoosballStats.Shared.DbModels;
 
@@ -24,4 +25,5 @@ public interface IPlayerDashboardViewModel : IViewModelBase
     string ChartsGridItemClasses { get;}
     string RankingsGridItemClasses { get;}
     void HandlePlayerClicked(Player player);
+    void SortPlayers(PlayerPosition position);
 }

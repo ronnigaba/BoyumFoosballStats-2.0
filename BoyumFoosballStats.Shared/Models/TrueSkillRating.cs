@@ -20,3 +20,10 @@ public class TrueSkillRating : Rating
     {
     }
 }
+
+public class TrueSkillRatings
+{
+    public TrueSkillRating? Overall { get; set; }
+    public TrueSkillRating? Defender { get; set; }
+    public TrueSkillRating? Attacker { get; set; }
+}
