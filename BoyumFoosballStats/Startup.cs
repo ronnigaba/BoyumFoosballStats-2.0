@@ -52,7 +52,7 @@ namespace BoyumFoosballStats
             services.Configure<CosmosDbSettings>(Configuration.GetSection("CosmosConnectionStrings"));
             services.Configure<BlobStorageOptions>(Configuration.GetSection("BlobStorageSettings"));
 
-#if !DEBUG
+#if DEBUG
             services.AddSingleton<IPlayerCrudService, DebugPlayerCrudService>();
             services.AddSingleton<IMatchCrudService, DebugMatchCrudService>();
             services.AddSingleton<ISessionCrudService, DebugSessionCrudService>();
